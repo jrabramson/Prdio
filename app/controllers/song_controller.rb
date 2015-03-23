@@ -5,19 +5,8 @@ class SongController < ApplicationController
 	  	if access_token and access_token_secret
 		  	rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
 	                    [access_token, access_token_secret])
-			currentUser = rdio.call('currentUser')['result']
-			playlists = rdio.call('getPlaylists')['result']['owned']
-
-			response = "
-			<html><head><title>Rdio-Simple Example</title></head><body>
-			<p>%s's playlists:</p>
-			<ul>
-			"
-		    playlists.each do |playlist|
-		      response += '<li><a href="%s">%s</a></li>' % [playlist['shortUrl'], playlist['name']]
-		    end
-		    response += '</ul><a href="/logout">Log out of Rdio</a></body></html>'
-		    return response
+			@currentUser = rdio.call('currentUser')['result']
+			@playlists = rdio.call('getPlaylists')['result']['owned']
 		else
 			session.clear
 		  	# begin the authentication process
