@@ -5,8 +5,9 @@ class SongController < ApplicationController
 	  	if access_token and access_token_secret
 		  	rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
 	                    [access_token, access_token_secret])
-			@currentUser = rdio.call('currentUser')['result']
-			@playlists = rdio.call('getPlaylists')['result']['owned']
+		  	@currentUser = session['user']
+			#@currentUser = rdio.call('currentUser')['result']['key']
+			#@playlist  = rdio.call('getPlaylists')['result']['owned'][0]['key']
 		else
 			session.clear
 		  	# begin the authentication process
@@ -35,6 +36,7 @@ class SongController < ApplicationController
 			# save the access token in cookies (and discard the request token)
 			session[:at] = rdio.token[0]
 			session[:ats] = rdio.token[1]
+			session[:user] = rdio.call('currentUser')['result']
 			session.delete(:rt)
 			session.delete(:rts)
 			# go to the home page
@@ -49,4 +51,24 @@ class SongController < ApplicationController
   		session.clear
   		redirect to('/')
 	end
+
+	def search
+		@song = Song.new
+	end
+
+	def getsong
+		@song = Song.new(song_params)
+		if @song.save
+			access_token = session[:at]
+  			access_token_secret = session[:ats]
+	  		session[:song] = @song.genSong access_token, access_token_secret
+	  		@currentUser = session['user']
+			render :index
+		end
+	end
+
+	def song_params
+		song_params = params.require(:song).permit(:title)
+	end
+
 end

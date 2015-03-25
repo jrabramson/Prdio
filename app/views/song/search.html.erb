@@ -1,0 +1,4 @@
+<%= form_for @song, url: {action: "getsong"} do |s| %>
+	<%= s.label :title %>
+	<%= s.text_field :title %>
+<% end %>

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  root to: 'song#index'
+  get '/' => 'song#index'
+  post '/' => 'song#getsong'
   get 'callback' => 'song#callback'
+  get 'search' => 'song#search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
