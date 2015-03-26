@@ -1,14 +1,16 @@
 class SongController < ApplicationController
 	def index
+		# get access tokens from the user's sessions 
 		access_token = session[:at]
 	  	access_token_secret = session[:ats]
+	  	# if they are logged in
 	  	if access_token and access_token_secret
+	  		# create a new rdio instance and get the current user
 		  	rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
 	                    [access_token, access_token_secret])
 		  	@currentUser = session['user']
-			#@currentUser = rdio.call('currentUser')['result']['key']
-			#@playlist  = rdio.call('getPlaylists')['result']['owned'][0]['key']
 		else
+			# if they are not logged in
 			session.clear
 		  	# begin the authentication process
 			rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]])
@@ -57,10 +59,12 @@ class SongController < ApplicationController
 	end
 
 	def getsong
+		# get the song from the search field
 		@song = Song.new(song_params)
 		if @song.save
 			access_token = session[:at]
   			access_token_secret = session[:ats]
+  			# save the song to the user's session
 	  		session[:song] = @song.genSong access_token, access_token_secret
 	  		@currentUser = session['user']
 			render :index
