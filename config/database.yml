@@ -9,8 +9,10 @@ default: &default
   pool: 5
   timeout: 5000
 
+
 development:
   <<: *default
+  database: myapp_development
 
 
 # Warning: The database defined as "test" will be erased and

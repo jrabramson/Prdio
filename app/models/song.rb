@@ -4,9 +4,9 @@ class Song < ActiveRecord::Base
                     [access_token, access_token_secret])
 		# get the key of the first playlist and the key of the first song result
 		@playlist = rdio.call('getPlaylists')['result']['owned'][0]['key']
-		@songKey = rdio.call('search', ({ "query" => title, "types" => "Track" }))['result']['results'][0]['key']
+		@songParams = rdio.call('search', ({ "query" => title, "types" => "Track" }))['result']['results'][0]
 		# add the song to the playlist
-		rdio.call('addToPlaylist', ({ "playlist" => @playlist, "tracks" => @songKey }))
-		return @songKey
+		rdio.call('addToPlaylist', ({ "playlist" => @playlist, "tracks" => @songParams['key'] }))
+		return @songParams
 	end
 end

@@ -1,6 +1,6 @@
 class SongController < ApplicationController
 	def index
-		# get access tokens from the user's sessions 
+		# get access tokens from the user session
 		access_token = session[:at]
 	  	access_token_secret = session[:ats]
 	  	# if they are logged in
@@ -59,20 +59,21 @@ class SongController < ApplicationController
 	end
 
 	def getsong
-		# get the song from the search field
-		@song = Song.new(song_params)
+		access_token = session[:at]
+		access_token_secret = session[:ats]
+		@song = Song.new(song_search)
+  		@songParams = @song.genSong access_token, access_token_secret
+  		session[:song_key] = @songParams['key']
+  		@currentUser = session['user']
+  		@song.artist =  @songParams['artist']
+  		@song.key =  @songParams['key']
 		if @song.save
-			access_token = session[:at]
-  			access_token_secret = session[:ats]
-  			# save the song to the user's session
-	  		session[:song] = @song.genSong access_token, access_token_secret
-	  		@currentUser = session['user']
 			render :index
 		end
 	end
 
-	def song_params
-		song_params = params.require(:song).permit(:title)
+	def song_search
+		song_search = params.require(:song).permit(:title)
 	end
 
 end
