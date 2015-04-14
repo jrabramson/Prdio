@@ -1,5 +1,5 @@
 class HostController < ApplicationController
-	def index
+	def new
 		# get access tokens from the user session
 		access_token = session[:at]
 	  	access_token_secret = session[:ats]
@@ -29,7 +29,7 @@ class HostController < ApplicationController
 
 	end
 
-	def new
+	def create
 		access_token = session[:at]
 		access_token_secret = session[:ats]
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
@@ -37,9 +37,15 @@ class HostController < ApplicationController
 		rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
 		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join )
 		if @host.save
+<<<<<<< HEAD
 			redirect_to '/:host.room'
+=======
+			session[:host] = 'true'
+			Playlist.create(key: rdio.call('getPlaylists')['result']['owned'][0]['key'], host_id: @host.id)
+			redirect_to '/' + @host.room
+>>>>>>> 003a1497d6002d2503304a355efc84d253cdb559
 		else
-			render 'index'
+			render 'new'
 		end
 	end
 
@@ -74,6 +80,6 @@ class HostController < ApplicationController
 	end
 
 	def new_party
-		new_party = params.require(:new).permit(:playlist)
+		new_party = params.require(:create).permit(:playlist)
 	end
 end

@@ -1,6 +1,6 @@
 class Song < ActiveRecord::Base]
-	belongs_to :host
-
+	
+	belongs_to :playlist
 
 	def genSong access_token, access_token_secret
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
