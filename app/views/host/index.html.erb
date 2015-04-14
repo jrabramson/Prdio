@@ -1,7 +1,0 @@
-<p> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
-
-<%= form_for :new, url: new_path do |f| %>
-	<%= f.label :playlist %>
-	<%= f.text_field :playlist %>
-<% end %>
-<!-- <%= link_to 'search', search_path %> -->

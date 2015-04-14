@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407000904) do
+ActiveRecord::Schema.define(version: 20150414004942) do
 
   create_table "hosts", force: :cascade do |t|
     t.string   "key"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20150407000904) do
     t.datetime "updated_at", null: false
     t.string   "room"
   end
+
+  create_table "playlists", force: :cascade do |t|
+    t.string   "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "host_id"
+  end
+
+  add_index "playlists", ["host_id"], name: "index_playlists_on_host_id"
 
   create_table "songs", force: :cascade do |t|
     t.datetime "created_at",   null: false
@@ -28,6 +37,9 @@ ActiveRecord::Schema.define(version: 20150407000904) do
     t.integer  "vote"
     t.string   "suggested_by"
     t.string   "key"
+    t.integer  "playlist_id"
   end
+
+  add_index "songs", ["playlist_id"], name: "index_songs_on_playlist_id"
 
 end
