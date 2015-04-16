@@ -36,8 +36,7 @@ class HostController < ApplicationController
                     [access_token, access_token_secret])
 		rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
 		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join )
-		if @host
-			raise 'wow'
+		if @host.save
 			session[:host] = 'true'
 			Playlist.create(key: rdio.call('getPlaylists')['result']['owned'][0]['key'], host_id: @host.id)
 			redirect_to '/' + @host.room
