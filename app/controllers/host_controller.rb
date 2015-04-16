@@ -32,8 +32,7 @@ class HostController < ApplicationController
 	def create
 		access_token = session[:at]
 		access_token_secret = session[:ats]
-		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
-                    [access_token, access_token_secret])
+		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], [access_token, access_token_secret])
 		rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
 		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join )
 		if @host.save
@@ -72,10 +71,26 @@ class HostController < ApplicationController
 
 	def logout
   		session.clear
-  		redirect to('/')
+  		redirect_to ('/')
 	end
 
 	def new_party
 		new_party = params.require(:create).permit(:playlist)
+	end
+
+	def nuke
+		access_token = session[:at]
+	  	access_token_secret = session[:ats]
+		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
+			[access_token, access_token_secret])
+		@playlists = []
+		@temp = rdio.call('getPlaylists')['result']['owned']
+		@temp.each_with_index do |v, i|
+			@playlists << @temp[i]['key']
+		end
+		@temp.each_with_index do |v ,i|
+			rdio.call('deletePlaylist', ({ playlist: @playlists[i] }))
+		end
+		redirect_to ('/')
 	end
 end
