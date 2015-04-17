@@ -4,7 +4,7 @@ class SongController < ApplicationController
 		@song = Song.new
 	end
 
-	def getsong
+	def create
 		access_token = session[:at]
 		access_token_secret = session[:ats]
 		@song = Song.new(song_search)
@@ -14,7 +14,7 @@ class SongController < ApplicationController
   		@song.artist =  @songParams['artist']
   		@song.key =  @songParams['key']
 		if @song.save
-			render :index
+			redirect_to '/' + @host.room
 		end
 	end
 

@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
   get '/' => 'application#index'
-  # post '/' => 'song#getsong'
   get 'callback' => 'host#callback'
-  get 'search' => 'song#search'
   get 'new' => 'host#new'
   post 'create' => 'host#create'
   get 'nuke' => 'host#nuke'
 
-  resources :host, :key => :room, :path => '' 
+  resources :host, :key => :room, :path => '' do
+    get 'search' => 'song#search'
+    post 'create' => 'song#create'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

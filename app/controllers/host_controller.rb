@@ -27,16 +27,12 @@ class HostController < ApplicationController
 
 	def show
 		@host = Host.find_by_room params[:id]
+		rdio = rdio_init
+		@get = rdio.call('get', ({keys: @host.playlist.key}))
 	end
 
 	def create
-<<<<<<< HEAD
-		access_token = session[:at]
-		access_token_secret = session[:ats]
-		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], [access_token, access_token_secret])
-=======
 		rdio = rdio_init
->>>>>>> bd2bf41c615b6b4134687faac6ba8792df323d08
 		rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
 		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join )
 		if @host.save

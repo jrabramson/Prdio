@@ -6,4 +6,13 @@
 	<p>Playlist <%= @host.playlist.key %></p>
 </div>
 <div>
+	<%= form_tag @song do %>
+	<%= s.label :title %>
+	<%= s.text_field :title %>
+<% end %>
+</div>
+<div>
+	<p>
+		<%= @get %>
+	</p>
 </div>
