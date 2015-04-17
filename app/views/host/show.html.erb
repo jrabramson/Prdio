@@ -6,10 +6,7 @@
 	<p>Playlist <%= @host.playlist.key %></p>
 </div>
 <div>
-	<%= form_tag @song do %>
-	<%= s.label :title %>
-	<%= s.text_field :title %>
-<% end %>
+	<%= link_to 'Search', host_path + '/search' %>
 </div>
 <div>
 	<p>
