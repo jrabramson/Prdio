@@ -25,6 +25,10 @@ class HostController < ApplicationController
 		end
 	end
 
+	def join
+		redirect_to '/' + params[:room]
+	end
+
 	def show
 		@host = Host.find_by_room params[:id]
 	end

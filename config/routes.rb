@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'callback' => 'host#callback'
   get 'new' => 'host#new'
   post 'create' => 'host#create'
+  post 'join' => 'host#join'
+
   get 'nuke' => 'host#nuke'
 
   resources :host, :key => :room, :path => '' do
