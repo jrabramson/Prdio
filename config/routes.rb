@@ -9,13 +9,8 @@ Rails.application.routes.draw do
   get 'nuke' => 'host#nuke'
 
   resources :host, :key => :room, :path => '' do
-<<<<<<< HEAD
      post 'search' => 'song#search'
      post 'create' => 'song#create'
-=======
-    get 'search' => 'song#search'
-    post 'create' => 'song#create'
->>>>>>> e508849082002cf6c92c77a04dbc7b3462fc0eed
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
