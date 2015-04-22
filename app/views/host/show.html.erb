@@ -6,7 +6,6 @@
 	<p>Playlist <%= @host.playlist.key %></p>
 </div>
 <div>
-<<<<<<< HEAD
 	<%= form_tag @host.room + '/search/' do %>
 		<%= label_tag :title %>
 		<%= text_field_tag :title %>
@@ -18,12 +17,19 @@
 		<%= song.title %>
 	</div>
 <% end %>
-=======
+	<ul>
+		<% @host.playlist.songs.each do |song| %>
+			<li>
+				<p>Song: <%= song.title %></p>
+				<p>Artist: <%= song.artist %></p>
+			</li>
+		<% end %>
+</div>
+<div>
 	<%= link_to 'Add song', host_path + '/search' %>
 </div>
 <div>
 	<p>
 		<%= @get %>
 	</p>
->>>>>>> e508849082002cf6c92c77a04dbc7b3462fc0eed
 </div>
