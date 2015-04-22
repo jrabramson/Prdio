@@ -5,21 +5,3 @@
 <% end %>
 
 <h1>Or, join an existing party:</h1>
-
-<%= form_for(@guest) do |f| %>
-  <div class="field">
-    <%= f.label :host_id %><br>
-    <%= f.text_field :host_id %>
-  </div>
-  <div class="field">
-   	<%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
