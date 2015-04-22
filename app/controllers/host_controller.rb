@@ -31,6 +31,8 @@ class HostController < ApplicationController
 
 	def show
 		@host = Host.find_by_room params[:id]
+		rdio = rdio_init
+		@get = rdio.call('get', ({keys: @host.playlist.key}))
 	end
 
 	def create
