@@ -1,5 +1,5 @@
 class GuestController < ApplicationController
-	
+
 	def new 
 		@guest = Guest.new(guest_params)
 		if @guest.save
@@ -11,5 +11,5 @@ class GuestController < ApplicationController
 		guest_params = params.require(:guest).permit(:host_id, :email, :name) 
 	end
 
-
+	validates :name, presence: true
 end
