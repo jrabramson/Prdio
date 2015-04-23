@@ -1,11 +1,3 @@
-<%= link_to 'New Party', new_host_path %>
-
-<%= form_tag join_path do %>
-	<%= text_field_tag :room %> <%= submit_tag 'Join Room' %>
-<% end %>
-
-<h1>Or, join an existing party:</h1>
-
 <%= form_for(@guest) do |f| %>
   <div class="field">
     <%= f.label :host_id %><br>

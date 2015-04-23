@@ -1,22 +1,26 @@
 class SongController < ApplicationController
 
 	def search
-		@song = Song.new
+		@host = Host.find_by_room params[:host_id]
+		rdio = rdio_init
+		@songs = rdio.call('search', ({ "query" => params[:title], "types" => "Track" }))['result']['results']
 	end
 
 	def create
 		@host = Host.find_by_room params[:host_id]
 		rdio = rdio_init
-  		@songParams = rdio.call('search', ({ "query" => params[:song][:title], "types" => "Track" }))['result']['results'][0]
-  		@song = Song.new(title: song_search['title'], artist: @songParams['artist'], key: @songParams['key'], playlist_id: @host.playlist.id )
+  		@songParams = rdio.call('get', ({ "keys" => params[:trackKey] }))['result']
+  		@song = Song.new(title: @songParams[params[:trackKey]]['name'], artist: @songParams[params[:trackKey]]['artist'], key: @songParams[params[:trackKey]]['key'], playlist_id: @host.playlist.id )
 		if @song.save
 			rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
 			redirect_to '/' + @host.room
+		else
+			render 'search'
 		end
 	end
 
 	def song_search
-		song_search = params.require(:song).permit(:title)
+		song_search = params.permit(:trackKey)
 	end
 
 	def rdio_init

@@ -1,4 +1,8 @@
-<%= form_for @song, url: {action: "create"} do |s| %>
-	<%= s.label :title %>
-	<%= s.text_field :title %>
+<% @songs.each do |song| %>
+	<%= form_tag '/' + @host.room + '/create/' do %>
+		<div class="songChoice" style='cursor:pointer;'>
+			<%= song['name'] %> - <%= song['artist'] %>
+			<%= hidden_field_tag :trackKey, song['key'] %>
+		</div>
+	<% end %>
 <% end %>

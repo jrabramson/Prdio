@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(function() {	
+	$('.songChoice').click(function() {
+		console.log('wat');
+		var form = $(this).parents('form:first');
+		form.submit();
+	});
+});

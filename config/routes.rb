@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   get 'callback' => 'host#callback'
   get 'new' => 'host#new'
   post 'create' => 'host#create'
+  post 'join' => 'host#join'
+
   get 'nuke' => 'host#nuke'
 
   resources :host, :key => :room, :path => '' do
-    get 'search' => 'song#search'
-    post 'create' => 'song#create'
+     post 'search' => 'song#search'
+     post 'create' => 'song#create'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
