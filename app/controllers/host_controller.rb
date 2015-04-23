@@ -9,6 +9,11 @@ class HostController < ApplicationController
 		  	rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
 	                    [access_token, access_token_secret])
 		  	@currentUser = session['user']
+		  	@playlists = []
+  			@temp = rdio.call('getPlaylists')['result']['owned']
+  			@temp.each_with_index do |v, i|
+  				@playlists << @temp[i]
+  			end 
 		  	@host = Host.new
 		else
 			# if they are not logged in
