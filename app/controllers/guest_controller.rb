@@ -1,18 +1,15 @@
 class GuestController < ApplicationController
-	def new
-		@guest = Guest.new
+	
+	def new 
+		@guest = Guest.new(guest_params)
+		if @guest.save
+			redirect_to '/' + params[:guest][:host_id]
+		end
 	end
 
-	def create
-		@guest = Guest.new(params[:id])
+	def guest_params 
+		guest_params = params.require(:guest).permit(:host_id, :email, :name) 
 	end
 
-	def update
-		@guest = Guest.find(params[:id])
-		if @guest.update(guest_params)
-        	redirect_to '/' + @guest.host.room
-    	else
-      		render 'new'
-    	end
-    end
+
 end
