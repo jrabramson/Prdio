@@ -8,5 +8,6 @@ class Guest < ActiveRecord::Base
 	def dislike(song)
 		song.vote = song.vote - 1
 	end
-
+	
+	validates :name, presence: true
 end
