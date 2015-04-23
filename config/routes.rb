@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'guests'=> 'guest#new'
   get '/' => 'application#index'
   get 'callback' => 'host#callback'
   get 'new' => 'host#new'
