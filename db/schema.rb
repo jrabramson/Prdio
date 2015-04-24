@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423204208) do
+ActiveRecord::Schema.define(version: 20150423223333) do
 
   create_table "guests", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "host_id"
+    t.integer  "host_id"
   end
 
   add_index "guests", ["host_id"], name: "index_guests_on_host_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150423204208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "room"
+    t.string   "username"
   end
 
   create_table "playlists", force: :cascade do |t|

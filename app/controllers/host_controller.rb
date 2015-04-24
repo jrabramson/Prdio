@@ -9,6 +9,11 @@ class HostController < ApplicationController
 		  	rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
 	                    [access_token, access_token_secret])
 		  	@currentUser = session['user']
+		  	@playlists = []
+  			@temp = rdio.call('getPlaylists')['result']['owned']
+  			@temp.each_with_index do |v, i|
+  				@playlists << @temp[i]
+  			end 
 		  	@host = Host.new
 		else
 			# if they are not logged in
@@ -31,8 +36,18 @@ class HostController < ApplicationController
 
 	def show
 		@host = Host.find_by_room params[:id]
+		if session[:guest_id].present?
+			@guest = Guest.find session[:guest_id]
+		end
 		rdio = rdio_init
-		@get = rdio.call('get', ({keys: @host.playlist.key}))
+		@playlist = rdio.call('get', ({keys: @host.playlist.key}))
+		
+		embedly_api = Embedly::API.new :key => '87f9192ec60842698fcc51009360ca59',
+        :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
+
+		# single url
+		url = 'http://www.rdio.com/' + @playlist['result'][@host.playlist.key]['url']
+		@obj = embedly_api.extract :url => url
 	end
 
 	def create

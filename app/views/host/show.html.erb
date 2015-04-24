@@ -12,6 +12,11 @@
 	<% end %>
 </div>
 <div>
+<% if @guest.present? %>
+	Hello <%= @guest.name %>, welcome to the party.
+<% end %> 
+</div>
+<div>
 <% @host.playlist.songs.each do |song| %>
 	<div>
 		<%= song.title %>
@@ -29,7 +34,5 @@
 	<%= link_to 'Add song', host_path + '/search' %>
 </div>
 <div>
-	<p>
-		<%= @get %>
-	</p>
+<%= @obj[0].media.html.html_safe %>
 </div>
