@@ -1,25 +1,25 @@
-<%= link_to 'New Party', new_host_path %>
+<link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 
-<%= form_tag join_path do %>
-	<%= text_field_tag :room %> <%= submit_tag 'Join Room' %>
-<% end %>
+<h2 class="party"><%= link_to 'New Party', new_host_path %></h2>
 
-<h1>Or, join an existing party:</h1>
 
+
+<div class= "forms">
 <%= form_for(@guest) do |f| %>
   <div class="field">
-    <%= f.label :host_id %><br>
-    <%= f.text_field :host_id %>
+    <%= f.label :host_id, {class:"name"} %><br>
+    <%= f.text_field :host_id,{class:"form"} %>
   </div>
   <div class="field">
-   	<%= f.label :email %><br>
-    <%= f.text_field :email %>
+   	<%= f.label :email, {class:"name"} %><br>
+    <%= f.text_field :email, {class:"form"} %>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :name, {class:"name"} %><br>
+    <%= f.text_field :name, { class:"form"} %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions"> 
+    <%= submit_tag 'Join Party', { class:"join" } %>
   </div>
 <% end %>
+</div>
