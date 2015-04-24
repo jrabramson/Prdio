@@ -41,6 +41,13 @@ class HostController < ApplicationController
 		end
 		rdio = rdio_init
 		@playlist = rdio.call('get', ({keys: @host.playlist.key}))
+		
+		embedly_api = Embedly::API.new :key => '87f9192ec60842698fcc51009360ca59',
+        :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
+
+		# single url
+		url = 'http://www.rdio.com/' + @playlist['result'][@host.playlist.key]['url']
+		@obj = embedly_api.extract :url => url
 	end
 
 	def create
