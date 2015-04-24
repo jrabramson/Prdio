@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   get 'new' => 'host#new'
   post 'create' => 'host#create'
   post 'join' => 'host#join'
+  post 'like' => 'song#like'
 
   get 'nuke' => 'host#nuke'
 
   resources :host, :key => :room, :path => '' do
      post 'search' => 'song#search'
      post 'create' => 'song#create'
+     get 'like' => 'song#like'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

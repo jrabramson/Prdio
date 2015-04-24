@@ -23,6 +23,11 @@ class SongController < ApplicationController
 		song_search = params.permit(:trackKey)
 	end
 
+	def like
+		@guest.like(song)
+		redirect_to guest.host.room
+	end
+
 	def rdio_init
 		access_token = session[:at]
 	  	access_token_secret = session[:ats]
