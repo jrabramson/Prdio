@@ -27,15 +27,16 @@ $ali:#D3D3D3;
 
 /*-------------------------------------------------------------*/
  .party{
- 	font-family: 'Noto Sans', sans-serif;
+ 	font-family:'Noto Sans', sans-serif;
  	font-size: 20px;
  	color:black;
  	background-color: $ali;
- 	border:black solid 4px;
- 	width: 10%;
- 	Margin:0 auto;
+ 	border:black solid 2px;
+ 	width: 12%;
+ 	margin:0 auto;
  	text-align: center;
  	margin-top: 50px;
+ 	margin-top: 200px;
  	border-radius:10px;
  }
 
@@ -51,7 +52,7 @@ $ali:#D3D3D3;
  .party:hover{
 	background:black;
  	color:$ali;
- 	white-space: nowrap
+ 	white-space: nowrap;
  	
  }
 
@@ -69,7 +70,7 @@ $ali:#D3D3D3;
  	color:black;
  	display:inline-block;
  	background-color: $ali;
- 	border:black solid 4px;
+ 	border:black solid 2px;
  	margin:0 auto;
  	text-align: center;
  	margin-top: 50px;
@@ -95,4 +96,10 @@ a:hover{
 .forms {
 	display:inline-block;
 	text-align: center;
+	width:100%;
+}
+
+#new_guest {
+	margin-top:50px;
+
 }
