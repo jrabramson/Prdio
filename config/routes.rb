@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'new' => 'host#new'
   post 'create' => 'host#create'
   post 'join' => 'host#join'
+  post 'like' => 'song#like'
+  post 'dislike' => 'song#dislike'
 
   get 'nuke' => 'host#nuke'
 

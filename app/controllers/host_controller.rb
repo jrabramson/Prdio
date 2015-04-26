@@ -53,7 +53,7 @@ class HostController < ApplicationController
 	def create
 		rdio = rdio_init
 		rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
-		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join )
+		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join, username: session['user']['firstName'] )
 		if @host.save
 			session[:host] = 'true'
 			Playlist.create(key: rdio.call('getPlaylists')['result']['owned'][0]['key'], host_id: @host.id)
