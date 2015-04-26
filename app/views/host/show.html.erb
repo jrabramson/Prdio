@@ -40,15 +40,21 @@
 			<li>
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
-				<p>Vote: <span id='vote'><%= song.vote %></span></p>
-				<%= form_tag like_path, { remote: true } do %>
-					<%= submit_tag 'Like' %>
-					<%= hidden_field_tag 'song', song.id %>
-				<% end %>
-				<%= form_tag dislike_path, { remote: true } do %>
-					<%= submit_tag 'Dislike' %>
-					<%= hidden_field_tag 'song', song.id %>
-				<% end %>
+				<p>Vote: <%= song.vote %></p>
+				<p>
+					<% if song.in?(@guest.songs) %>
+						Voted.
+					<% else %>
+						<%= form_tag like_path, { remote: true } do %>
+							<%= submit_tag 'Like' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+						<%= form_tag dislike_path, { remote: true } do %>
+							<%= submit_tag 'Dislike' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+					<% end %>
+				</p>	
 			</li>
 		<% end %>
 	</ul>
