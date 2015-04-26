@@ -42,7 +42,10 @@ class SongController < ApplicationController
  		@guest.dislike(@song)
  		@guest.songs << @song
  		if @song.save
-			redirect_to '/' + @song.playlist.host.room
+ 			respond_to do |format|
+ 				format.json { render json: @song } 		
+ 			end	
+			#redirect_to '/' + @song.playlist.host.room
 		end
 	end
 
