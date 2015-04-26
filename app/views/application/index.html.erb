@@ -1,6 +1,13 @@
-<h2 class="party"><%= link_to 'New Party', new_host_path %></h2>
+
+<div class="background"></div>
+
+<div class="logo"></div>
 
 <div class= "forms">
+
+<h2 class="party"><%= link_to 'New Party', new_host_path %></h2>
+
+
 <%= form_for(@guest) do |f| %>
   <div class="field">
     <%= f.label :host_id, {class:"name"} %><br>
