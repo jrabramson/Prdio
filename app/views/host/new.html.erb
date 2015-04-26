@@ -1,11 +1,14 @@
-<p> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
+<div class="background"></div>
+
+
+<p class="new"> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
 
 <%= form_for :create, url: create_path do |f| %>
 	<%= f.label :playlist %>
 	<%= f.text_field :playlist %>
 <% end %>
 
-<p>Or, select one of your existing playlists:</p>
+<p class="new">Or, select one of your existing playlists:</p>
 
 <% @playlists.each_with_index do |v, i| %>
 	<%= form_for :create, url: create_path do |f| %>
@@ -15,4 +18,5 @@
 		</div>
 	<% end %>
 <% end %>
+</div>
 
