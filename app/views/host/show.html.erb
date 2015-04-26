@@ -46,14 +46,16 @@
 					<% if song.in?(@guest.songs) %>
 						Voted.
 					<% else %>
-						<%= form_tag like_path, { remote: true } do %>
-							<%= submit_tag 'Like' %>
-							<%= hidden_field_tag 'song', song.id %>
-						<% end %>
-						<%= form_tag dislike_path, { remote: true } do %>
-							<%= submit_tag 'Dislike' %>
-							<%= hidden_field_tag 'song', song.id %>
-						<% end %>
+						<div class='like'>
+							<%= form_tag like_path, { remote: true } do %>
+								<%= submit_tag 'Like' %>
+								<%= hidden_field_tag 'song', song.id %>
+							<% end %>
+							<%= form_tag dislike_path, { remote: true } do %>
+								<%= submit_tag 'Dislike' %>
+								<%= hidden_field_tag 'song', song.id %>
+							<% end %>
+						</div>
 					<% end %>
 				</p>	
 			</li>
