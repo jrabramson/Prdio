@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'join' => 'host#join'
   post 'like' => 'song#like'
   post 'dislike' => 'song#dislike'
+  post 'update' => 'playlist#update'
 
   get 'nuke' => 'host#nuke'
 

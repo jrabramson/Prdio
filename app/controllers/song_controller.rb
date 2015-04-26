@@ -28,7 +28,10 @@ class SongController < ApplicationController
  		@guest = Guest.find_by(id: session['guest_id'])
 		@guest.like(@song)
  		if @song.save
-			redirect_to '/' + @song.playlist.host.room
+ 			respond_to do |format|
+ 				format.json { render json: @song }
+ 			end
+			# redirect_to '/' + @song.playlist.host.room
 		end
 	end
 

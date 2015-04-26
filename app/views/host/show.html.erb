@@ -1,3 +1,21 @@
+<%= javascript_tag do %>
+	var interval = 1000;
+	function doAjax() {
+	    $.ajax({
+	            type: 'POST',
+	            url: '/update',
+	            data: <%= @host.playlist.to_json.html_safe %>,
+	            success: function (data) {
+	            	console.log(list)
+	            },
+	            complete: function (data) {
+	                    // Schedule the next
+	                    setTimeout(doAjax, interval);
+	            }
+	    });
+	}
+	setTimeout(doAjax, interval);
+<% end %>
 <div>
 	<p>Room: <%= @host.room %></p>
 	<p>Playlist <%= @host.playlist.key %></p>
@@ -19,12 +37,12 @@
 			<li>
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
-				<p>Vote: <%= song.vote %></p>
-				<%= form_tag like_path do %>
+				<p>Vote: <span id='vote'><%= song.vote %></span></p>
+				<%= form_tag like_path, { remote: true } do %>
 					<%= submit_tag 'Like' %>
 					<%= hidden_field_tag 'song', song.id %>
 				<% end %>
-				<%= form_tag dislike_path do %>
+				<%= form_tag dislike_path, { remote: true } do %>
 					<%= submit_tag 'Dislike' %>
 					<%= hidden_field_tag 'song', song.id %>
 				<% end %>
