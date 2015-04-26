@@ -32,7 +32,6 @@
 <div>
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
-<% end %> 
 </div>
 <div>
 	<ul>
@@ -59,6 +58,7 @@
 		<% end %>
 	</ul>
 </div>
+<% end %> 
 <div>
 <%= @obj[0].media.html.html_safe %>
 </div>
