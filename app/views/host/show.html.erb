@@ -1,24 +1,4 @@
-<%= javascript_tag do %>
-	var interval = 1000;
-	function doAjax() {
-	    $.ajax({
-	            type: 'POST',
-	            url: '/update',
-	            data: <%= @host.playlist.to_json.html_safe %>,
-	            success: function (data) {
-	            	console.log(data)
-	            	for (i=0;i<data.length;i++) {
-	            		$('.vote:eq(' + i + ')').html(data[i].vote)
-	            	}
-	            },
-	            complete: function (data) {
-	                    // Schedule the next
-	                    setTimeout(doAjax, interval);
-	            }
-	    });
-	}
-	setTimeout(doAjax, interval);
-<% end %>
+
 <div>
 	<p>Room: <%= @host.room %></p>
 	<p>Playlist <%= @host.playlist.key %></p>
@@ -36,7 +16,7 @@
 </div>
 <div>
 	<ul>
-		<% @host.playlist.songs.each do |song| %>
+		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
 			<li>
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
@@ -46,11 +26,11 @@
 					<% if song.in?(@guest.songs) %>
 						Voted.
 					<% else %>
-						<%= form_tag like_path, { remote: true } do %>
+						<%= form_tag like_path do %>
 							<%= submit_tag 'Like' %>
 							<%= hidden_field_tag 'song', song.id %>
 						<% end %>
-						<%= form_tag dislike_path, { remote: true } do %>
+						<%= form_tag dislike_path do %>
 							<%= submit_tag 'Dislike' %>
 							<%= hidden_field_tag 'song', song.id %>
 						<% end %>
