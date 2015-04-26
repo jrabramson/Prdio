@@ -28,7 +28,7 @@
 </div>
 <div class="change">
 	<%= form_tag @host.room + '/search/' do %>
-		<%= label_tag :title %>
+		<%= label_tag :title, "Search Song" %>
 		<%= text_field_tag :title %>
 	<% end %>
 </div class="change">
@@ -36,19 +36,19 @@
 	Hello <%= @guest.name %>, welcome to the party.
 <% end %>
 </div>
-<div class="change">
-	<ul>
+<div>
+	<ul class= "change">
 		<% @host.playlist.songs.each do |song| %>
 			<li>
-				<p>Song: <%= song.title %></p>
-				<p>Artist: <%= song.artist %></p>
-				<p>Vote: <span class='vote'><%= song.vote %></span></p>
+				<p class="change">Song: <%= song.title %></p>
+				<p class="change">Artist: <%= song.artist %></p>
+				<p class="change">Vote: <span class='vote'><%= song.vote %></span></p>
 				<% if @guest.present? %>
 				<p>
 					<% if song.in?(@guest.songs) %>
 						Voted.
 					<% else %>
-						<div class='like'>
+						<div class='like' id='<%= song.id %>'>
 							<%= form_tag like_path, { remote: true } do %>
 								<%= submit_tag 'Like' %>
 								<%= hidden_field_tag 'song', song.id %>
