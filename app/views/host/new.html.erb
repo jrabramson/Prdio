@@ -1,10 +1,7 @@
 <div class="background"></div>
 
-<div class="logo"></div>
 
-
-<div class="new">
-<p> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
+<p class="new"> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
 
 <%= form_for :create, url: create_path do |f| %>
 	<%= f.label :playlist %>

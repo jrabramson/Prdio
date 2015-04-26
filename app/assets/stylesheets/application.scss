@@ -10,17 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
  */
 
-$acidwash:#F08080; 
+ @import 'variables';
+ @import 'guest';
+ @import 'host';
+ @import 'new';
+ @import 'show';
+ @import 'song';
 
 
 body{
  	background:center $acidwash url(asset-path('FINALPROai.jpg')) no-repeat fixed;
  	background-size:cover; 
-
 
 } 
 
@@ -74,8 +76,6 @@ body{
  	color:white;
  	border-radius: 10px;
  }
-
-
 
 
 /*-----------------------------------------------------------------*/
