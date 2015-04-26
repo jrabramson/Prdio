@@ -3,7 +3,6 @@ class GuestController < ApplicationController
 	def new 
 		@guest = Guest.new({ 
 				name: guest_params[:name], 
-				email: guest_params[:email], 
 				host_id: Host.find_by_room(guest_params[:host_id]).id
 			})
 		if @guest.save
@@ -13,7 +12,7 @@ class GuestController < ApplicationController
 	end
 
 	def guest_params 
-		guest_params = params.require(:guest).permit(:host_id, :email, :name) 
+		guest_params = params.require(:guest).permit(:host_id, :name) 
 	end
 
 end
