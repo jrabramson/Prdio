@@ -1,7 +1,5 @@
 <div class="background"></div>
 
-<div class="logo"></div>
-
 
 <%= javascript_tag do %>
 	var interval = 1000;
@@ -28,18 +26,17 @@
 	<p>Room: <%= @host.room %></p>
 	<p>Playlist <%= @host.playlist.key %></p>
 </div>
-<div>
+<div class="change">
 	<%= form_tag @host.room + '/search/' do %>
 		<%= label_tag :title %>
 		<%= text_field_tag :title %>
 	<% end %>
-</div>
-<div>
+</div class="change">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
 <% end %>
 </div>
-<div>
+<div class="change">
 	<ul>
 		<% @host.playlist.songs.each do |song| %>
 			<li>

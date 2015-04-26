@@ -8,7 +8,7 @@
 	<%= f.text_field :playlist %>
 <% end %>
 
-<p>Or, select one of your existing playlists:</p>
+<p class="new">Or, select one of your existing playlists:</p>
 
 <% @playlists.each_with_index do |v, i| %>
 	<%= form_for :create, url: create_path do |f| %>
