@@ -37,7 +37,7 @@ class HostController < ApplicationController
 	def show
 		@host = Host.find_by_room params[:id]
 		if session[:guest_id].present?
-			@guest = Guest.find session[:guest_id]
+			@guest = Guest.find_by_id session[:guest_id]
 		end
 		rdio = rdio_init
 		@playlist = rdio.call('get', ({keys: @host.playlist.key}))
