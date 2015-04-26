@@ -6,7 +6,10 @@
 	            url: '/update',
 	            data: <%= @host.playlist.to_json.html_safe %>,
 	            success: function (data) {
-	            	console.log(list)
+	            	console.log(data)
+	            	for (i=0;i<data.length;i++) {
+	            		
+	            	}
 	            },
 	            complete: function (data) {
 	                    // Schedule the next
