@@ -26,7 +26,8 @@ class SongController < ApplicationController
  	def like
  		@song = Song.find_by_id(params[:song])
  		@guest = Guest.find_by(id: session['guest_id'])
-		@guest.like(@song)
+ 		@guest.like(@song)
+ 		@guest.songs << @song
  		if @song.save
 			redirect_to '/' + @song.playlist.host.room
 		end
@@ -35,7 +36,8 @@ class SongController < ApplicationController
 	def dislike
 		@song = Song.find_by_id(params[:song])
  		@guest = Guest.find_by(id: session['guest_id'])
-		@guest.dislike(@song)
+ 		@guest.dislike(@song)
+ 		@guest.songs << @song
  		if @song.save
 			redirect_to '/' + @song.playlist.host.room
 		end

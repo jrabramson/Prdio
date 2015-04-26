@@ -28,14 +28,20 @@
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
 				<p>Vote: <%= song.vote %></p>
-				<%= form_tag like_path do %>
-					<%= submit_tag 'Like' %>
-					<%= hidden_field_tag 'song', song.id %>
-				<% end %>
-				<%= form_tag dislike_path do %>
-					<%= submit_tag 'Dislike' %>
-					<%= hidden_field_tag 'song', song.id %>
-				<% end %>
+				<p>
+					<% if song.in?(@guest.songs) %>
+						Voted.
+					<% else %>
+						<%= form_tag like_path do %>
+							<%= submit_tag 'Like' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+						<%= form_tag dislike_path do %>
+							<%= submit_tag 'Dislike' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+					<% end %>
+				</p>	
 			</li>
 		<% end %>
 </div>
