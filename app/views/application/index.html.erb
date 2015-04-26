@@ -10,12 +10,10 @@
 
 <%= form_for(@guest) do |f| %>
   <div class="field">
-    <%= f.label :host_id, {class:"name"} %><br>
-    <%= f.text_field :host_id,{class:"form"} %>
+    <%= f.text_field :host_id,{ class:"form", placeholder: "Room Code" } %>
   </div>
   <div class="field">
-    <%= f.label :name, {class:"name"} %><br>
-    <%= f.text_field :name, { class:"form"} %>
+    <%= f.text_field :name, { class:"form", placeholder: "Your Name" } %>
   </div>
   <div class="actions"> 
     <%= submit_tag 'Join Party', { class:"join" } %>

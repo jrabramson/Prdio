@@ -46,7 +46,7 @@
 					<% if song.in?(@guest.songs) %>
 						Voted.
 					<% else %>
-						<div class='like'>
+						<div class='like' id='<%= song.id %>'>
 							<%= form_tag like_path, { remote: true } do %>
 								<%= submit_tag 'Like' %>
 								<%= hidden_field_tag 'song', song.id %>
