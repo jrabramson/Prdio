@@ -32,6 +32,15 @@ class SongController < ApplicationController
 		end
 	end
 
+	def dislike
+		@song = Song.find_by_id(params[:song])
+ 		@guest = Guest.find_by(id: session['guest_id'])
+		@guest.dislike(@song)
+ 		if @song.save
+			redirect_to '/' + @song.playlist.host.room
+		end
+	end
+
 	def rdio_init
 		access_token = session[:at]
 	  	access_token_secret = session[:ats]

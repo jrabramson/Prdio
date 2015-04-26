@@ -32,6 +32,10 @@
 					<%= submit_tag 'Like' %>
 					<%= hidden_field_tag 'song', song.id %>
 				<% end %>
+				<%= form_tag dislike_path do %>
+					<%= submit_tag 'Dislike' %>
+					<%= hidden_field_tag 'song', song.id %>
+				<% end %>
 			</li>
 		<% end %>
 </div>
