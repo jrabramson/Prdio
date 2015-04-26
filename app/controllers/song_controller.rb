@@ -23,9 +23,13 @@ class SongController < ApplicationController
 		song_search = params.permit(:trackKey)
 	end
 
-	def like
-		@guest.like(song)
-		redirect_to guest.host.room
+ 	def like
+ 		@song = Song.find_by_id(params[:song])
+ 		@guest = Guest.find_by(id: session['guest_id'])
+		@guest.like(@song)
+ 		if @song.save
+			redirect_to '/' + @song.playlist.host.room
+		end
 	end
 
 	def rdio_init

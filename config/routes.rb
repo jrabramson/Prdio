@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :host, :key => :room, :path => '' do
      post 'search' => 'song#search'
      post 'create' => 'song#create'
-     get 'like' => 'song#like'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

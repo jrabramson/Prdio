@@ -27,13 +27,13 @@
 			<li>
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
-				<%= form_for song do %>
-					<% label_tag :vote %>
-
+				<p>Vote: <%= song.vote %></p>
+				<%= form_tag like_path do %>
+					<%= submit_tag 'Like' %>
+					<%= hidden_field_tag 'song', song.id %>
+				<% end %>
 			</li>
 		<% end %>
 </div>
 <div>
-	<%= link_to 'Add song', host_path + '/search' %>
 </div>
-<div>
