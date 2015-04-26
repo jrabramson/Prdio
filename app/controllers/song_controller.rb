@@ -23,6 +23,29 @@ class SongController < ApplicationController
 		song_search = params.permit(:trackKey)
 	end
 
+ 	def like
+ 		@song = Song.find_by_id(params[:song])
+ 		@guest = Guest.find_by(id: session['guest_id'])
+ 		@guest.like(@song)
+ 		@guest.songs << @song
+ 		if @song.save
+ 			respond_to do |format|
+ 				format.json { render json: @song }
+ 			end
+			# redirect_to '/' + @song.playlist.host.room
+		end
+	end
+
+	def dislike
+		@song = Song.find_by_id(params[:song])
+ 		@guest = Guest.find_by(id: session['guest_id'])
+ 		@guest.dislike(@song)
+ 		@guest.songs << @song
+ 		if @song.save
+			redirect_to '/' + @song.playlist.host.room
+		end
+	end
+
 	def rdio_init
 		access_token = session[:at]
 	  	access_token_secret = session[:ats]

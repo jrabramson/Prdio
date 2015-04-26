@@ -1,4 +1,5 @@
 class GuestController < ApplicationController
+
 	def new 
 		@guest = Guest.new({ 
 				name: guest_params[:name], 
@@ -15,6 +16,4 @@ class GuestController < ApplicationController
 		guest_params = params.require(:guest).permit(:host_id, :email, :name) 
 	end
 
-
 end
-

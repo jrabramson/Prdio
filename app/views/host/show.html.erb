@@ -1,6 +1,24 @@
-<div>
-	It works!
-</div>
+<%= javascript_tag do %>
+	var interval = 1000;
+	function doAjax() {
+	    $.ajax({
+	            type: 'POST',
+	            url: '/update',
+	            data: <%= @host.playlist.to_json.html_safe %>,
+	            success: function (data) {
+	            	console.log(data)
+	            	for (i=0;i<data.length;i++) {
+	            		
+	            	}
+	            },
+	            complete: function (data) {
+	                    // Schedule the next
+	                    setTimeout(doAjax, interval);
+	            }
+	    });
+	}
+	setTimeout(doAjax, interval);
+<% end %>
 <div>
 	<p>Room: <%= @host.room %></p>
 	<p>Playlist <%= @host.playlist.key %></p>
@@ -14,25 +32,33 @@
 <div>
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
-<% end %> 
 </div>
 <div>
-<% @host.playlist.songs.each do |song| %>
-	<div>
-		<%= song.title %>
-	</div>
-<% end %>
 	<ul>
 		<% @host.playlist.songs.each do |song| %>
 			<li>
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
+				<p>Vote: <%= song.vote %></p>
+				<p>
+					<% if song.in?(@guest.songs) %>
+						Voted.
+					<% else %>
+						<%= form_tag like_path, { remote: true } do %>
+							<%= submit_tag 'Like' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+						<%= form_tag dislike_path, { remote: true } do %>
+							<%= submit_tag 'Dislike' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+					<% end %>
+				</p>	
 			</li>
 		<% end %>
+	</ul>
 </div>
-<div>
-	<%= link_to 'Add song', host_path + '/search' %>
-</div>
+<% end %> 
 <div>
 <%= @obj[0].media.html.html_safe %>
 </div>
