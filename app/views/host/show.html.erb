@@ -1,3 +1,8 @@
+<div class="background"></div>
+
+<div class="logo"></div>
+
+
 <%= javascript_tag do %>
 	var interval = 1000;
 	function doAjax() {
@@ -19,7 +24,7 @@
 	}
 	setTimeout(doAjax, interval);
 <% end %>
-<div>
+<div class="change">
 	<p>Room: <%= @host.room %></p>
 	<p>Playlist <%= @host.playlist.key %></p>
 </div>
@@ -59,6 +64,6 @@
 	</ul>
 </div>
 <% end %> 
-<div>
+<div class="playbox">
 <%= @obj[0].media.html.html_safe %>
 </div>
