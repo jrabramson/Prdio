@@ -1,7 +1,4 @@
 <div>
-	It works!
-</div>
-<div>
 	<p>Room: <%= @host.room %></p>
 	<p>Playlist <%= @host.playlist.key %></p>
 </div>
@@ -17,11 +14,6 @@
 <% end %> 
 </div>
 <div>
-<% @host.playlist.songs.each do |song| %>
-	<div>
-		<%= song.title %>
-	</div>
-<% end %>
 	<ul>
 		<% @host.playlist.songs.each do |song| %>
 			<li>
@@ -29,9 +21,7 @@
 				<p>Artist: <%= song.artist %></p>
 			</li>
 		<% end %>
-</div>
-<div>
-	<%= link_to 'Add song', host_path + '/search' %>
+	</ul>
 </div>
 <div>
 <%= @obj[0].media.html.html_safe %>
