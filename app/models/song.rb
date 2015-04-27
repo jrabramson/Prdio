@@ -6,12 +6,13 @@ class Song < ActiveRecord::Base
 
 	def reorder_playlist
 		rdio = rdio_init
-		@order = []
+		@order = ''
 		self.playlist.songs.each do |song|
-			@order << song.key
+			@order += song.key
 			@order.sort_by {|song| [song.vote]}.reverse
 		end
-		rdio.call('setPlaylistOrder', self.playlist.key, @order )
+		raise 'test'
+		rdio.call('setPlaylistOrder', ({ playlist: self.playlist.key, tracks: @order }))
 	end
 
 	def rdio_init
