@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426210543) do
+ActiveRecord::Schema.define(version: 20150427033420) do
 
   create_table "guests", force: :cascade do |t|
     t.string   "name"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150426210543) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "host_id"
+    t.string   "name"
   end
 
   add_index "playlists", ["host_id"], name: "index_playlists_on_host_id"
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150426210543) do
     t.string   "suggested_by"
     t.string   "key"
     t.integer  "playlist_id"
+    t.string   "image"
   end
 
   add_index "songs", ["playlist_id"], name: "index_songs_on_playlist_id"

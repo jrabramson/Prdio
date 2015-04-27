@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'jquery-ui-rails'
 gem 'embedly'
 # gem 'rdio', '~> 0.1.001'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

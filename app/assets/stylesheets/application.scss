@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require jquery-ui
  */
 
  @import 'variables';
@@ -23,8 +24,7 @@
 body{
  	background:center $acidwash url(asset-path('FINALPROai.jpg')) no-repeat fixed;
  	background-size:cover; 
-
-} 
+}
 
 /*-------------------------------------------------------------*/
  .party{
@@ -72,7 +72,7 @@ body{
  	background:.5;
  	margin-top:10%;
  	position:absolute;
- 	color:white;
+ 	color:black;
  	border-radius: 10px;
  }
 

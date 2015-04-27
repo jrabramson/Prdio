@@ -10,7 +10,13 @@ class SongController < ApplicationController
 		@host = Host.find_by_room params[:host_id]
 		rdio = rdio_init
   		@songParams = rdio.call('get', ({ "keys" => params[:trackKey] }))['result']
-  		@song = Song.new(title: @songParams[params[:trackKey]]['name'], artist: @songParams[params[:trackKey]]['artist'], key: @songParams[params[:trackKey]]['key'], playlist_id: @host.playlist.id )
+  		@song = Song.new( 
+  				title: @songParams[params[:trackKey]]['name'], 
+  				artist: @songParams[params[:trackKey]]['artist'], 
+  				key: @songParams[params[:trackKey]]['key'], 
+  				playlist_id: @host.playlist.id, 
+  				image: @songParams[params[:trackKey]]['gridIcon']
+  			)
 		if @song.save
 			rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
 			redirect_to '/' + @host.room
@@ -29,6 +35,7 @@ class SongController < ApplicationController
  		@guest.like(@song)
  		@guest.songs << @song
  		if @song.save
+ 			@song.reorder_playlist
  			respond_to do |format|
  				format.json { render json: @song }
  			end
@@ -45,6 +52,15 @@ class SongController < ApplicationController
  				format.json { render json: @song }
  			end
 		end
+	end
+
+	def reorder_playlist song
+		rdio = rdio_init
+		@order = ""
+		song.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
+			@order = @order + song.key + ', '
+		end
+		rdio.call('setPlaylistOrder', ({playlist: song.playlist.key, tracks: @order}))
 	end
 
 	def rdio_init

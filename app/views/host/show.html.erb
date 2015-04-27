@@ -1,70 +1,96 @@
 <div class="background"></div>
-
-
 <%= javascript_tag do %>
-	var interval = 1000;
-	function doAjax() {
-	    $.ajax({
-	            type: 'POST',
-	            url: '/update',
-	            data: <%= @host.playlist.to_json.html_safe %>,
-	            success: function (data) {
-	            	console.log(data)
-	            	for (i=0;i<data.length;i++) {
-	            		$('.vote:eq(' + i + ')').html(data[i].vote)
-	            	}
-	            },
-	            complete: function (data) {
-	                    // Schedule the next
-	                    setTimeout(doAjax, interval);
-	            }
-	    });
-	}
-	setTimeout(doAjax, interval);
+	$(function() {	
+		var interval = 10000;
+		tinysort.defaults.order = 'desc';
+
+		var ul = document.getElementById('tracks')
+		    ,lis = ul.querySelectorAll('div.track')
+		    ,liHeight = lis[0].offsetHeight
+		;
+		ul.style.height = ul.offsetHeight+'px';
+		for (var i= 0,l=lis.length;i<l;i++) {
+		    var li = lis[i];
+		    li.style.position = 'absolute';
+		    li.style.top = i*liHeight+'px';
+		}
+
+		function doAjax() {
+		    $.ajax({
+		            type: 'POST',
+		            url: '/update',
+		            data: <%= @host.playlist.to_json.html_safe %>,
+		            success: function (data) {
+		            	data.forEach(function(e) {
+							$('.track' + (e.id) + ' .vote').html(e.vote)
+							tinysort('div#tracks>.track',{selector:'.vote'}).forEach(function(elm,i){
+							    setTimeout((function(elm,i){
+							        elm.style.top = i*liHeight+'px';
+							    }).bind(null,elm,i),40);
+							});
+		            	});
+		            },
+		            complete: function (data) {
+		                    // Schedule the next
+		                    setTimeout(doAjax, interval);
+		            }
+		    });
+		}
+		setTimeout(doAjax, interval);
+	});
 <% end %>
-<div class="select">
-	<p class="room">Room: <%= @host.room %></p>
-	<p class="playlist">Playlist<%= @host.playlist.key %></p>
+
+<div class="change">
+	<h1><%= @host.playlist.name %></h1>
 </div>
 <div class="songSearch">
 	<%= form_tag @host.room + '/search/' do %>
-		<%= label_tag :title, "Search Song" %>
-		<%= text_field_tag :title %>
+		<%= text_field_tag :title, '', { placeholder: 'Song Name' } %>
+		<%= submit_tag 'Find Songs' %>
 	<% end %>
 </div class="welcomeGuest">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
 <% end %>
 </div>
-<div>
-	<ul class= "details">
-		<% @host.playlist.songs.each do |song| %>
-			<li>
-				<p class="detail">Song: <%= song.title %></p>
-				<p class="detail">Artist: <%= song.artist %></p>
-				<p class="detail">Vote: <span class='vote'><%= song.vote %></span></p>
+
+<div class="change">
+	<div id='tracks'>
+		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
+			<div class='track<%= song.id %> track'>
+				<img src='<%= song.image %>' class='trackIcon'>
+				<div class='trackInfo'>
+					<%= song.title %><br>
+					<%= song.artist %><br>
+					Vote: <span class='vote'><%= song.vote %></span>
+				</div>
+
 				<% if @guest.present? %>
 				<p>
-					<% if song.in?(@guest.songs) %>
-						Voted.
-					<% else %>
-						<div class='like' id='<%= song.id %>'>
-							<%= form_tag like_path, { remote: true } do %>
-								<%= submit_tag 'Like' %>
-								<%= hidden_field_tag 'song', song.id %>
-							<% end %>
-							<%= form_tag dislike_path, { remote: true } do %>
-								<%= submit_tag 'Dislike' %>
-								<%= hidden_field_tag 'song', song.id %>
-							<% end %>
-						</div>
-					<% end %>
+				<% if song.in?(@guest.songs) %>
+					Voted.
+				<% else %>
+					<div class='like' id='<%= song.id %>'>
+						<%= form_tag like_path, { remote: true } do %>
+							<%= submit_tag 'Like' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+						<%= form_tag dislike_path, { remote: true } do %>
+							<%= submit_tag 'Dislike' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+					</div>
+				<% end %>
 				</p>	
-			</li>
+			<% end %>
+			</div>
 		<% end %>
-	</ul>
+	</div>
 </div>
-<% end %> 
-<div class="playbox">
-<%= @obj[0].media.html.html_safe %>
+<% if @thehost %>
+<div class="change">
+	<div class="playbox">
+		<%= @obj[0].media.html.html_safe %>
+	</div>
 </div>
+<% end %>

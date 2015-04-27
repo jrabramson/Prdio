@@ -27,4 +27,35 @@
 
 .playlistChoice{
 	color:$acidwash;
+	width: 480px;
+	margin: 0 auto;
+	background: gainsboro;
+	box-sizing: border-box;
+	padding: 0px 40px;
+}
+
+.track {
+	border: 1px solid black;
+	width: 380px;
+    max-height: 80px;
+}
+
+.trackIcon {
+	display: inline-block;
+	width: 80px;
+}
+
+.trackInfo {
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: 295px;
+}
+
+#tracks {
+  position: relative;
+  min-height: 380px;
+  max-height: 380px;
+  overflow-y: scroll;
 }
