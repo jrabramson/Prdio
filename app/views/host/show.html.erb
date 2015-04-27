@@ -63,8 +63,6 @@
 					<%= song.title %><br>
 					<%= song.artist %><br>
 					Vote: <span class='vote'><%= song.vote %></span>
-				</div>
-
 				<% if @guest.present? %>
 				<p>
 				<% if song.in?(@guest.songs) %>
@@ -81,6 +79,7 @@
 						<% end %>
 					</div>
 				<% end %>
+				</div>
 				</p>	
 			<% end %>
 			</div>
