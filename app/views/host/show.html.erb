@@ -1,6 +1,4 @@
 <div class="background"></div>
-
-
 <%= javascript_tag do %>
 	var interval = 1000;
 	function doAjax() {
@@ -9,10 +7,9 @@
 	            url: '/update',
 	            data: <%= @host.playlist.to_json.html_safe %>,
 	            success: function (data) {
-	            	console.log(data)
-	            	for (i=0;i<data.length;i++) {
-	            		$('.vote:eq(' + i + ')').html(data[i].vote)
-	            	}
+	            	data.forEach(function(e) {
+						$('.track' + (e.id) + ' .vote').html(e.vote)
+	            	});
 	            },
 	            complete: function (data) {
 	                    // Schedule the next
@@ -23,13 +20,12 @@
 	setTimeout(doAjax, interval);
 <% end %>
 <div class="change">
-	<p>Room: <%= @host.room %></p>
-	<p>Playlist <%= @host.playlist.key %></p>
+	<h1><%= @host.playlist.name %></h1>
 </div>
 <div class="change">
 	<%= form_tag @host.room + '/search/' do %>
-		<%= label_tag :title %>
-		<%= text_field_tag :title %>
+		<%= text_field_tag :title, '', { placeholder: 'Song Name' } %>
+		<%= submit_tag 'Find Songs' %>
 	<% end %>
 </div class="change">
 <% if @guest.present? %>
@@ -37,45 +33,41 @@
 <% end %>
 </div>
 <div class="change">
-	<ul>
+	<div id='tracks'>
 		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
-			<li>
-				<p>Song: <%= song.title %></p>
-				<p>Artist: <%= song.artist %></p>
-				<p>Vote: <span class='vote'><%= song.vote %></span></p>
+			<div class='track<%= song.id %> track'>
+				<img src='<%= song.image %>' class='trackIcon'>
+				<div class='trackInfo'>
+					Song: <%= song.title %><br>
+					Artist: <%= song.artist %><br>
+					Vote: <span class='vote'><%= song.vote %></span>
+				</div>
 				<% if @guest.present? %>
 				<p>
-					<% if song.in?(@guest.songs) %>
-						Voted.
-					<% else %>
-<<<<<<< HEAD
-						<div class='like' id='<%= song.id %>'>
-							<%= form_tag like_path, { remote: true } do %>
-								<%= submit_tag 'Like' %>
-								<%= hidden_field_tag 'song', song.id %>
-							<% end %>
-							<%= form_tag dislike_path, { remote: true } do %>
-								<%= submit_tag 'Dislike' %>
-								<%= hidden_field_tag 'song', song.id %>
-							<% end %>
-						</div>
-=======
-						<%= form_tag like_path do %>
+				<% if song.in?(@guest.songs) %>
+					Voted.
+				<% else %>
+					<div class='like' id='<%= song.id %>'>
+						<%= form_tag like_path, { remote: true } do %>
 							<%= submit_tag 'Like' %>
 							<%= hidden_field_tag 'song', song.id %>
 						<% end %>
-						<%= form_tag dislike_path do %>
+						<%= form_tag dislike_path, { remote: true } do %>
 							<%= submit_tag 'Dislike' %>
 							<%= hidden_field_tag 'song', song.id %>
 						<% end %>
->>>>>>> origin/reordering
-					<% end %>
+					</div>
+				<% end %>
 				</p>	
-			</li>
+			<% end %>
+			</div>
 		<% end %>
-	</ul>
+	</div>
 </div>
-<% end %> 
-<div class="playbox">
-<%= @obj[0].media.html.html_safe %>
+<% if @thehost %>
+<div class="change">
+	<div class="playbox">
+		<%= @obj[0].media.html.html_safe %>
+	</div>
 </div>
+<% end %>

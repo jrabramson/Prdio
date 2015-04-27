@@ -10,7 +10,13 @@ class SongController < ApplicationController
 		@host = Host.find_by_room params[:host_id]
 		rdio = rdio_init
   		@songParams = rdio.call('get', ({ "keys" => params[:trackKey] }))['result']
-  		@song = Song.new(title: @songParams[params[:trackKey]]['name'], artist: @songParams[params[:trackKey]]['artist'], key: @songParams[params[:trackKey]]['key'], playlist_id: @host.playlist.id )
+  		@song = Song.new( 
+  				title: @songParams[params[:trackKey]]['name'], 
+  				artist: @songParams[params[:trackKey]]['artist'], 
+  				key: @songParams[params[:trackKey]]['key'], 
+  				playlist_id: @host.playlist.id, 
+  				image: @songParams[params[:trackKey]]['gridIcon']
+  			)
 		if @song.save
 			rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
 			redirect_to '/' + @host.room

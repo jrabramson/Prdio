@@ -56,11 +56,16 @@ class HostController < ApplicationController
 
 	def create
 		rdio = rdio_init
-		rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
+		if new_party['reuse'].blank?
+			@playlist = rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
+			@playlist = @playlist['result']['key']
+		else
+			@playlist = new_party['reuse']
+		end
 		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join, username: session['user']['firstName'], at: session[:at], ats: session[:ats] )
 		if @host.save
 			session[:host] = 'true'
-			Playlist.create(key: rdio.call('getPlaylists')['result']['owned'][0]['key'], host_id: @host.id)
+				Playlist.create(key: @playlist, host_id: @host.id, name: new_party['playlist'] )
 			redirect_to '/' + @host.room
 		else
 			render 'new'
@@ -85,7 +90,7 @@ class HostController < ApplicationController
 			session.delete(:rt)
 			session.delete(:rts)
 			# go to the home page
-			redirect_to('/')
+			redirect_to('/new')
 		else
 			# we're missing something important
 			redirect_to('/logout')
@@ -98,7 +103,7 @@ class HostController < ApplicationController
 	end
 
 	def new_party
-		new_party = params.require(:create).permit(:playlist)
+		new_party = params.require(:create).permit(:playlist, :reuse)
 	end
 
 	def nuke

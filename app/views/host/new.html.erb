@@ -1,6 +1,5 @@
 <div class="background"></div>
 
-
 <p class="new"> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
 
 <%= form_for :create, url: create_path do |f| %>
@@ -14,7 +13,8 @@
 	<%= form_for :create, url: create_path do |f| %>
 		<div class="playlistChoice" style='cursor:pointer;'>
 			<%= v['name'] %>
-			<%= hidden_field_tag 'create[playlist]', v['key'] %>
+			<%= hidden_field_tag 'create[playlist]', v['name'] %>
+			<%= hidden_field_tag 'create[reuse]', v['key'] %>
 		</div>
 	<% end %>
 <% end %>
