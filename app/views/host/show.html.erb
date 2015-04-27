@@ -22,27 +22,27 @@
 	}
 	setTimeout(doAjax, interval);
 <% end %>
-<div class="change">
-	<p>Room: <%= @host.room %></p>
-	<p>Playlist <%= @host.playlist.key %></p>
+<div class="select">
+	<p class="room">Room: <%= @host.room %></p>
+	<p class="playlist">Playlist<%= @host.playlist.key %></p>
 </div>
-<div class="change">
+<div class="songSearch">
 	<%= form_tag @host.room + '/search/' do %>
 		<%= label_tag :title, "Search Song" %>
 		<%= text_field_tag :title %>
 	<% end %>
-</div class="change">
+</div class="welcomeGuest">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
 <% end %>
 </div>
 <div>
-	<ul class= "change">
+	<ul class= "details">
 		<% @host.playlist.songs.each do |song| %>
 			<li>
-				<p class="change">Song: <%= song.title %></p>
-				<p class="change">Artist: <%= song.artist %></p>
-				<p class="change">Vote: <span class='vote'><%= song.vote %></span></p>
+				<p class="detail">Song: <%= song.title %></p>
+				<p class="detail">Artist: <%= song.artist %></p>
+				<p class="detail">Vote: <span class='vote'><%= song.vote %></span></p>
 				<% if @guest.present? %>
 				<p>
 					<% if song.in?(@guest.songs) %>
