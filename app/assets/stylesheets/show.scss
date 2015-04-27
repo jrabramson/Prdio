@@ -9,6 +9,8 @@
 
 .track {
 	border: 1px solid black;
+	width: 380px;
+    max-height: 80px;
 }
 
 .trackIcon {
@@ -21,10 +23,12 @@
   vertical-align: top;
   padding: 10px;
   box-sizing: border-box;
+  max-width: 295px;
 }
 
 #tracks {
-  height: 380px;
+  position: relative;
+  min-height: 380px;
   max-height: 380px;
   overflow-y: scroll;
 }
