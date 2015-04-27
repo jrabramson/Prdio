@@ -130,7 +130,7 @@ class HostController < ApplicationController
 	end
 
 	def rdio_init
-		@host = Host.find_by_room params[:host_id]
+		@host = Host.find_by_room params[:id]
 		access_token = @host.at
 	  	access_token_secret = @host.ats
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
