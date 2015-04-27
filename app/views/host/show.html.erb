@@ -38,7 +38,7 @@
 </div>
 <div class="change">
 	<ul>
-		<% @host.playlist.songs.each do |song| %>
+		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
 			<li>
 				<p>Song: <%= song.title %></p>
 				<p>Artist: <%= song.artist %></p>
@@ -48,6 +48,7 @@
 					<% if song.in?(@guest.songs) %>
 						Voted.
 					<% else %>
+<<<<<<< HEAD
 						<div class='like' id='<%= song.id %>'>
 							<%= form_tag like_path, { remote: true } do %>
 								<%= submit_tag 'Like' %>
@@ -58,6 +59,16 @@
 								<%= hidden_field_tag 'song', song.id %>
 							<% end %>
 						</div>
+=======
+						<%= form_tag like_path do %>
+							<%= submit_tag 'Like' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+						<%= form_tag dislike_path do %>
+							<%= submit_tag 'Dislike' %>
+							<%= hidden_field_tag 'song', song.id %>
+						<% end %>
+>>>>>>> origin/reordering
 					<% end %>
 				</p>	
 			</li>
