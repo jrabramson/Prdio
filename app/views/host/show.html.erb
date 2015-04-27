@@ -1,7 +1,7 @@
 <div class="background"></div>
 <%= javascript_tag do %>
 	$(function() {	
-		var interval = 10000;
+		var interval = 3000;
 		tinysort.defaults.order = 'desc';
 
 		var ul = document.getElementById('tracks')
@@ -43,12 +43,12 @@
 <div class="change">
 	<h1><%= @host.playlist.name %></h1>
 </div>
-<div class="songSearch">
+<div class="songSearch change">
 	<%= form_tag @host.room + '/search/' do %>
 		<%= text_field_tag :title, '', { placeholder: 'Song Name' } %>
 		<%= submit_tag 'Find Songs' %>
 	<% end %>
-</div class="welcomeGuest">
+</div class="welcomeGuest change">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
 <% end %>
@@ -63,8 +63,6 @@
 					<%= song.title %><br>
 					<%= song.artist %><br>
 					Vote: <span class='vote'><%= song.vote %></span>
-				</div>
-
 				<% if @guest.present? %>
 				<p>
 				<% if song.in?(@guest.songs) %>
@@ -81,6 +79,7 @@
 						<% end %>
 					</div>
 				<% end %>
+				</div>
 				</p>	
 			<% end %>
 			</div>

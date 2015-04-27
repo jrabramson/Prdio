@@ -36,7 +36,7 @@ class HostController < ApplicationController
 
 	def show
 		@host = Host.find_by_room params[:id]
-		if session[:host].present?
+		if session[:host].present? && (session[:host] == @host.room)
 			@thehost = true
 		elsif session[:guest_id].present?
 			@guest = Guest.find_by_id session[:guest_id]
@@ -45,10 +45,8 @@ class HostController < ApplicationController
 		end
 		rdio = rdio_init
 		@playlist = rdio.call('get', ({keys: @host.playlist.key}))
-		
 		embedly_api = Embedly::API.new :key => '87f9192ec60842698fcc51009360ca59',
         :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
-
 		# single url
 		url = 'http://www.rdio.com/' + @playlist['result'][@host.playlist.key]['url']
 		@obj = embedly_api.extract :url => url
@@ -64,8 +62,20 @@ class HostController < ApplicationController
 		end
 		@host = Host.new(key: session['user']['key'], room: (0...4).map { (65 + rand(26)).chr }.join, username: session['user']['firstName'], at: session[:at], ats: session[:ats] )
 		if @host.save
-			session[:host] = 'true'
-				Playlist.create(key: @playlist, host_id: @host.id, name: new_party['playlist'] )
+			session[:host] = @host.room
+			Playlist.create(key: @playlist, host_id: @host.id, name: new_party['playlist'] )
+			if new_party['reuse'].present?
+				@presongs = rdio.call('get', ({keys: @host.playlist.key, extras: 'tracks'}))
+				@presongs = @presongs['result'][@host.playlist.key]['tracks']
+				@presongs.each do |s|
+					Song.create(
+						title: s['name'], 
+		  				artist: s['artist'], 
+		  				key: s['key'], 
+		  				playlist_id: @host.playlist.id, 
+		  				image: s['dynamicIcon'] )
+				end
+			end
 			redirect_to '/' + @host.room
 		else
 			render 'new'
@@ -120,8 +130,9 @@ class HostController < ApplicationController
 	end
 
 	def rdio_init
-		access_token = session[:at]
-	  	access_token_secret = session[:ats]
+		@host = Host.find_by_room params[:id]
+		access_token = @host.at
+	  	access_token_secret = @host.ats
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
 			[access_token, access_token_secret])
 	end
