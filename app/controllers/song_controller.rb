@@ -1,7 +1,7 @@
 class SongController < ApplicationController
 
 	def search
-		@host = Host.find_by_room params[:host_id].includes(:playlist, :song)
+		@host = Host.where( room: params[:id] ).includes(playlist: :songs).first
 		rdio = rdio_init
 		@songs = rdio.call('search', ({ "query" => params[:title], "types" => "Track" }))['result']['results']
 	end
