@@ -72,9 +72,5 @@
 	</ul>
 </div>
 <% if @thehost %>
-<div class="change">
-	<div class="playbox">
-		<%= @obj[0].media.html.html_safe %>
-	</div>
-</div>
+	<%= render "playback" %>
 <% end %>
