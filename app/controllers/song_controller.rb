@@ -35,7 +35,7 @@ class SongController < ApplicationController
  		@guest.like(@song)
  		@guest.songs << @song
  		if @song.save
- 			@song.reorder_playlist(@song)
+ 			reorder_playlist @song
  			respond_to do |format|
  				format.json { render json: @song }
  			end
@@ -48,7 +48,7 @@ class SongController < ApplicationController
  		@guest.dislike(@song)
  		@guest.songs << @song
  		if @song.save
- 			@song.reorder_playlist(@song)
+ 			reorder_playlist @song
  			respond_to do |format|
  				format.json { render json: @song }
  			end
