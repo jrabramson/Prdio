@@ -56,7 +56,7 @@ class SongController < ApplicationController
 	end
 
 	def reorder_playlist song
-		@host = song.playlist.host.id
+		@host = Host.find_by_id song.playlist.host.id
 		access_token = @host.at
 	  	access_token_secret = @host.ats
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
