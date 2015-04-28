@@ -56,7 +56,11 @@ class SongController < ApplicationController
 	end
 
 	def reorder_playlist song
-		rdio = rdio_init
+		@host = song.playlist.host.id
+		access_token = @host.at
+	  	access_token_secret = @host.ats
+		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
+			[access_token, access_token_secret])
 		@order = ""
 		song.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
 			@order = @order + song.key + ', '
