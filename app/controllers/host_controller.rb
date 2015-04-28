@@ -35,8 +35,8 @@ class HostController < ApplicationController
 	end
 
 	def show
-		@host = Host.find_by_room params[:id]
-		if session[:host].present? && (session[:host] == @host.room)
+		@host = Host.where( room: params[:id] ).includes(playlist: :songs).first
+		if session[:host] == @host.room
 			@thehost = true
 		elsif session[:guest_id].present?
 			@guest = Guest.find_by_id session[:guest_id]
@@ -44,6 +44,7 @@ class HostController < ApplicationController
 			redirect_to '/'
 		end
 		rdio = rdio_init
+		
 		@playlist = rdio.call('get', ({keys: @host.playlist.key}))
 		embedly_api = Embedly::API.new :key => '87f9192ec60842698fcc51009360ca59',
         :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
