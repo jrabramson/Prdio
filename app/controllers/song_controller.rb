@@ -35,7 +35,7 @@ class SongController < ApplicationController
  		@guest.like(@song)
  		@guest.songs << @song
  		if @song.save
- 			@song.reorder_playlist
+ 			reorder_playlist @song
  			respond_to do |format|
  				format.json { render json: @song }
  			end
@@ -43,12 +43,13 @@ class SongController < ApplicationController
 	end
 
 	def dislike
-		@song = Song.find_by_id(params[:song])
+ 		@song = Song.find_by_id(params[:song])
  		@guest = Guest.find_by(id: session['guest_id'])
  		@guest.dislike(@song)
  		@guest.songs << @song
  		if @song.save
-			respond_to do |format|
+ 			reorder_playlist @song
+ 			respond_to do |format|
  				format.json { render json: @song }
  			end
 		end

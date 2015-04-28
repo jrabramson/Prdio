@@ -4,17 +4,6 @@
 		var interval = 10000;
 		tinysort.defaults.order = 'desc';
 
-		var ul = document.getElementById('tracks')
-		    ,lis = ul.querySelectorAll('div.track')
-		    ,liHeight = lis[0].offsetHeight
-		;
-		ul.style.height = ul.offsetHeight+'px';
-		for (var i= 0,l=lis.length;i<l;i++) {
-		    var li = lis[i];
-		    li.style.position = 'absolute';
-		    li.style.top = i*liHeight+'px';
-		}
-
 		function doAjax() {
 		    $.ajax({
 		            type: 'POST',
@@ -23,12 +12,8 @@
 		            success: function (data) {
 		            	data.forEach(function(e) {
 							$('.track' + (e.id) + ' .vote').html(e.vote)
-							tinysort('div#tracks>.track',{selector:'.vote'}).forEach(function(elm,i){
-							    setTimeout((function(elm,i){
-							        elm.style.top = i*liHeight+'px';
-							    }).bind(null,elm,i),40);
+							tinysort('div#tracks>.track',{selector:'.vote'});
 							});
-		            	});
 		            },
 		            complete: function (data) {
 		                    // Schedule the next
@@ -72,10 +57,12 @@
 						<%= form_tag like_path, { remote: true } do %>
 							<%= submit_tag 'Like' %>
 							<%= hidden_field_tag 'song', song.id %>
+							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
 						<% end %>
 						<%= form_tag dislike_path, { remote: true } do %>
 							<%= submit_tag 'Dislike' %>
 							<%= hidden_field_tag 'song', song.id %>
+							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
 						<% end %>
 					</div>
 				<% end %>	
