@@ -14,7 +14,8 @@
  */
 
  @import 'variables';
- @import 'guest';
+ @import 'scaffold';
+ @import 'typography';
  @import 'host';
  @import 'new';
  @import 'show';
@@ -24,11 +25,11 @@
 body{
  	background:center $acidwash url(asset-path('FINALPROai.jpg')) no-repeat fixed;
  	background-size:cover; 
+ 	font-family: 'Raleway', sans-serif;
 }
 
 /*-------------------------------------------------------------*/
  .party{
- 	font-family: 'Titillium Web', sans-serif;
  	font-size: 20px;
  	color:black;
  	background-color: $acidwash;
@@ -79,7 +80,6 @@ body{
 
 /*-----------------------------------------------------------------*/
 .join{
-	font-family: 'Titillium Web', sans-serif;
  	font-size: 20px;
  	color:black;
  	display:inline-block;
@@ -112,5 +112,16 @@ a:hover{
 
 #new_guest {
 	margin-top:50px;
-
 }
+
+@media (max-width:960px) {
+	
+}
+
+@media (max-width:740px) {
+	
+}
+	
+@media (max-width:480px) {
+	
+	}

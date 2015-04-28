@@ -26,12 +26,18 @@
 }
 
 .playlistChoice{
-	color:$acidwash;
-	width: 480px;
+	color:$darkGray;
 	margin: 0 auto;
-	background: gainsboro;
-	box-sizing: border-box;
-	padding: 0px 40px;
+	background: white;
+	border-bottom: 1px solid gainsboro;
+	padding: 20px 40px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+
+	&:hover{
+		background: $lightGray;
+		color: $acidwash;
+	}
 }
 
 .track {

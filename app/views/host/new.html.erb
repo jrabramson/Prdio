@@ -10,7 +10,7 @@
 
 <% @playlists.each_with_index do |v, i| %>
 	<%= form_for :create, url: create_path do |f| %>
-		<div class="playlistChoice" style='cursor:pointer;'>
+		<div class="playlistChoice">
 			<%= v['name'] %>
 			<%= hidden_field_tag 'create[playlist]', v['name'] %>
 			<%= hidden_field_tag 'create[reuse]', v['key'] %>
