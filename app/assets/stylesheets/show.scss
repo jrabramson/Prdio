@@ -1,42 +1,59 @@
 .select{
-	color:$acidwash;
+	color:$darkGray;
 }
 
 .room{
-	color:$acidwash;
+	color:$darkGray;
 }
 
 .playlist{
-	color:$acidwash;
+	color:$darkGray;
 }
 .songSearch{
-	color:$acidwash;
+	color:$darkGray;
 }
 
 .vote{
-	color:$acidwash;
+	color:$darkGray;
 }
 
 .like{
-	color:$acidwash;
+	color:$darkGray;
 }
 
 .songs{
-	color:$acidwash;
+	color:$darkGray;
+}
+
+.startInstructions{
+	background: white;
+	box-shadow: 0px 3px 4px #e5e5e5;
+	padding: 20px 40px;
+	position: relative;
+}
+
+.playlistForm{
+	padding: 10px 0;
 }
 
 .playlistChoice{
-	color:$acidwash;
-	width: 480px;
+	color:$darkGray;
 	margin: 0 auto;
-	background: gainsboro;
-	box-sizing: border-box;
-	padding: 0px 40px;
+	background: white;
+	border-bottom: 1px solid gainsboro;
+	padding: 20px 40px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+
+	&:hover{
+		background: $lightGray;
+		color: $acidwash;
+	}
 }
 
 .track {
-	border: 1px solid black;
-	width: 380px;
+	border: none;
+
     max-height: 80px;
 }
 
@@ -49,24 +66,22 @@
   display: inline-block;
   vertical-align: top;
   padding: 10px;
-  box-sizing: border-box;
-  width: 230px;
+  border-top: solid $darkGray 1px;
+  padding-left: 15%;
+ 
 }
 
 #tracks {
   position: relative;
-  min-height: 380px;
-  max-height: 380px;
   overflow-y: scroll;
   list-style: none;
   padding: 0px;
 }
 
 .change{
-	color:$acidwash;
-	width: 480px;
+	color:$darkGray;
 	margin: 0 auto;
-	background: gainsboro;
-	box-sizing: border-box;
-	padding: 0px 40px;
+	background: white;
+	// box-sizing: border-box;
+	padding: 20px 40px;
 }

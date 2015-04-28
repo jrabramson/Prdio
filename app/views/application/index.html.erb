@@ -5,14 +5,14 @@
 
 <div class= "forms">
 
-<h2 class="party"><%= link_to 'New Party', new_host_path %></h2>
+<div class="newParty h-spacer5"><%=link_to 'New Party', new_host_path %></div>
 
 
 <%= form_for(@guest) do |f| %>
-  <div class="field">
+  <div class="field h-spacer5">
     <%= f.text_field :host_id,{ class:"form", placeholder: "Room Code" } %>
   </div>
-  <div class="field">
+  <div class="field h-spacer10">
     <%= f.text_field :name, { class:"form", placeholder: "Your Name" } %>
   </div>
   <div class="actions"> 

@@ -1,7 +1,7 @@
 <div class="background"></div>
 <%= javascript_tag do %>
 	$(function() {	
-		var interval = 10000;
+		var interval = 2000;
 		tinysort.defaults.order = 'desc';
 
 		function doAjax() {
@@ -12,7 +12,7 @@
 		            success: function (data) {
 		            	data.forEach(function(e) {
 							$('.track' + (e.id) + ' .vote').html(e.vote)
-							tinysort('div#tracks>.track',{selector:'.vote'});
+							tinysort('ul#tracks>.track',{selector:'.vote'});
 							});
 		            },
 		            complete: function (data) {
