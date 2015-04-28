@@ -1,6 +1,43 @@
 <div class="background"></div>
 <%= javascript_tag do %>
+	$(function() {	
+		var interval = 10000;
+		tinysort.defaults.order = 'desc';
 
+		var ul = document.getElementById('tracks')
+		    ,lis = ul.querySelectorAll('div.track')
+		    ,liHeight = lis[0].offsetHeight
+		;
+		ul.style.height = ul.offsetHeight+'px';
+		for (var i= 0,l=lis.length;i<l;i++) {
+		    var li = lis[i];
+		    li.style.position = 'absolute';
+		    li.style.top = i*liHeight+'px';
+		}
+
+		function doAjax() {
+		    $.ajax({
+		            type: 'POST',
+		            url: '/update',
+		            data: <%= @host.playlist.to_json.html_safe %>,
+		            success: function (data) {
+		            	data.forEach(function(e) {
+							$('.track' + (e.id) + ' .vote').html(e.vote)
+							tinysort('div#tracks>.track',{selector:'.vote'}).forEach(function(elm,i){
+							    setTimeout((function(elm,i){
+							        elm.style.top = i*liHeight+'px';
+							    }).bind(null,elm,i),40);
+							});
+		            	});
+		            },
+		            complete: function (data) {
+		                    // Schedule the next
+		                    setTimeout(doAjax, interval);
+		            }
+		    });
+		}
+		setTimeout(doAjax, interval);
+	});
 <% end %>
 
 <div class="change">
