@@ -1,43 +1,6 @@
 <div class="background"></div>
 <%= javascript_tag do %>
-	$(function() {	
-		var interval = 3000;
-		tinysort.defaults.order = 'desc';
 
-		var ul = document.getElementById('tracks')
-		    ,lis = ul.querySelectorAll('div.track')
-		    ,liHeight = lis[0].offsetHeight
-		;
-		ul.style.height = ul.offsetHeight+'px';
-		for (var i= 0,l=lis.length;i<l;i++) {
-		    var li = lis[i];
-		    li.style.position = 'absolute';
-		    li.style.top = i*liHeight+'px';
-		}
-
-		function doAjax() {
-		    $.ajax({
-		            type: 'POST',
-		            url: '/update',
-		            data: <%= @host.playlist.to_json.html_safe %>,
-		            success: function (data) {
-		            	data.forEach(function(e) {
-							$('.track' + (e.id) + ' .vote').html(e.vote)
-							tinysort('div#tracks>.track',{selector:'.vote'}).forEach(function(elm,i){
-							    setTimeout((function(elm,i){
-							        elm.style.top = i*liHeight+'px';
-							    }).bind(null,elm,i),40);
-							});
-		            	});
-		            },
-		            complete: function (data) {
-		                    // Schedule the next
-		                    setTimeout(doAjax, interval);
-		            }
-		    });
-		}
-		setTimeout(doAjax, interval);
-	});
 <% end %>
 
 <div class="change">
@@ -55,19 +18,19 @@
 </div>
 
 <div class="change">
-	<div id='tracks'>
+	<ul id='tracks'>
 		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
-			<div class='track<%= song.id %> track'>
+			<li class='track<%= song.id %> track'>
 				<img src='<%= song.image %>' class='trackIcon'>
 				<div class='trackInfo'>
 					<%= song.title %><br>
 					<%= song.artist %><br>
 					Vote: <span class='vote'><%= song.vote %></span>
 				<% if @guest.present? %>
-				<p>
 				<% if song.in?(@guest.songs) %>
 					Voted.
 				<% else %>
+				</div>
 					<div class='like' id='<%= song.id %>'>
 						<%= form_tag like_path, { remote: true } do %>
 							<%= submit_tag 'Like' %>
@@ -78,13 +41,11 @@
 							<%= hidden_field_tag 'song', song.id %>
 						<% end %>
 					</div>
-				<% end %>
-				</div>
-				</p>	
+				<% end %>	
 			<% end %>
-			</div>
+			</li>
 		<% end %>
-	</div>
+	</ul>
 </div>
 <% if @thehost %>
 <div class="change">

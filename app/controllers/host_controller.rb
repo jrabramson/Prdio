@@ -53,7 +53,10 @@ class HostController < ApplicationController
 	end
 
 	def create
-		rdio = rdio_init
+		access_token = session[:at]
+	  	access_token_secret = session[:ats]
+		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
+			[access_token, access_token_secret])
 		if new_party['reuse'].blank?
 			@playlist = rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
 			@playlist = @playlist['result']['key']
