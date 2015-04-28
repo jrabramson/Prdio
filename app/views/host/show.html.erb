@@ -64,7 +64,6 @@
 					<%= song.artist %><br>
 					Vote: <span class='vote'><%= song.vote %></span>
 				<% if @guest.present? %>
-				<p>
 				<% if song.in?(@guest.songs) %>
 					Voted.
 				<% else %>
@@ -78,8 +77,7 @@
 							<%= hidden_field_tag 'song', song.id %>
 						<% end %>
 					</div>
-				<% end %>
-				</p>	
+				<% end %>	
 			<% end %>
 			</div>
 			</div>
