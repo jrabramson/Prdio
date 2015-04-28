@@ -1,0 +1,54 @@
+.button,
+input[type="submit"]{
+ 	font-size: 20px;
+ 	color:black;
+ 	display:inline-block;
+ 	background-color: $acidwash;
+ 	border:none;
+ 	margin:0 auto;
+ 	text-align: center;
+ 	font-weight: 3px;
+ 	border-radius:3px;
+ 	padding:6px 24px;
+}
+
+
+
+.join:hover{
+	background:black;
+	color:$acidwash;
+	white-space: nowrap;	
+}
+
+.newParty{
+ 	font-size: 20px;
+ 	color:black;
+ 	background-color: $acidwash;
+ 	border:none;
+ 	margin:0 auto;
+ 	text-align: center;
+ 	margin-top: 220px;
+ 	border-radius:3px;
+ 	display:inline-block;
+ 	padding: 6px 24px;
+ }
+
+ a:visited{
+	color:black;
+}
+
+ a:hover{
+ 	color:$acidwash;
+ }
+
+
+ .newParty:hover{
+	background:black;
+ 	color:$acidwash;
+ 	white-space: nowrap;
+ 	
+ }
+
+ a:link{
+ 	text-decoration:none;
+ }

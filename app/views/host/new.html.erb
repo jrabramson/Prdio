@@ -1,12 +1,16 @@
-<p class="partyName"> Hello <%= @currentUser["firstName"] %>, enter the name of your party below to begin! </p>
+<div class="startInstructions">
+	<p> Hello <%= @currentUser["firstName"] %>, enter a playlist name:</p>
 
-<!-- not sure how to select the form below-->
-<%= form_for :create, url: create_path do |f| %>
-	<%= f.label :playlist %>
-	<%= f.text_field :playlist %>
-<% end %>
+	<!-- not sure how to select the form below-->
+	<div class="playlistForm">
+		<%= form_for :create, url: create_path do |f| %>
+			<%= f.text_field :playlist %>
+			<%= f.submit "Create!" %>
+		<% end %>
+	</div>
 
-<p class="existing">Or, select one of your existing playlists:</p>
+	<p>Or, select one of your existing playlists:</p>
+</div>
 
 <% @playlists.each_with_index do |v, i| %>
 	<%= form_for :create, url: create_path do |f| %>
