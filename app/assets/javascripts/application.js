@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require websocket_rails/main
 //= require turbolinks
 //= require_tree .
 
@@ -26,3 +27,5 @@ $(function() {
 		form.submit();
 	});
 });
+//= require websocket_rails/main
+

@@ -19,7 +19,7 @@ class SongController < ApplicationController
   			)
 		if @song.save
 			rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
-			redirect_to '/' + @host.room
+			redirect_to '/party/' + @host.room
 		else
 			render 'search'
 		end

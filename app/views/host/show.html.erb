@@ -1,75 +1,24 @@
 <div class="background"></div>
 <%= javascript_tag do %>
-	$(function() {	
-		var interval = 2000;
-		tinysort.defaults.order = 'desc';
 
-		function doAjax() {
-		    $.ajax({
-		            type: 'POST',
-		            url: '/update',
-		            data: <%= @host.playlist.to_json.html_safe %>,
-		            success: function (data) {
-		            	data.forEach(function(e) {
-							$('.track' + (e.id) + ' .vote').html(e.vote)
-							tinysort('ul#tracks>.track',{selector:'.vote'});
-							});
-		            },
-		            complete: function (data) {
-		                    // Schedule the next
-		                    setTimeout(doAjax, interval);
-		            }
-		    });
-		}
-		setTimeout(doAjax, interval);
-	});
 <% end %>
 
 <div class="change">
 	<h1><%= @host.playlist.name %></h1>
 </div>
 <div class="songSearch change">
-	<%= form_tag @host.room + '/search/' do %>
-		<%= text_field_tag :title, '', { placeholder: 'Song Name' } %>
-		<%= submit_tag 'Find Songs' %>
-	<% end %>
+		<%= text_field_tag :title, '', { placeholder: 'Song Name', id: 'search-data' } %>
+		<%= submit_tag 'Find Songs', { id: 'search' } %>
 </div class="welcomeGuest change">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
+	<%= hidden_field_tag 'guest', @guest.name %>
+	<%= hidden_field_tag 'host', @host.id %>
 <% end %>
 </div>
 
-<div class="change">
-	<ul id='tracks'>
-		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
-			<li class='track<%= song.id %> track'>
-				<img src='<%= song.image %>' class='trackIcon'>
-				<div class='trackInfo'>
-					<%= song.title %><br>
-					<%= song.artist %><br>
-					Vote: <span class='vote'><%= song.vote %></span>
-				<% if @guest.present? %>
-				<% if song.in?(@guest.songs) %>
-					Voted.
-				<% else %>
-				</div>
-					<div class='like' id='<%= song.id %>'>
-						<%= form_tag like_path, { remote: true } do %>
-							<%= submit_tag 'Like' %>
-							<%= hidden_field_tag 'song', song.id %>
-							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
-						<% end %>
-						<%= form_tag dislike_path, { remote: true } do %>
-							<%= submit_tag 'Dislike' %>
-							<%= hidden_field_tag 'song', song.id %>
-							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
-						<% end %>
-					</div>
-				<% end %>	
-			<% end %>
-			</li>
-		<% end %>
-	</ul>
+<div class="change" id="switcher" data-uri="<%= request.host %>:<%= request.port %>/websocket">
+	<%= render 'tracks' %>
 </div>
 <% if @thehost %>
 <div class="change">

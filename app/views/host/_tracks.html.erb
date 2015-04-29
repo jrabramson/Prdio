@@ -1,0 +1,30 @@
+<ul id='tracks'>
+		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
+			<li class='track<%= song.id %> track'>
+				<img src='<%= song.image %>' class='trackIcon'>
+				<div class='trackInfo'>
+					<%= song.title %><br>
+					<%= song.artist %><br>
+					Vote: <span class='vote'><%= song.vote %></span>
+				<% if @guest.present? %>
+				<% if song.in?(@guest.songs) %>
+					Voted.
+				<% else %>
+				</div>
+					<div class='like' id='<%= song.id %>'>
+						<%= form_tag like_path, { remote: true } do %>
+							<%= submit_tag 'Like' %>
+							<%= hidden_field_tag 'song', song.id %>
+							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
+						<% end %>
+						<%= form_tag dislike_path, { remote: true } do %>
+							<%= submit_tag 'Dislike' %>
+							<%= hidden_field_tag 'song', song.id %>
+							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
+						<% end %>
+					</div>
+				<% end %>	
+			<% end %>
+			</li>
+		<% end %>
+	</ul>
