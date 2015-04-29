@@ -64,19 +64,6 @@ callback_object.ready = function ready(user) {
     period: 100
   });
 
-  if (user == null) {
-    $('#nobody').show();
-  } else if (user.isSubscriber) {
-    $('#subscriber').show();
-  } else if (user.isTrial) {
-    $('#trial').show();
-  } else if (user.isFree) {
-    $('#remaining').text(user.freeRemaining);
-    $('#free').show();
-  } else {
-    $('#nobody').show();
-  }
-
   console.log(user);
 }
 
@@ -98,6 +85,7 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
     $('#album').text(playingTrack['album']);
     $('#artist').text(playingTrack['artist']);
     $('#art').attr('src', playingTrack['icon']);
+    $('#progress').attr("max", playingTrack['duration']); 
   }
 }
 
@@ -117,7 +105,8 @@ callback_object.muteChanged = function muteChanged(mute) {
 callback_object.positionChanged = function positionChanged(position) {
   //The position within the track changed to position seconds.
   // This happens both in response to a seek and during playback.
-  $('#position').text(position);
+      // $('#position').text(position);
+  $('#progress').attr("value", position);
 }
 
 callback_object.queueChanged = function queueChanged(newQueue) {
