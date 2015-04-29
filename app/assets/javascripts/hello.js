@@ -64,6 +64,19 @@ callback_object.ready = function ready(user) {
     period: 100
   });
 
+  if (user == null) {
+    $('#nobody').show();
+  } else if (user.isSubscriber) {
+    $('#subscriber').show();
+  } else if (user.isTrial) {
+    $('#trial').show();
+  } else if (user.isFree) {
+    $('#remaining').text(user.freeRemaining);
+    $('#free').show();
+  } else {
+    $('#nobody').show();
+  }
+
   console.log(user);
 }
 

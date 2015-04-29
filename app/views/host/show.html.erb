@@ -1,29 +1,5 @@
 <div class="background"></div>
-<%= javascript_tag do %>
-	$(function() {	
-		var interval = 2000;
-		tinysort.defaults.order = 'desc';
 
-		function doAjax() {
-		    $.ajax({
-		            type: 'POST',
-		            url: '/update',
-		            data: <%= @host.playlist.to_json.html_safe %>,
-		            success: function (data) {
-		            	data.forEach(function(e) {
-							$('.track' + (e.id) + ' .vote').html(e.vote)
-							tinysort('ul#tracks>.track',{selector:'.vote'});
-							});
-		            },
-		            complete: function (data) {
-		                    // Schedule the next
-		                    setTimeout(doAjax, interval);
-		            }
-		    });
-		}
-		setTimeout(doAjax, interval);
-	});
-<% end %>
 
 <div class="change">
 	<h1><%= @host.playlist.name %></h1>
