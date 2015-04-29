@@ -1,7 +1,7 @@
 class SongController < ApplicationController
 
 	def search
-		@host = Host.where( room: params[:id] ).includes(playlist: :songs).first
+		@host = Host.where( room: params[:host_id] ).includes(playlist: :songs).first
 		rdio = rdio_init
 		@songs = rdio.call('search', ({ "query" => params[:title], "types" => "Track" }))['result']['results']
 	end
@@ -56,7 +56,11 @@ class SongController < ApplicationController
 	end
 
 	def reorder_playlist song
-		rdio = rdio_init
+		@host = Host.find_by_id params[:host_id]
+		access_token = @host.at
+	  	access_token_secret = @host.ats
+		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
+			[access_token, access_token_secret])
 		@order = ""
 		song.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
 			@order = @order + song.key + ', '
@@ -65,7 +69,7 @@ class SongController < ApplicationController
 	end
 
 	def rdio_init
-		@host = Host.find_by_id params[:host_id]
+		@host = Host.find_by_room params[:host_id]
 		access_token = @host.at
 	  	access_token_secret = @host.ats
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 

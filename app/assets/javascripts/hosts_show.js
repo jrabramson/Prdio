@@ -62,12 +62,12 @@ Playlist.Controller = (function() {
   Controller.prototype.bindEvents = function() {
     this.dispatcher.bind('new_track', this.newTrack);
     this.dispatcher.bind('user_list', this.updateUserList);
-    $('#search').on('click', this.sendTrack);
-    return $('#search-data').keypress(function(e) {
-      if (e.keyCode === 13) {
-        return $('#search').click();
-      }
-    });
+    // $('#search').on('click', this.sendTrack);
+    // return $('#search-data').keypress(function(e) {
+    //   if (e.keyCode === 13) {
+    //     return $('#search').click();
+    //   }
+    // });
   };
 
   Controller.prototype.newTrack = function(track) {

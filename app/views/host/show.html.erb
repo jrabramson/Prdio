@@ -7,8 +7,10 @@
 	<h1><%= @host.playlist.name %></h1>
 </div>
 <div class="songSearch change">
+	<%= form_tag @host.room + '/search/' do %>
 		<%= text_field_tag :title, '', { placeholder: 'Song Name', id: 'search-data' } %>
 		<%= submit_tag 'Find Songs', { id: 'search' } %>
+	<% end %>
 </div class="welcomeGuest change">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
