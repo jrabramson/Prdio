@@ -1,8 +1,16 @@
 <div class="background"></div>
 <%= javascript_tag do %>
 	$(function() {	
-		var interval = 2000;
+		var interval = 1000;
 		tinysort.defaults.order = 'desc';
+		
+		playlist = {};
+		playlist.voteTally = [];
+		playlist.songId = <%= @host.playlist.songs.ids %>;
+
+		for (i=1;i<=<%= @host.playlist.songs.count %>;i++) {
+			playlist.voteTally.push($('.track' + playlist.songId[i] + ' .vote').html());		
+		}
 
 		function doAjax() {
 		    $.ajax({
@@ -12,7 +20,7 @@
 		            success: function (data) {
 		            	data.forEach(function(e) {
 							$('.track' + (e.id) + ' .vote').html(e.vote)
-							tinysort('ul#tracks>.track',{selector:'.vote'});
+								tinysort('ul#tracks>.track',{selector:'.vote'});
 							});
 		            },
 		            complete: function (data) {
@@ -52,7 +60,7 @@
 					Voted.
 				<% else %>
 				</div>
-					<div class='like' id='<%= song.id %>'>
+					<div class='like' id='vote<%= song.id %>'>
 						<%= form_tag like_path, { remote: true } do %>
 							<%= submit_tag 'Like' %>
 							<%= hidden_field_tag 'song', song.id %>

@@ -1,4 +1,5 @@
 class PlaylistController < ApplicationController
+	 skip_before_action :verify_authenticity_token
 
 	def update
 		@playlist = Playlist.find_by_id params[:id]

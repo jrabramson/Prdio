@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'like' => 'song#like'
   post 'dislike' => 'song#dislike'
   post 'update' => 'playlist#update'
+  post 'logout' => 'host#logout'
 
   get 'nuke' => 'host#nuke'
 
