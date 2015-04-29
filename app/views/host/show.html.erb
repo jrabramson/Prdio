@@ -24,7 +24,6 @@
 		setTimeout(doAjax, interval);
 	});
 <% end %>
-
 <div class="change">
 	<h1><%= @host.playlist.name %></h1>
 </div>
@@ -72,9 +71,5 @@
 	</ul>
 </div>
 <% if @thehost %>
-<div class="change">
-	<div class="playbox">
-		<%= @obj[0].media.html.html_safe %>
-	</div>
-</div>
+	<%= render "playback" %>
 <% end %>
