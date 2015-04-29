@@ -32,7 +32,7 @@ Playlist.User = (function() {
 Playlist.Controller = (function() {
   Controller.prototype.template = function(track) {
     var html;
-    html = "<div class=\"track\" >\n  <label class=\"label label-info\">\n    [" + track.received + "] " + track.user_name + "\n  </label>&nbsp;\n  " + track.track_search + "\n</div>";
+    html = track.html
     return $(html);
   };
 

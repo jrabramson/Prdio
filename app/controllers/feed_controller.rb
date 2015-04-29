@@ -14,7 +14,15 @@ class FeedController < WebsocketRails::BaseController
 	end
 
 	def new_track
-	    send_message :new_track, 'kay'
+		rdio = rdio_init
+		@host.room = connection_store[:host][:host_id]
+		@songs = rdio.call('search', ({ "query" => message[:track_search], "types" => "Track" }))['result']['results']
+		html = render_to_string(:partial => 'songs/search', 
+		                    	:formats=>["html"],:layout=>false,
+		                  		:locals => {songs: @songs})
+	    respond_to do |f|
+	    	f.json { render :json => { :html => html }, :layout => false }
+		end
 	end
 
 	def new_guest
