@@ -1,12 +1,12 @@
 <div class="playback-container">
   <div id="apiswf"></div>
   <input id="play_key" type="hidden" value="<%= @host.playlist.key %>">
-  <div class="playControls btn-group">
-    <button id="play" class="btn btn-default"><i class="fa fa-play-circle"></i> Play</button>
-    <button id="stop" class="btn btn-default"><i class="fa fa-stop"></i> Stop</button>
-    <button id="pause" class="btn btn-default"><i class="fa fa-pause"></i> Pause</button>
-    <button id="previous" class="btn btn-default"><i class="fa fa-step-backward"></i> Previous</button>
-    <button id="next" class="btn btn-default"><i class="fa fa-step-forward"></i> Next</button>
+  <div class="playControls">
+    <button id="play" class="btn">Play</button>
+    <button id="stop" class="btn">Stop</button>
+    <button id="pause" class="btn">Pause</button>
+    <button id="previous" class="btn">Previous</button>
+    <button id="next" class="btn">Next</button>
   </div>
   <div class="artistAlbumInfo">
     <h3><span id="artist"></span> - <span id="track"></span></h3>
