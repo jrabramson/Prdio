@@ -48,6 +48,13 @@ body{
  	border-radius: 10px;
  }
 
+.playback-container {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	float: left;
+	background: white;
+}
 
 /*-----------------------------------------------------------------*/
 a:hover{

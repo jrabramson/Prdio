@@ -2,15 +2,15 @@
   <div id="apiswf"></div>
   <input id="play_key" type="hidden" value="<%= @host.playlist.key %>">
   <div class="playControls">
-    <button id="play" class="btn">Play</button>
-    <button id="stop" class="btn">Stop</button>
-    <button id="pause" class="btn">Pause</button>
-    <button id="previous" class="btn">Previous</button>
-    <button id="next" class="btn">Next</button>
+    <button id="play" class="button">Play</button>
+    <button id="stop" class="button">Stop</button>
+    <button id="pause" class="button">Pause</button>
+    <button id="previous" class="button">Previous</button>
+    <button id="next" class="button">Next</button>
   </div>
   <div class="artistAlbumInfo">
+    <!-- <img src="" id="art" class="albumArt"> -->
     <h3><span id="artist"></span> - <span id="track"></span></h3>
-    <img src="" id="art" class="albumArt">
-    <progress max="100" value="0" id="progress"></progress>
   </div>
+  <progress max="100" value="0" id="progress"></progress>
 </div>

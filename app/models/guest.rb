@@ -4,11 +4,19 @@ class Guest < ActiveRecord::Base
 	has_many :songs, through: :voted_songs
 
 	def like(song)
-		song.vote += 1
+		if song.in?(@guest.songs)
+			flash["You've already voted!"]
+		else		
+			song.vote += 1
+		end
 	end
 
 	def dislike(song)
-		song.vote -= 1
+		if song.in?(@guest.songs)
+			flash["You've already voted!"]
+		else
+			song.vote -= 1
+		end
 	end
 	
 	validates :name, presence: true
