@@ -1,82 +1,51 @@
+
 <div class="background"></div>
-<%= javascript_tag do %>
-	$(function() {	
-		var interval = 1000;
-		tinysort.defaults.order = 'desc';
-		
-		playlist = {};
-		playlist.voteTally = [];
-		playlist.songId = <%= @host.playlist.songs.ids %>;
-
-		for (i=1;i<=<%= @host.playlist.songs.count %>;i++) {
-			playlist.voteTally.push($('.track' + playlist.songId[i] + ' .vote').html());		
-		}
-
-		function doAjax() {
-		    $.ajax({
-		            type: 'POST',
-		            url: '/update',
-		            data: <%= @host.playlist.to_json.html_safe %>,
-		            success: function (data) {
-		            	data.forEach(function(e) {
-							$('.track' + (e.id) + ' .vote').html(e.vote)
-								tinysort('ul#tracks>.track',{selector:'.vote'});
-							});
-		            },
-		            complete: function (data) {
-		                    // Schedule the next
-		                    setTimeout(doAjax, interval);
-		            }
-		    });
-		}
-		setTimeout(doAjax, interval);
-	});
-<% end %>
 <div class="change">
 	<h1><%= @host.playlist.name %></h1>
 </div>
 <div class="songSearch change">
 	<%= form_tag @host.room + '/search/' do %>
-		<%= text_field_tag :title, '', { placeholder: 'Song Name' } %>
-		<%= submit_tag 'Find Songs' %>
+		<%= text_field_tag :title, '', { placeholder: 'Song Name', id: 'search-data' } %>
+		<%= submit_tag 'Find Songs', { id: 'search' } %>
 	<% end %>
 </div class="welcomeGuest change">
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
+	<%= hidden_field_tag 'guest', @guest.name %>
 <% end %>
 </div>
-
-<div class="change">
+<%= hidden_field_tag 'host', @host.id %>
+<div class="change" id="switcher" data-uri="<%= request.host %>:<%= request.port %>/websocket">
 	<ul id='tracks'>
-		<% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
-			<li class='track<%= song.id %> track'>
-				<img src='<%= song.image %>' class='trackIcon'>
-				<div class='trackInfo'>
-					<%= song.title %><br>
-					<%= song.artist %><br>
-					Vote: <span class='vote'><%= song.vote %></span>
-				<% if @guest.present? %>
-				<% if song.in?(@guest.songs) %>
-					Voted.
-				<% else %>
-				</div>
-					<div class='like' id='vote<%= song.id %>'>
-						<%= form_tag like_path, { remote: true } do %>
-							<%= submit_tag 'Like' %>
-							<%= hidden_field_tag 'song', song.id %>
-							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
-						<% end %>
-						<%= form_tag dislike_path, { remote: true } do %>
-							<%= submit_tag 'Dislike' %>
-							<%= hidden_field_tag 'song', song.id %>
-							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
-						<% end %>
-					</div>
-				<% end %>	
-			<% end %>
-			</li>
-		<% end %>
-	</ul>
+      <% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
+        <li class='track<%= song.id %> track' data-key="<%= song.key %>" data-order="0">
+          <img src='<%= song.image %>' class='trackIcon'>
+          <div class='trackInfo'>
+            <%= song.title %><br>
+            <%= song.artist %><br>
+            Vote: <span class='vote'><%= song.vote %></span>
+          <% if @guest.present? %>
+          <% if song.in?(@guest.songs) %>
+            Voted.
+          <% else %>
+          </div>
+            <div class='like' id='<%= song.id %>'>
+              <%= form_tag like_path, { remote: true } do %>
+                <%= submit_tag 'Like', { class: 'like_button' } %>
+                <%= hidden_field_tag 'song', song.id %>
+                <%= hidden_field_tag 'host_id', song.playlist.host.room %>
+              <% end %>
+              <%= form_tag dislike_path, { remote: true } do %>
+                <%= submit_tag 'Dislike', { class: 'dislike_button' } %>
+                <%= hidden_field_tag 'song', song.id %>
+                <%= hidden_field_tag 'host_id', song.playlist.host.room %>
+              <% end %>
+            </div>
+          <% end %> 
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
 </div>
 <% if @thehost %>
 	<%= render "playback" %>

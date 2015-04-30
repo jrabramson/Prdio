@@ -31,7 +31,7 @@ class HostController < ApplicationController
 	end
 
 	def join
-		redirect_to '/' + params[:room]
+		redirect_to '/party/' + params[:room]
 	end
 
 	def show
@@ -82,7 +82,7 @@ class HostController < ApplicationController
 		  				image: s['dynamicIcon'] )
 				end
 			end
-			redirect_to '/' + @host.room
+			redirect_to '/party/' + @host.room
 		else
 			render 'new'
 		end

@@ -1,3 +1,11 @@
+<%= javascript_tag do %>
+$(function() {
+	$('.playlistChoice').click(function() {
+		var form = $(this).parents('form:first');
+		form.submit();
+	});
+});
+<% end %>
 <div class="startInstructions">
 	<p> Hello <%= @currentUser["firstName"] %>, enter a playlist name:</p>
 
