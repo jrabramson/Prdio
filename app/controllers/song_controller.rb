@@ -1,8 +1,11 @@
 class SongController < ApplicationController
 
 	def search
-		@host = Host.where( room: params[:host_id] ).includes(playlist: :songs).first
-		rdio = rdio_init
+		@host = Host.find_by_room params[:host_id]
+				access_token = @host.at
+			  	access_token_secret = @host.ats
+				rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
+					[access_token, access_token_secret])
 		@songs = rdio.call('search', ({ "query" => params[:title], "types" => "Track" }))['result']['results']
 	end
 
@@ -19,6 +22,7 @@ class SongController < ApplicationController
   			)
 		if @song.save
 			rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
+			WebsocketRails['host' + @host.id.to_s].trigger :new_track, @song.to_json
 			redirect_to '/party/' + @host.room
 		else
 			render 'search'
@@ -30,12 +34,15 @@ class SongController < ApplicationController
 	end
 
  	def like
+ 		rdio = rdio_init
  		@song = Song.find_by_id(params[:song])
  		@guest = Guest.find_by(id: session['guest_id'])
  		@guest.like(@song)
  		@guest.songs << @song
  		if @song.save
  			reorder_playlist @song
+ 			@order = rdio.call('get', ({ "keys" => @guest.host.playlist.key, "extras" => "tracks" }))['result'][@guest.host.playlist.key]['tracks'].map { |n| n['key']}
+ 			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
  			respond_to do |format|
  				format.json { render json: @song }
  			end
@@ -43,12 +50,15 @@ class SongController < ApplicationController
 	end
 
 	def dislike
+		rdio = rdio_init
  		@song = Song.find_by_id(params[:song])
  		@guest = Guest.find_by(id: session['guest_id'])
  		@guest.dislike(@song)
  		@guest.songs << @song
  		if @song.save
  			reorder_playlist @song
+ 			@order = rdio.call('get', ({ "keys" => @guest.host.playlist.key, "extras" => "tracks" }))['result'][@guest.host.playlist.key]['tracks'].map { |n| n['key']}
+ 			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
  			respond_to do |format|
  				format.json { render json: @song }
  			end
@@ -56,11 +66,7 @@ class SongController < ApplicationController
 	end
 
 	def reorder_playlist song
-		@host = Host.find_by_id params[:host_id]
-		access_token = @host.at
-	  	access_token_secret = @host.ats
-		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
-			[access_token, access_token_secret])
+		rdio = rdio_init
 		@order = ""
 		song.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
 			@order = @order + song.key + ', '

@@ -13,12 +13,12 @@
 				</div>
 					<div class='like' id='<%= song.id %>'>
 						<%= form_tag like_path, { remote: true } do %>
-							<%= submit_tag 'Like' %>
+							<%= submit_tag 'Like', { class: 'like_button' } %>
 							<%= hidden_field_tag 'song', song.id %>
 							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
 						<% end %>
 						<%= form_tag dislike_path, { remote: true } do %>
-							<%= submit_tag 'Dislike' %>
+							<%= submit_tag 'Dislike', { class: 'dislike_button' } %>
 							<%= hidden_field_tag 'song', song.id %>
 							<%= hidden_field_tag 'host_id', song.playlist.host.id %>
 						<% end %>

@@ -8,10 +8,6 @@ class FeedController < WebsocketRails::BaseController
 	def client_connected
 
 	end
-	
-	def user_track(ev, msg)
-		
-	end
 
 	def new_track
 		rdio = rdio_init
@@ -29,14 +25,6 @@ class FeedController < WebsocketRails::BaseController
 	    connection_store[:user] = { user_name: sanitize(message[:user_name]) }
 	    connection_store[:host] = { host_id:   sanitize(message[:host_id])   }
         broadcast_user_list
-	end
-
-	def like
-		
-	end
-
-	def dislike
-		
 	end
 
 	def delete_user

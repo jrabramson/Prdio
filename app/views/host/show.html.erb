@@ -1,8 +1,5 @@
+
 <div class="background"></div>
-<%= javascript_tag do %>
-
-<% end %>
-
 <div class="change">
 	<h1><%= @host.playlist.name %></h1>
 </div>
@@ -15,12 +12,40 @@
 <% if @guest.present? %>
 	Hello <%= @guest.name %>, welcome to the party.
 	<%= hidden_field_tag 'guest', @guest.name %>
-	<%= hidden_field_tag 'host', @host.id %>
 <% end %>
 </div>
-
+<%= hidden_field_tag 'host', @host.id %>
 <div class="change" id="switcher" data-uri="<%= request.host %>:<%= request.port %>/websocket">
-	<%= render 'tracks' %>
+	<ul id='tracks'>
+      <% @host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song| %>
+        <li class='track<%= song.id %> track' data-key="<%= song.key %>" data-order="0">
+          <img src='<%= song.image %>' class='trackIcon'>
+          <div class='trackInfo'>
+            <%= song.title %><br>
+            <%= song.artist %><br>
+            Vote: <span class='vote'><%= song.vote %></span>
+          <% if @guest.present? %>
+          <% if song.in?(@guest.songs) %>
+            Voted.
+          <% else %>
+          </div>
+            <div class='like' id='<%= song.id %>'>
+              <%= form_tag like_path, { remote: true } do %>
+                <%= submit_tag 'Like', { class: 'like_button' } %>
+                <%= hidden_field_tag 'song', song.id %>
+                <%= hidden_field_tag 'host_id', song.playlist.host.room %>
+              <% end %>
+              <%= form_tag dislike_path, { remote: true } do %>
+                <%= submit_tag 'Dislike', { class: 'dislike_button' } %>
+                <%= hidden_field_tag 'song', song.id %>
+                <%= hidden_field_tag 'host_id', song.playlist.host.room %>
+              <% end %>
+            </div>
+          <% end %> 
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
 </div>
 <% if @thehost %>
 <div class="change">

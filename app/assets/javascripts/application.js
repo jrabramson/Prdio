@@ -18,14 +18,6 @@
 //= require_tree .
 
 $(function() {	
-	$('.songChoice').click(function() {
-		var form = $(this).parents('form:first');
-		form.submit();
-	});
-	$('.playlistChoice').click(function() {
-		var form = $(this).parents('form:first');
-		form.submit();
-	});
+
 });
-//= require websocket_rails/main
 
