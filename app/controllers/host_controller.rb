@@ -31,7 +31,7 @@ class HostController < ApplicationController
 	end
 
 	def join
-		redirect_to '/' + params[:room]
+		redirect_to '/party/' + params[:room]
 	end
 
 	def show
@@ -45,6 +45,8 @@ class HostController < ApplicationController
 		end
 		rdio = rdio_init
 		
+		@songIds = @host.playlist.songs.ids
+
 		@playlist = rdio.call('get', ({keys: @host.playlist.key}))
 		embedly_api = Embedly::API.new :key => '87f9192ec60842698fcc51009360ca59',
         :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
@@ -80,7 +82,7 @@ class HostController < ApplicationController
 		  				image: s['dynamicIcon'] )
 				end
 			end
-			redirect_to '/' + @host.room
+			redirect_to '/party/' + @host.room
 		else
 			render 'new'
 		end

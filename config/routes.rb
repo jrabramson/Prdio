@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   post 'like' => 'song#like'
   post 'dislike' => 'song#dislike'
   post 'update' => 'playlist#update'
+  get 'logout' => 'host#logout'
+  post 'clear' => 'song#clear'
 
   get 'nuke' => 'host#nuke'
 
-  resources :host, :key => :room, :path => '' do
+  resources :host, :key => :room, :path => 'party' do
      post 'search' => 'song#search'
      post 'create' => 'song#create'
   end
