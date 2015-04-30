@@ -60,6 +60,7 @@ Playlist.Controller = (function() {
     this.sendTrack          = __bind(this.sendTrack, this);
     this.newTrack           = __bind(this.newTrack, this);
     this.bindEvents         = __bind(this.bindEvents, this);
+    this.resetVote         = __bind(this.resetVote, this);
     this.trackQueue         = [];
     this.dispatcher         = new WebSocketRails(url, useWebSockets);
     this.dispatcher.on_open = this.createGuestUser;
@@ -103,6 +104,10 @@ Playlist.Controller = (function() {
     return $('#search-data').val('');
   };
 
+  Controller.prototype.resetVote = function(track) {
+
+  };
+
   Controller.prototype.updateUserList = function(userList) {
     console.log(userList);
     return $('#user-list').html(this.userListTemplate(userList));
@@ -127,6 +132,7 @@ Playlist.Controller = (function() {
     channel = this.dispatcher.subscribe('host' + this.user.host_id);
     channel.bind('new_track', this.newTrack);
     channel.bind('track_vote', this.trackVote);
+    channel.bind('reset_vote', this.resetVote);
     return this.dispatcher.trigger('new_guest', this.user.serialize());
   };
 
