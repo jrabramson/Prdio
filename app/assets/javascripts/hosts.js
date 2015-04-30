@@ -1,5 +1,12 @@
 $(function() {	
-	$(document).ajaxSuccess(function(evt, data, status, xhr){
-	  $('#' + xhr.id).remove();
+	$('.like_button').on('click', function() {
+		$(this).parent().parent().fadeOut("normal", function() {
+    		$(this).remove();
+ 		});
+	});
+	$('.dislike_button').on('click', function() {
+		$(this).parent().parent().fadeOut("normal", function() {
+    		$(this).remove();
+ 		});
 	});
 });

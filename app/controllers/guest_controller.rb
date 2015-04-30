@@ -9,7 +9,7 @@ class GuestController < ApplicationController
 			if @guest.save
 				session.clear
 				session[:guest_id] = @guest.id
-				redirect_to '/' + params[:guest][:host_id]
+				redirect_to '/party/' + params[:guest][:host_id]
 			end
 		else
 			redirect_to '/'

@@ -5,6 +5,8 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 .myapp_development
+.prdio
+/app/assets/javascripts/.token.js
 
 # Ignore bundler config.
 /.bundle

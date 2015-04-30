@@ -1,8 +1,16 @@
+<%= javascript_tag do %>
+$(function() {
+	$('.songChoice').click(function() {
+		var form = $(this).parents('form:first');
+		form.submit();
+	});
+});
+<% end %>
 <div class="background"></div>
 
 <div class="songs">
 <% @songs.each do |song| %>
-	<%= form_tag '/' + @host.room + '/create/' do %>
+	<%= form_tag '/party/' + @host.room + '/create/' do %>
 		<div class="songChoice" style='cursor:pointer;'>
 			<%= song['name'] %> - <%= song['artist'] %>
 			<%= hidden_field_tag :trackKey, song['key'] %>
