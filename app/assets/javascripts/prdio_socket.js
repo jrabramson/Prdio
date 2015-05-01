@@ -60,7 +60,7 @@ Playlist.Controller = (function() {
     this.sendTrack          = __bind(this.sendTrack, this);
     this.newTrack           = __bind(this.newTrack, this);
     this.bindEvents         = __bind(this.bindEvents, this);
-    this.resetVote         = __bind(this.resetVote, this);
+    this.resetVote          = __bind(this.resetVote, this);
     this.trackQueue         = [];
     this.dispatcher         = new WebSocketRails(url, useWebSockets);
     this.dispatcher.on_open = this.createGuestUser;
@@ -105,7 +105,7 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.resetVote = function(track) {
-
+    $('.track' + track + ' .vote').html('0');
   };
 
   Controller.prototype.updateUserList = function(userList) {
