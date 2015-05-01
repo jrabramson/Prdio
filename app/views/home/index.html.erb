@@ -5,7 +5,7 @@
 
 <div class= "forms">
 
-<div class="newParty h-spacer5"><%=link_to 'New Party', new_host_path %></div>
+
 
 
 <%= form_for(@guest) do |f| %>
@@ -19,4 +19,7 @@
     <%= submit_tag 'Join Party', { class:"join" } %>
   </div>
 <% end %>
+<p class="or">or</p>
+<div class="newParty h-spacer5"><%=link_to 'New Party', new_host_path %></div>
+
 </div>

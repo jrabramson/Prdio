@@ -80,6 +80,9 @@ callback_object.playStateChanged = function playStateChanged(playState) {
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
   // The currently playing track has changed.
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
+  console.log(playingTrack);
+  console.log(sourcePosition);
+
   if (playingTrack != null) {
     $.post('/clear', { key: playingTrack['key'], authenticity_token: $("meta[name='csrf-token']").attr('content')});
     $('#track').text(playingTrack['name']);

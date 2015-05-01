@@ -26,18 +26,68 @@
 
 
 body{
- 	background:center $acidwash url(asset-path('FINALPROai.jpg')) no-repeat fixed;
- 	background-size:cover; 
+ 	/*background:center $acidwash url(asset-path('FINALPROai.jpg')) no-repeat fixed;*/
+ 	background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75) ), url("/assets/records-bg-da1cbbc00411a1c821151ba4637394d139d798bf2483f348e776dd3a1dcb00f1.svg");
+ 	background-size: 600px 600px;
+ 	background-repeat: repeat;
  	font-family: 'Raleway', sans-serif;
 }
-
+.background {
+	background: url(asset-path('partypeople02.svg')) no-repeat bottom center;
+}
+.partyPeople {
+  fill: rgba(0,0,0,1);
+}
 
  .logo{
-	background:url(asset-path('prdiosalmon2.png')) no-repeat center;
+	background: url(asset-path('prdio-logo2.svg')) no-repeat center;
 	width:100%;
-	height:58%;
+	background-size: 80%;
+	-webkit-background-size: 80%;
+	height: 40%;
+	margin-top: 5%;
 	position:fixed;
+	-webkit-animation-name: zoomInDown;
+	animation-name: zoomInDown;
+	-webkit-animation-duration: 1.25s;
+	animation-duration: 1.25s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+@-webkit-keyframes zoomInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+  }
 
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+  }
+}
+
+@keyframes zoomInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+  }
 }
 
  .forms{
@@ -46,6 +96,42 @@ body{
  	position:absolute;
  	color:black;
  	border-radius: 10px;
+ 	-webkit-animation-name: fadeInUp;
+ 	animation-name: fadeInUp;
+ 	-webkit-animation-duration: 1.25s;
+ 	animation-duration: 1.25s;
+ 	-webkit-animation-fill-mode: both;
+ 	animation-fill-mode: both;
+ 	-webkit-animation-delay:0.75s;
+ 	animation-delay:0.75s;
+ }
+
+ @-webkit-keyframes fadeInUp {
+   0% {
+     opacity: 0;
+     -webkit-transform: translate3d(0, 100%, 0);
+     transform: translate3d(0, 100%, 0);
+   }
+
+   100% {
+     opacity: 1;
+     -webkit-transform: none;
+     transform: none;
+   }
+ }
+
+ @keyframes fadeInUp {
+   0% {
+     opacity: 0;
+     -webkit-transform: translate3d(0, 100%, 0);
+     transform: translate3d(0, 100%, 0);
+   }
+
+   100% {
+     opacity: 1;
+     -webkit-transform: none;
+     transform: none;
+   }
  }
 
 .playback-container {
@@ -68,7 +154,7 @@ a:hover{
 }
 
 #new_guest {
-	margin-top:10px;
+	margin-top: 230px;
 }
 
 @media (max-width:960px) {
