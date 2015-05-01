@@ -4,17 +4,13 @@ class Guest < ActiveRecord::Base
 	has_many :songs, through: :voted_songs
 
 	def like(song)
-		if song.in?(@guest.songs)
-			flash["You've already voted!"]
-		else		
+		if !song.in?(self.songs)
 			song.vote += 1
 		end
 	end
 
 	def dislike(song)
-		if song.in?(@guest.songs)
-			flash["You've already voted!"]
-		else
+		if !song.in?(self.songs)
 			song.vote -= 1
 		end
 	end
