@@ -36,7 +36,6 @@ Playlist.Controller = (function() {
   Controller.prototype.template = function(track) {
     var html;
     track = jQuery.parseJSON(track);
-    console.log(track);
     html = "<li class='track"+track.id+" track' data-key='"+track.key+"' data-order='0'> <img src='"+track.image+"' class='trackIcon'> <div class='trackInfo'> "+track.title+"<br> "+track.artist+"<br> Vote: <span class='vote'>0</span> </div> </div> <div class='like' id='"+track.id+"'> <form action='/like' accept-charset='UTF-8' data-remote='true' method='post'> <input name='utf8' type='hidden' value='✓'> <input type='submit' name='commit' value='Like' class='like_button'> <input type='hidden' name='song' id='song' value='"+track.id+"'> <input type='hidden' name='host_id' id='host_id' value='"+this.user.host_id+"'> </form> <form action='/dislike' accept-charset='UTF-8' data-remote='true' method='post'> <input name='utf8' type='hidden' value='✓'> <input type='submit' name='commit' value='Dislike' class='dislike_button'> <input type='hidden' name='song' id='song' value='"+track.id+"'> <input type='hidden' name='host_id' id='host_id' value='"+this.user.host_id+"'> </form> </div> </li>"; 
     return $(html);
   };
@@ -83,7 +82,6 @@ Playlist.Controller = (function() {
 
   Controller.prototype.sortTracks = function(arr, sortArr) {
     for (i=0;i<arr.length;i++) {
-      console.log($("li[data-key='"+sortArr[i]+"']").data('order'));
       $("li[data-key='"+sortArr[i]+"']").attr('data-order', i);
     }
     tinysort($('.track'), {data:'order'});
@@ -105,11 +103,10 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.resetVote = function(track) {
-    $('.track' + track + ' .vote').html('0');
+    $('.track' + track.song + ' .vote').html('0');
   };
 
   Controller.prototype.updateUserList = function(userList) {
-    console.log(userList);
     return $('#user-list').html(this.userListTemplate(userList));
   };
 

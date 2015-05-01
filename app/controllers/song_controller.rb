@@ -69,7 +69,7 @@ class SongController < ApplicationController
 		@song = Song.find_by(key: params[:key])
 		@song.vote = 0
 		if @song.save
-			WebsocketRails['host' + @song.host.id.to_s].trigger :reset_vote, { song: @song.id.to_json }
+			WebsocketRails['host' + @song.playlist.host.id.to_s].trigger :reset_vote, { song: @song.id.to_json }
 			head :ok
 		end
 	end
