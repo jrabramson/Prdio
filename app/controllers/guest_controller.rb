@@ -1,7 +1,7 @@
 class GuestController < ApplicationController
 
 	def new 
-		if Host.find_by_room(guest_params[:host_id])
+		if Host.find_by_room(guest_params[:host_id].upcase)
 			@guest = Guest.new({ 
 					name: guest_params[:name], 
 					host_id: Host.find_by_room(guest_params[:host_id]).id
