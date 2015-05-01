@@ -3,6 +3,8 @@ class Guest < ActiveRecord::Base
 	has_many :voted_songs
 	has_many :songs, through: :voted_songs
 
+	delegate :room, to: :host
+
 	def like(song)
 		song.vote += 1
 	end
@@ -12,4 +14,5 @@ class Guest < ActiveRecord::Base
 	end
 	
 	validates :name, presence: true
+	validates :host, presence: true
 end
