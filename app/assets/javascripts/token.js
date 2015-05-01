@@ -30,4 +30,4 @@ THE SOFTWARE.
 // then update playback_token below with YOUR_PLAYBACK_TOKEN and the domain below with YOUR_DOMAIN
 
 var playback_token = "GAlVQs7h_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnByZGlvLmNvbS-YkO_aiPtbOLy4gyiwnpw=";
-var domain = "prdio.com";
+var domain = "http://www.prdio.com";
