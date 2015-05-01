@@ -65,6 +65,15 @@ class SongController < ApplicationController
 		end
 	end
 
+	def clear
+		@song = Song.find_by(key: params[:key])
+		@song.vote = 0
+		if @song.save
+			WebsocketRails['host' + @song.playlist.host.id.to_s].trigger :reset_vote, { song: @song.id.to_json }
+			head :ok
+		end
+	end
+
 	def reorder_playlist song
 		rdio = rdio_init
 		@order = ""

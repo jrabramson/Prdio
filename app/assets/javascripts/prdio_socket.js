@@ -36,7 +36,6 @@ Playlist.Controller = (function() {
   Controller.prototype.template = function(track) {
     var html;
     track = jQuery.parseJSON(track);
-    console.log(track);
     html = "<li class='track"+track.id+" track' data-key='"+track.key+"' data-order='0'> <img src='"+track.image+"' class='trackIcon'> <div class='trackInfo'> "+track.title+"<br> "+track.artist+"<br> Vote: <span class='vote'>0</span> </div> </div> <div class='like' id='"+track.id+"'> <form action='/like' accept-charset='UTF-8' data-remote='true' method='post'> <input name='utf8' type='hidden' value='✓'> <input type='submit' name='commit' value='Like' class='like_button'> <input type='hidden' name='song' id='song' value='"+track.id+"'> <input type='hidden' name='host_id' id='host_id' value='"+this.user.host_id+"'> </form> <form action='/dislike' accept-charset='UTF-8' data-remote='true' method='post'> <input name='utf8' type='hidden' value='✓'> <input type='submit' name='commit' value='Dislike' class='dislike_button'> <input type='hidden' name='song' id='song' value='"+track.id+"'> <input type='hidden' name='host_id' id='host_id' value='"+this.user.host_id+"'> </form> </div> </li>"; 
     return $(html);
   };
@@ -60,6 +59,7 @@ Playlist.Controller = (function() {
     this.sendTrack          = __bind(this.sendTrack, this);
     this.newTrack           = __bind(this.newTrack, this);
     this.bindEvents         = __bind(this.bindEvents, this);
+    this.resetVote          = __bind(this.resetVote, this);
     this.trackQueue         = [];
     this.dispatcher         = new WebSocketRails(url, useWebSockets);
     this.dispatcher.on_open = this.createGuestUser;
@@ -82,7 +82,6 @@ Playlist.Controller = (function() {
 
   Controller.prototype.sortTracks = function(arr, sortArr) {
     for (i=0;i<arr.length;i++) {
-      console.log($("li[data-key='"+sortArr[i]+"']").data('order'));
       $("li[data-key='"+sortArr[i]+"']").attr('data-order', i);
     }
     tinysort($('.track'), {data:'order'});
@@ -103,8 +102,11 @@ Playlist.Controller = (function() {
     return $('#search-data').val('');
   };
 
+  Controller.prototype.resetVote = function(track) {
+    $('.track' + track.song + ' .vote').html('0');
+  };
+
   Controller.prototype.updateUserList = function(userList) {
-    console.log(userList);
     return $('#user-list').html(this.userListTemplate(userList));
   };
 
@@ -127,6 +129,7 @@ Playlist.Controller = (function() {
     channel = this.dispatcher.subscribe('host' + this.user.host_id);
     channel.bind('new_track', this.newTrack);
     channel.bind('track_vote', this.trackVote);
+    channel.bind('reset_vote', this.resetVote);
     return this.dispatcher.trigger('new_guest', this.user.serialize());
   };
 
