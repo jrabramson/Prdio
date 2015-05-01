@@ -1,6 +1,6 @@
 .button,
 input[type="submit"]{
- 	font-size: 20px;
+ 	font-size: 15	px;
  	color:black;
  	display:inline-block;
  	background-color: $acidwash;
@@ -10,18 +10,19 @@ input[type="submit"]{
  	font-weight: 3px;
  	border-radius:3px;
  	padding:6px 24px;
+ 	cursor: pointer;
+	transition: all 0.2s ease-in-out;
 }
 
 
-
 .join:hover{
-	background:black;
+	background:$darkGray;
 	color:$acidwash;
 	white-space: nowrap;	
 }
 
 .newParty{
- 	font-size: 20px;
+ 	font-size: 15px;
  	color:black;
  	background-color: $acidwash;
  	border:none;
@@ -31,19 +32,24 @@ input[type="submit"]{
  	border-radius:3px;
  	display:inline-block;
  	padding: 6px 24px;
+ 	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	white-space: nowrap;
  }
 
  a:visited{
 	color:black;
+	white-space: nowrap;
 }
 
  a:hover{
  	color:$acidwash;
+ 	white-space: nowrap;
  }
 
 
  .newParty:hover{
-	background:black;
+	background:$darkGray;
  	color:$acidwash;
  	white-space: nowrap;
  	
@@ -51,4 +57,13 @@ input[type="submit"]{
 
  a:link{
  	text-decoration:none;
+ 	white-space: nowrap;
  }
+
+ .like_button{
+	font-size:9px;
+}
+
+.dislike_button{
+	font-size:9px;
+}

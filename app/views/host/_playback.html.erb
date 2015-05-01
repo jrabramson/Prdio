@@ -1,16 +1,17 @@
 <div class="playback-container">
   <div id="apiswf"></div>
   <input id="play_key" type="hidden" value="<%= @host.playlist.key %>">
-  <div class="playControls">
-    <button id="play" class="btn">Play</button>
-    <button id="stop" class="btn">Stop</button>
-    <button id="pause" class="btn">Pause</button>
-    <button id="previous" class="btn">Previous</button>
-    <button id="next" class="btn">Next</button>
-  </div>
-  <div class="artistAlbumInfo">
+   <div class="artistAlbumInfo">
     <h3><span id="artist"></span> - <span id="track"></span></h3>
     <img src="" id="art" class="albumArt">
     <progress max="100" value="0" id="progress"></progress>
   </div>
+  <div class="playControls">
+    <button id="play" class="btn">Play</button>
+    <button id="stop" class="btn">Stop</button>
+    <button id="pause" class="btn">Pause</button>
+    <button id="previous" class="btn"><<</button>
+    <button id="next" class="btn">>></button>
+  </div>
+ 
 </div>

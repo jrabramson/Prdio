@@ -11,6 +11,9 @@
 }
 .songSearch{
 	color:$darkGray;
+	background-color:white;
+	opacity:.9;
+
 }
 
 .vote{
@@ -19,14 +22,21 @@
 
 .like{
 	color:$darkGray;
+	position:absolute;
+	display:inline-block;
+	font-size: 5px;
 }
 
+.like_button{
+	font-size:9px;
+}
 .songs{
 	color:$darkGray;
 }
 
 .startInstructions{
 	background: white;
+	opacity: .8;
 	box-shadow: 0px 3px 4px #e5e5e5;
 	padding: 20px 40px;
 	position: relative;
@@ -40,7 +50,7 @@
 	color:$darkGray;
 	margin: 0 auto;
 	background: white;
-	border-bottom: 1px solid gainsboro;
+	border-top: 1px solid $mediumGray;
 	padding: 20px 40px;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
@@ -51,10 +61,9 @@
 	}
 }
 
-.track {
-	border: none;
 
-    max-height: 80px;
+.track {
+	width:100%;
 }
 
 .trackIcon {
@@ -63,30 +72,76 @@
 }
 
 .trackInfo {
-  display: inline-block;
-  vertical-align: top;
-  padding: 10px;
-  border-top: solid $darkGray 1px;
-  padding-left: 15%;
+  	display: inline-block;
+  	vertical-align: top;
+  	padding: 10px;
+  	// border-top: solid $darkGray 1px;
+  	padding-left: 5%;
+
  
 }
 
 #tracks {
-  position: relative;
-  overflow-y: scroll;
-  list-style: none;
-  padding: 0px;
+  	position: relative;
+  	overflow-y: scroll;
+  	list-style: none;
+  	padding: 0px;
 }
 
-.change{
+.songList{
 	color:$darkGray;
 	margin: 0 auto;
 	background: white;
-	// box-sizing: border-box;
-	padding: 20px 40px;
+	opacity: .9;
+	padding: 0 15px;
+
+}
+
+.songLists{
+	width:100%;
+	border-top: solid gainsboro 1px;
+	padding: 4px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+
+	&:hover{
+		background: $lightGray;
+		color: $acidwash;
+
+	}
+
 }
 
 #progress {
 	width: 100%;
 }
+
+.roomcode {
+	color:$acidwash;
+	font-size:45px;
+	font-weight: 2px;
+	border: solid black 2px;
+	border-radius:5px;
+	padding: 3px;
+}
+
+.code {
+	font-size:13px;
+	padding:2px;	
+}
+
+.name{
+	font-size:35px;
+	padding-top:10px;
+}
+
+.welcomeGuest{
+	background-color: white;
+	padding:5px;
+}
+
+.songSearch {
+	padding:10px 0;
+}
+
 
