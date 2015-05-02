@@ -74,7 +74,9 @@ callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) 
 callback_object.playStateChanged = function playStateChanged(playState) {
   // The playback state has changed.
   // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
-
+  if (playState === 2) {
+    $('#highest_key').val($('#tracks .track:eq(0)').data('key'));
+  }
   if (playState === 1) {
     // $.post("/reorder",{
     //   host_id: $('.roomcode').html(),
@@ -93,9 +95,10 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
   console.log(playingTrack['key']);
   console.log($('#highest_key').val());
-  // if (playingTrack !== $('#highest_key').val()) {
-  //   apiswf.rdio_play($('#play_key').val());
-  // }
+  if (String(playingTrack['key']) != String($('#highest_key').val())) {
+    console.log('not highest');
+    apiswf.rdio_play($('#play_key').val());
+  }
   // if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
   //   apiswf.rdio_play($('#play_key').val());
   // } 
