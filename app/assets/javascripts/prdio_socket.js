@@ -70,12 +70,11 @@ Playlist.Controller = (function() {
     this.dispatcher.bind('user_list', this.updateUserList);
     $('#tracks .track').removeClass('playing-track');
     $('#tracks .track:eq(0)').addClass('playing-track');
-    $.post("/like", {
-        song:                $(".track:eq(0)").data("id"),
-        authenticity_token: $("meta[name='csrf-token']").attr("content"),
-        host_id:            $(".roomcode").html()
-      });
-  }; 
+    $.post("/reorder",{
+      host_id: $('.roomcode').html(),
+      authenticity_token:$("meta[name='csrf-token']").attr("content")
+    }); 
+  };
 
   Controller.prototype.trackVote = function(track){
     order = jQuery.parseJSON(track.order);
@@ -112,7 +111,8 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.resetVote = function(track) {
-   $('*[data-id="' + track.id + '"] .vote').html('0');
+    console.log("trying to clear: " + track.song);
+   $('*[data-id="' + track.song + '"] .vote').html('0');
   };
 
   Controller.prototype.updateUserList = function(userList) {
