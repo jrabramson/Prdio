@@ -115,14 +115,16 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
     }
   }
 
+
   $('#track').text(playingTrack['name']);
   $('#album').text(playingTrack['album']);
   $('#artist').text(playingTrack['artist']);
+  $('.divider').show();
   $('#art').fadeTo(1000,0.30, function() {
       $("#art").attr("src", playingTrack['icon']);
   }).fadeTo(500,1);
   $('#progress').attr("max", playingTrack['duration']);
-  
+
 }
 
 callback_object.playingSourceChanged = function playingSourceChanged(playingSource) {
