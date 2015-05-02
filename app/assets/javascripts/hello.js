@@ -95,8 +95,9 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
   console.log(playingTrack['key']);
   console.log($('#highest_key').val());
-  if (String(playingTrack['key']) != String($('#highest_key').val())) {
-    console.log('not highest');
+
+  if (playingTrack['key'] != $('#highest_key').val()) {
+    console.log('working')
     apiswf.rdio_play($('#play_key').val());
   }
   // if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
