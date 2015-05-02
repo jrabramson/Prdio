@@ -112,7 +112,7 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.resetVote = function(track) {
-    $('.track' + track.song + ' .vote').html('0');
+   $('*[data-id="' + track.id + '"] .vote').html('0');
   };
 
   Controller.prototype.updateUserList = function(userList) {

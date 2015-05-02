@@ -42,7 +42,7 @@ class SongController < ApplicationController
 	 		@guest.songs << @song
 	 	end
  		if @song.save
- 			reorder_playlist @song
+ 			# reorder_playlist @song
  			@order = rdio.call('get', ({ "keys" => @song.playlist.key, "extras" => "tracks" }))['result'][@song.playlist.key]['tracks'].map { |n| n['key']}
  			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
  			respond_to do |format|
@@ -58,7 +58,7 @@ class SongController < ApplicationController
  		@guest.dislike(@song)
  		@guest.songs << @song
  		if @song.save
- 			reorder_playlist @song
+ 			# reorder_playlist @song
  			@order = rdio.call('get', ({ "keys" => @guest.host.playlist.key, "extras" => "tracks" }))['result'][@guest.host.playlist.key]['tracks'].map { |n| n['key']}
  			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
  			respond_to do |format|
@@ -76,13 +76,15 @@ class SongController < ApplicationController
 		end
 	end
 
-	def reorder_playlist song
+	def reorder_playlist
+		@host = Host.find_by_room params[:host_id]
 		rdio = rdio_init
 		@order = ""
-		song.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
+		@host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
 			@order = @order + song.key + ', '
 		end
-		rdio.call('setPlaylistOrder', ({playlist: song.playlist.key, tracks: @order}))
+		rdio.call('setPlaylistOrder', ({playlist: @host.playlist.key, tracks: @order}))
+		head :ok
 	end
 
 	def rdio_init

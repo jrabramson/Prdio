@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'update' => 'playlist#update'
   get 'logout' => 'host#logout'
   post 'clear' => 'song#clear'
+  post 'reorder' => 'song#reorder_playlist'
 
   get 'nuke' => 'host#nuke'
 

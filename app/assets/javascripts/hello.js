@@ -74,15 +74,21 @@ callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) 
 callback_object.playStateChanged = function playStateChanged(playState) {
   // The playback state has changed.
   // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
-  if (playState === 2) {
-    rdio_setCurrentPosition(-1);
-    $.post("/clear",{key:playingTrack.key,authenticity_token:$("meta[name='csrf-token']").attr("content")});
+  console.log(playState);
+  if (playState === 1) {
+    
+    console.log('wAT');
   }
 }
 
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
-  // The currently playing track has changed.
+  // playState === 1T 
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
+
+  if (sourcePosition !== 0) {
+    apiswf.rdio_play($('#play_key').val());
+  }
+
   if (playingTrack != null) {
     $('#track').text(playingTrack['name']);
     $('#album').text(playingTrack['album']);
@@ -94,8 +100,7 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
     $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
     $('.divider').show();
     $('.artistAlbumInfo').css('background-color', '#FFF');
-    $.post("/clear",{key:playingTrack.key,authenticity_token:$("meta[name='csrf-token']").attr("content")});
-
+    // $.post("/clear",{key:playingTrack.key,authenticity_token:$("meta[name='csrf-token']").attr("content")});
   }
 }
 
