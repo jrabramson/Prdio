@@ -81,7 +81,6 @@ Playlist.Controller = (function() {
     order = jQuery.parseJSON(track.order);
     track = jQuery.parseJSON(track.song);
     $('*[data-id="' + track.id + '"] .vote').html(track.vote);
-    console.log( $('*[data-id="' + track.id + '"] .vote').html());
     current_order = $.map($('.track'), function(el) {
           return $(el).data('key');
     });

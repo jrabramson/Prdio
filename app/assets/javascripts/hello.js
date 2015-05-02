@@ -143,7 +143,7 @@ callback_object.updateFrequencyData = function updateFrequencyData(arrayAsString
   // arrayAsString is a list of comma separated floats.
 
   var arr = arrayAsString.split(',');
-
+  
   $('#freq div').each(function(i) {
     $(this).height(parseInt(parseFloat(arr[i])*70));
   })
