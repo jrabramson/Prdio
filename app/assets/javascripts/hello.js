@@ -116,17 +116,13 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
   }
 
   $('#track').text(playingTrack['name']);
-  $('#highest_key').val(playingTrack['key']);
   $('#album').text(playingTrack['album']);
   $('#artist').text(playingTrack['artist']);
   $('#art').fadeTo(1000,0.30, function() {
       $("#art").attr("src", playingTrack['icon']);
   }).fadeTo(500,1);
   $('#progress').attr("max", playingTrack['duration']);
-  // if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
-  //   apiswf.rdio_play($('#play_key').val());
-  // } 
-
+  
 }
 
 callback_object.playingSourceChanged = function playingSourceChanged(playingSource) {
