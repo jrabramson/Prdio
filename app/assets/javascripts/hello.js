@@ -74,10 +74,8 @@ callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) 
 callback_object.playStateChanged = function playStateChanged(playState) {
   // The playback state has changed.
   // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
-  console.log(playState);
 
   if (playState === 1) {
-    console.log('playing');
     // $.post("/reorder",{
     //   host_id: $('.roomcode').html(),
     //   authenticity_token:$("meta[name='csrf-token']").attr("content")
@@ -93,12 +91,19 @@ callback_object.playStateChanged = function playStateChanged(playState) {
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
   // playState === 1T 
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
-  if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
-    apiswf.rdio_play($('#play_key').val());
-  } 
+  console.log(playingTrack['key']);
+  console.log($('#highest_key').val());
+  // if (playingTrack !== $('#highest_key').val()) {
+  //   apiswf.rdio_play($('#play_key').val());
+  // }
+  // if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
+  //   apiswf.rdio_play($('#play_key').val());
+  // } 
 
   if (playingTrack != null) {
+    console.log(playingTrack);
     $('#track').text(playingTrack['name']);
+    $('#highest_key').val(playingTrack['key']);
     $('#album').text(playingTrack['album']);
     $('#artist').text(playingTrack['artist']);
     $('#art').fadeTo(1000,0.30, function() {
@@ -108,7 +113,7 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
     $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
     $('.divider').show();
     $('.artistAlbumInfo').css('background-color', '#FFF');
-    // $.post("/clear",{key:playingTrack.key,authenticity_token:$("meta[name='csrf-token']").attr("content")});
+
   }
 }
 
