@@ -1,16 +1,29 @@
 <div class="playback-container">
   <div id="apiswf"></div>
   <input id="play_key" type="hidden" value="<%= @host.playlist.key %>">
-  <div class="playControls">
-    <button id="play" class="button">Play</button>
-    <button id="stop" class="button">Stop</button>
-    <button id="pause" class="button">Pause</button>
-    <button id="previous" class="button">Previous</button>
-    <button id="next" class="button">Next</button>
-  </div>
-  <div class="artistAlbumInfo">
-    <img src="" id="art" class="albumArt">
-    <h3><span id="artist"></span> - <span id="track"></span></h3>
-  </div>
   <progress max="100" value="0" id="progress"></progress>
+  <div class="artistAlbumInfo">
+    <img src="/assets/prdio-logo.svg" id="art" class="albumArt">
+  </div>
+  <h3 class='trackInfo'><span id="artist"></span><span class='divider'><br></span><span id="track"></span></h3>
+  <div class="controls">
+    <%= embedded_svg 'play.svg', class: "play" %>
+    <%= embedded_svg 'stop.svg', class: "stop" %>
+    <%= embedded_svg 'pause.svg', class: "pause" %>
+    <%= embedded_svg 'next-prev.svg', class: "prev" %>
+    <%= embedded_svg 'next-prev.svg', class: "next" %>
+  </div>
+  <div id='freq'>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>

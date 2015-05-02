@@ -68,12 +68,20 @@ Playlist.Controller = (function() {
 
   Controller.prototype.bindEvents = function() {
     this.dispatcher.bind('user_list', this.updateUserList);
+    $('#tracks .track').removeClass('playing-track');
+    $('#tracks .track:eq(0)').addClass('playing-track');
+    $.post("/like", {
+        song:                $(".track:eq(0)").data("id"),
+        authenticity_token: $("meta[name='csrf-token']").attr("content"),
+        host_id:            $(".roomcode").html()
+      });
   }; 
 
   Controller.prototype.trackVote = function(track){
     order = jQuery.parseJSON(track.order);
     track = jQuery.parseJSON(track.song);
-    $('.track' + track.id + ' .vote').html(track.vote);
+    $('*[data-id="' + track.id + '"] .vote').html(track.vote);
+    console.log( $('*[data-id="' + track.id + '"] .vote').html());
     current_order = $.map($('.track'), function(el) {
           return $(el).data('key');
     });
@@ -85,6 +93,8 @@ Playlist.Controller = (function() {
       $("li[data-key='"+sortArr[i]+"']").attr('data-order', i);
     }
     tinysort($('.track'), {data:'order'});
+    $('#tracks .track').removeClass('playing-track');
+    $('#tracks .track:eq(0)').addClass('playing-track');
   }
 
   Controller.prototype.newTrack = function(track) {

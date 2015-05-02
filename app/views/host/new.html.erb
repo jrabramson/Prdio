@@ -13,13 +13,13 @@ $(function() {
 	<div class="playlistForm">
 		<%= form_for :create, url: create_path do |f| %>
 			<%= f.text_field :playlist %>
-			<%= f.submit "Create!" %>
+			<%= f.submit "Create!", { class: 'join' } %>
 		<% end %>
 	</div>
 
 	<p>Or, select one of your existing playlists:</p>
 </div>
-
+<div class='playlist_select'>
 <% @playlists.each_with_index do |v, i| %>
 	<%= form_for :create, url: create_path do |f| %>
 		<div class="playlistChoice">
@@ -29,5 +29,4 @@ $(function() {
 		</div>
 	<% end %>
 <% end %>
-
-
+</div>

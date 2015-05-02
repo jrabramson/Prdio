@@ -24,6 +24,12 @@
 
  @import "objects/*";
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
 body{
  	/*background:center $acidwash url(asset-path('FINALPROai.jpg')) no-repeat fixed;*/
@@ -133,14 +139,6 @@ body{
      transform: none;
    }
  }
-
-.playback-container {
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	float: left;
-	background: white;
-}
 
 /*-----------------------------------------------------------------*/
 a:hover{

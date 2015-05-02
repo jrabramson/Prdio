@@ -36,12 +36,14 @@ class SongController < ApplicationController
  	def like
  		rdio = rdio_init
  		@song = Song.find_by_id(params[:song])
- 		@guest = Guest.find_by(id: session['guest_id'])
- 		@guest.like(@song)
- 		@guest.songs << @song
+ 		if session[:host].blank?
+	 		@guest = Guest.find_by(id: session['guest_id'])
+	 		@guest.like(@song)
+	 		@guest.songs << @song
+	 	end
  		if @song.save
  			reorder_playlist @song
- 			@order = rdio.call('get', ({ "keys" => @guest.host.playlist.key, "extras" => "tracks" }))['result'][@guest.host.playlist.key]['tracks'].map { |n| n['key']}
+ 			@order = rdio.call('get', ({ "keys" => @song.playlist.key, "extras" => "tracks" }))['result'][@song.playlist.key]['tracks'].map { |n| n['key']}
  			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
  			respond_to do |format|
  				format.json { render json: @song }

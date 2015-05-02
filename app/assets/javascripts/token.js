@@ -35,4 +35,4 @@ THE SOFTWARE.
 
 // local
 var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
-var domain = "localhost"
+var domain = "localhost";

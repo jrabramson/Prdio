@@ -5,9 +5,6 @@
 
 <div class= "forms">
 
-
-
-
 <%= form_for(@guest) do |f| %>
   <div class="field h-spacer5">
     <%= f.text_field :host_id,{ class:"form", placeholder: "Room Code" } %>
@@ -20,6 +17,10 @@
   </div>
 <% end %>
 <p class="or">or</p>
-<div class="newParty h-spacer5"><%=link_to 'New Party', new_host_path %></div>
+<a href='/party/new'>
+	<div class="newParty h-spacer5">
+		New Party
+	</div>
+</a>
 
 </div>

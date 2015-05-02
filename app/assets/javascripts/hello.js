@@ -40,13 +40,13 @@ $(document).ready(function() {
 
 
   // set up the controls
-  $('#play').click(function() {
+  $('.play').click(function() {
     apiswf.rdio_play($('#play_key').val());
   });
-  $('#stop').click(function() { apiswf.rdio_stop(); });
-  $('#pause').click(function() { apiswf.rdio_pause(); });
-  $('#previous').click(function() { apiswf.rdio_previous(); });
-  $('#next').click(function() { apiswf.rdio_next(); });
+  $('.stop').click(function() { apiswf.rdio_stop(); });
+  $('.pause').click(function() { apiswf.rdio_pause(); });
+  $('.previous').click(function() { apiswf.rdio_previous(); });
+  $('.next').click(function() { apiswf.rdio_next(); });
 });
 
 
@@ -74,22 +74,28 @@ callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) 
 callback_object.playStateChanged = function playStateChanged(playState) {
   // The playback state has changed.
   // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
-  $('#playState').text(playState);
+  if (playState === 2) {
+    rdio_setCurrentPosition(-1);
+    $.post("/clear",{key:playingTrack.key,authenticity_token:$("meta[name='csrf-token']").attr("content")});
+  }
 }
 
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
   // The currently playing track has changed.
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
-  console.log(playingTrack);
-  console.log(sourcePosition);
-
   if (playingTrack != null) {
-    $.post('/clear', { key: playingTrack['key'], authenticity_token: $("meta[name='csrf-token']").attr('content')});
     $('#track').text(playingTrack['name']);
     $('#album').text(playingTrack['album']);
     $('#artist').text(playingTrack['artist']);
-    $('#art').attr('src', playingTrack['icon']);
-    $('#progress').attr("max", playingTrack['duration']); 
+    $('#art').fadeTo(1000,0.30, function() {
+        $("#art").attr("src", playingTrack['icon']);
+    }).fadeTo(500,1);
+    $('#progress').attr("max", playingTrack['duration']);
+    $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
+    $('.divider').show();
+    $('.artistAlbumInfo').css('background-color', '#FFF');
+    $.post("/clear",{key:playingTrack.key,authenticity_token:$("meta[name='csrf-token']").attr("content")});
+
   }
 }
 
@@ -139,7 +145,7 @@ callback_object.updateFrequencyData = function updateFrequencyData(arrayAsString
   var arr = arrayAsString.split(',');
 
   $('#freq div').each(function(i) {
-    $(this).width(parseInt(parseFloat(arr[i])*500));
+    $(this).height(parseInt(parseFloat(arr[i])*70));
   })
 }
 
