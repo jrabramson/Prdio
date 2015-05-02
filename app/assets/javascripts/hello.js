@@ -93,32 +93,40 @@ callback_object.playStateChanged = function playStateChanged(playState) {
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
   // playState === 1T 
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
-  console.log(playingTrack['key']);
-  console.log($('#highest_key').val());
+  console.log("playing : " + playingTrack['key']);
+  console.log("highest : " + $('#highest_key').val());
 
   if (playingTrack['key'] != $('#highest_key').val()) {
     console.log('working')
     apiswf.rdio_play($('#play_key').val());
+    if (playingTrack != null) {
+      console.log(playingTrack);
+      $('#track').text(playingTrack['name']);
+      $('#highest_key').val(playingTrack['key']);
+      $('#album').text(playingTrack['album']);
+      $('#artist').text(playingTrack['artist']);
+      $('#art').fadeTo(1000,0.30, function() {
+          $("#art").attr("src", playingTrack['icon']);
+      }).fadeTo(500,1);
+      $('#progress').attr("max", playingTrack['duration']);
+      $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
+      $('.divider').show();
+      $('.artistAlbumInfo').css('background-color', '#FFF');
+    }
   }
+
+  $('#track').text(playingTrack['name']);
+  $('#highest_key').val(playingTrack['key']);
+  $('#album').text(playingTrack['album']);
+  $('#artist').text(playingTrack['artist']);
+  $('#art').fadeTo(1000,0.30, function() {
+      $("#art").attr("src", playingTrack['icon']);
+  }).fadeTo(500,1);
+  $('#progress').attr("max", playingTrack['duration']);
   // if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
   //   apiswf.rdio_play($('#play_key').val());
   // } 
 
-  if (playingTrack != null) {
-    console.log(playingTrack);
-    $('#track').text(playingTrack['name']);
-    $('#highest_key').val(playingTrack['key']);
-    $('#album').text(playingTrack['album']);
-    $('#artist').text(playingTrack['artist']);
-    $('#art').fadeTo(1000,0.30, function() {
-        $("#art").attr("src", playingTrack['icon']);
-    }).fadeTo(500,1);
-    $('#progress').attr("max", playingTrack['duration']);
-    $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
-    $('.divider').show();
-    $('.artistAlbumInfo').css('background-color', '#FFF');
-
-  }
 }
 
 callback_object.playingSourceChanged = function playingSourceChanged(playingSource) {

@@ -37,7 +37,7 @@ $(function() {
 	$('#freq').css('height', $('.playback-container').css('height'));
 
 	$('#freq div').each(function(i) {
-	  $(this).css('left', ((i+1)*4+7) + '%');
+	  $(this).css('left', ((i+1)*4+7.5) + '%');
 	  $(this).css('background-color', colours[i]);
 	})
 
