@@ -42,12 +42,9 @@ class SongController < ApplicationController
 	 		@guest.songs << @song
 	 	end
  		if @song.save
- 			# reorder_playlist @song
+ 			reorder_playlist
  			@order = rdio.call('get', ({ "keys" => @song.playlist.key, "extras" => "tracks" }))['result'][@song.playlist.key]['tracks'].map { |n| n['key']}
  			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
- 			respond_to do |format|
- 				format.json { render json: @song }
- 			end
 		end
 	end
 
@@ -58,12 +55,9 @@ class SongController < ApplicationController
  		@guest.dislike(@song)
  		@guest.songs << @song
  		if @song.save
- 			# reorder_playlist @song
+ 			reorder_playlist
  			@order = rdio.call('get', ({ "keys" => @guest.host.playlist.key, "extras" => "tracks" }))['result'][@guest.host.playlist.key]['tracks'].map { |n| n['key']}
  			WebsocketRails['host' + @host.id.to_s].trigger :track_vote, { song: @song.to_json, order: @order.to_json }
- 			respond_to do |format|
- 				format.json { render json: @song }
- 			end
 		end
 	end
 

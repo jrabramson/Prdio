@@ -111,7 +111,6 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.resetVote = function(track) {
-    console.log("trying to clear: " + track.song);
    $('*[data-id="' + track.song + '"] .vote').html('0');
   };
 

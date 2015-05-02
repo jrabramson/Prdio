@@ -74,30 +74,28 @@ callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) 
 callback_object.playStateChanged = function playStateChanged(playState) {
   // The playback state has changed.
   // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
-  
+  console.log(playState);
+
+  if (playState === 1) {
+    console.log('playing');
+    // $.post("/reorder",{
+    //   host_id: $('.roomcode').html(),
+    //   authenticity_token:$("meta[name='csrf-token']").attr("content")
+    // });    
+    $.post("/clear",{
+        key:$('#tracks .track:eq(0)').data('key'),
+        host_id: $('.roomcode').html(),
+        authenticity_token:$("meta[name='csrf-token']").attr("content")
+      });
+  }
 }
 
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
   // playState === 1T 
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
-  console.log(sourcePosition);
-  console.log(playingTrack.key);
-  console.log($('#tracks .track:eq(0)').data("key"));
-
   if ((sourcePosition !== 0)&&(sourcePosition !== -1)) {
     apiswf.rdio_play($('#play_key').val());
-  } else if((sourcePosition === 0)&&(playingTrack.key === $('#tracks .track:eq(0)').data("key"))) {
-    $.post("/reorder",{
-      host_id: $('.roomcode').html(),
-      authenticity_token:$("meta[name='csrf-token']").attr("content")
-    });    
-    $.post("/clear",{
-        key:playingTrack.key,
-        host_id: $('.roomcode').html(),
-        authenticity_token:$("meta[name='csrf-token']").attr("content")
-      });
-    console.log('cleared song: '+ playingTrack.key);
-  }
+  } 
 
   if (playingTrack != null) {
     $('#track').text(playingTrack['name']);
