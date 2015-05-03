@@ -2,10 +2,7 @@ class SongController < ApplicationController
 
 	def search
 		@host = Host.find_by_room params[:host_id]
-				access_token = @host.at
-			  	access_token_secret = @host.ats
-				rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
-					[access_token, access_token_secret])
+		rdio = rdio_init
 		@songs = rdio.call('search', ({ "query" => params[:title], "types" => "Track" }))['result']['results']
 	end
 
@@ -13,17 +10,19 @@ class SongController < ApplicationController
 		@host = Host.find_by_room params[:host_id]
 		rdio = rdio_init
   		@songParams = rdio.call('get', ({ "keys" => params[:trackKey] }))['result']
-  		@song = Song.new( 
+  		if !params['trackKey'].in?(@host.playlist.songs.pluck(:key))
+ 			@song = Song.new( 
   				title: @songParams[params[:trackKey]]['name'], 
   				artist: @songParams[params[:trackKey]]['artist'], 
   				key: @songParams[params[:trackKey]]['key'], 
   				playlist_id: @host.playlist.id, 
   				image: @songParams[params[:trackKey]]['gridIcon']
   			)
-		if @song.save
-			rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
-			WebsocketRails['host' + @host.id.to_s].trigger :new_track, @song.to_json
-			redirect_to '/party/' + @host.room
+  			if @song.save
+				rdio.call('addToPlaylist', ({ playlist: @host.playlist.key, tracks: @song.key }))
+				WebsocketRails['host' + @host.id.to_s].trigger :new_track, @song.to_json
+				redirect_to '/party/' + @host.room
+			end
 		else
 			flash[:error] = "Song already in playlist, brah."
 			redirect_to '/party/' + @host.room
