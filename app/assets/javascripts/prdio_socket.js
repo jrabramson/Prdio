@@ -65,6 +65,7 @@ Playlist.Controller = (function() {
     this.newTrack           = __bind(this.newTrack, this);
     this.bindEvents         = __bind(this.bindEvents, this);
     this.resetVote          = __bind(this.resetVote, this);
+    this.updateList          = __bind(this.updateList, this);
     this.trackQueue         = [];
     this.dispatcher         = new WebSocketRails(url, useWebSockets);
     this.dispatcher.on_open = this.createGuestUser;
@@ -85,6 +86,14 @@ Playlist.Controller = (function() {
     order = jQuery.parseJSON(track.order);
     track = jQuery.parseJSON(track.song);
     $('*[data-id="' + track.id + '"] .vote').html(track.vote);
+    current_order = $.map($('.track'), function(el) {
+          return $(el).data('key');
+    });
+    this.sortTracks(current_order, order);
+  };
+
+   Controller.prototype.updateList = function(track){
+    order = jQuery.parseJSON(track.order);
     current_order = $.map($('.track'), function(el) {
           return $(el).data('key');
     });
@@ -143,6 +152,7 @@ Playlist.Controller = (function() {
     channel.bind('new_track', this.newTrack);
     channel.bind('track_vote', this.trackVote);
     channel.bind('reset_vote', this.resetVote);
+    channel.bind('update_list', this.updateList);
     return this.dispatcher.trigger('new_guest', this.user.serialize());
   };
 

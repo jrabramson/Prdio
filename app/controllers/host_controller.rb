@@ -1,8 +1,6 @@
 class HostController < ApplicationController
 	def new
-		access_token = session[:at]
-	  	access_token_secret = session[:ats]
-	  	if access_token and access_token_secret
+	  	if has_access_token?
 	  		@playlists = Host.party_setup access_token, access_token_secret
 	  		@currentUser = session['user']
 		else
@@ -14,12 +12,9 @@ class HostController < ApplicationController
 		end
 	end
 
-	def join
-		redirect_to Host.party
-	end
 
 	def show
-		@host = Host.where( room: params[:id] ).includes(playlist: :songs).first
+		@host = Host.find_by( room: params[:id] )
 		if session[:host] == @host.room
 			@thehost = true
 		elsif session[:guest_id].present?
@@ -51,9 +46,7 @@ class HostController < ApplicationController
 			session[:host] = @host.room
 			Playlist.create(key: @playlist, host_id: @host.id, name: new_party['playlist'] )
 			if new_party['reuse'].present?
-				@presongs = rdio.call('get', ({keys: @host.playlist.key, extras: 'tracks'}))
-				@presongs = @presongs['result'][@host.playlist.key]['tracks']
-				@presongs.each do |s|
+				rdio.songs_for_playlist(@host.playlist.key).each do |s|
 					Song.create(
 						title: s['name'], 
 		  				artist: s['artist'], 
@@ -66,7 +59,9 @@ class HostController < ApplicationController
 		else
 			render 'new'
 		end
+
 	end
+
 
 	def callback
 		request_token = session[:rt]
@@ -111,4 +106,19 @@ class HostController < ApplicationController
 		redirect_to ('/')
 	end
 
+	def access_token
+		session[:at]
+	end
+
+	def access_token_secret
+		session[:ats]
+	end
+
+	def has_access_token?
+		access_token && access_token_secret
+	end
+
+	def join
+		redirect_to Host.party
+	end
 end

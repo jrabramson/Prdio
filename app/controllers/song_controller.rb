@@ -49,6 +49,19 @@ class SongController < ApplicationController
 		end
 	end
 
+	def update_playlist
+		rdio = rdio_init
+		@host = Host.find_by_room params[:host_id]
+		rdio_order = ''
+		@host.playlist.songs.sort_by {|song| [song.vote]}.reverse.each do |song|
+			rdio_order = rdio_order + song.key + ', '
+		end
+		rdio.call('setPlaylistOrder', ({playlist: @host.playlist.key, tracks: rdio_order}))
+		@order = rdio.call('get', ({ "keys" => @host.playlist.key, "extras" => "tracks" }))['result'][@host.playlist.key]['tracks'].map { |n| n['key']}
+		WebsocketRails['host' + @host.id.to_s].trigger :update_list, { order: @order.to_json }
+		head :ok
+	end
+
 	def dislike
 		rdio = rdio_init
  		@song = Song.find_by_id(params[:song])

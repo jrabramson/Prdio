@@ -63,6 +63,11 @@ class Rdio
     return JSON.load(signed_post('http://api.rdio.com/1/', params))
   end
 
+  def songs_for_playlist(key)
+    results = call('get', ({keys: key, extras: 'tracks'}))
+    results['result'][key]['tracks']   
+  end
+
   private
 
   def signed_post(url, params)
