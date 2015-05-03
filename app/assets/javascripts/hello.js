@@ -64,7 +64,6 @@ callback_object.ready = function ready(user) {
     period: 100
   });
 
-  console.log(user);
 }
 
 callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) {
@@ -93,14 +92,10 @@ callback_object.playStateChanged = function playStateChanged(playState) {
 callback_object.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
   // playState === 1T 
   // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
-  console.log("playing : " + playingTrack['key']);
-  console.log("highest : " + $('#highest_key').val());
 
   if (playingTrack['key'] != $('#highest_key').val()) {
-    console.log('working')
     apiswf.rdio_play($('#play_key').val());
     if (playingTrack != null) {
-      console.log(playingTrack);
       $('#track').text(playingTrack['name']);
       $('#highest_key').val(playingTrack['key']);
       $('#album').text(playingTrack['album']);

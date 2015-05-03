@@ -1,5 +1,8 @@
 
 <div class="background"></div>
+ <% if flash[:error] %>
+    <div class="error"><%= flash[:error] %></div>
+  <% end %>
 <div class="songList">
 	<span class="code">room code:</span>
 	<h2> <span class="roomcode"><%= @host.room %></span>
