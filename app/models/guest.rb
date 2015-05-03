@@ -6,15 +6,11 @@ class Guest < ActiveRecord::Base
 	delegate :room, to: :host
 
 	def like(song)
-		if !song.in?(self.songs)
-			song.vote += 1
-		end
+		song.vote += 1
 	end
 
 	def dislike(song)
-		if !song.in?(self.songs)
-			song.vote -= 1
-		end
+		song.vote -= 1
 	end
 	
 	validates :name, presence: true

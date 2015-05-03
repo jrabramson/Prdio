@@ -126,6 +126,7 @@ Playlist.Controller = (function() {
 
   Controller.prototype.resetVote = function(track) {
    $('*[data-id="' + track.song + '"] .vote').html('0');
+   $('*[data-id="' + track.song + '"] .like').fadeIn();
   };
 
   Controller.prototype.updateUserList = function(userList) {
