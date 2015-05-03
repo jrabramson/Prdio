@@ -29,7 +29,11 @@ $(function() {
 	$('.join').css('background-color', randColour2);
 	$('.playlist_create').css('background-color', randColour);
 	$('.artistAlbumInfo').css('background-color', randColour2);
-	// $('.playback-container').css('background-color', randColour);
+	
+	$('.error').css('background-color', randColour);
+	$(window).load(function(){
+	  setTimeout(function(){ $('.error').fadeOut() }, 2500);
+	});
 
 	$('#switcher').css('padding-top', $('.songList').css('height'));	
 	$('#switcher').css('padding-bottom', $('.playback-container').css('height'));
@@ -45,4 +49,11 @@ $(function() {
 		randColour3 = colours[Math.floor(Math.random()*colours.length)];
 		$(this).first($('.vote')).css('color', randColour3);
 	});
+
+	$('.controls svg').on('mouseenter', function(i){
+		$(this).css('fill', colours[Math.floor(Math.random()*colours.length)]);
+	}).on('mouseleave', function(i){
+		$(this).css('fill', '#000');
+	});
+
 });

@@ -25,7 +25,8 @@ class SongController < ApplicationController
 			WebsocketRails['host' + @host.id.to_s].trigger :new_track, @song.to_json
 			redirect_to '/party/' + @host.room
 		else
-			render 'search'
+			flash[:error] = "Song already in playlist, brah."
+			redirect_to '/party/' + @host.room
 		end
 	end
 

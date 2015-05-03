@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'websocket-rails'
 gem 'jquery-ui-rails'
-gem 'embedly'
 # gem 'rdio', '~> 0.1.001'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'

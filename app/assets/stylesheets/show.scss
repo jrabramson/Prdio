@@ -223,6 +223,20 @@
 	height: 70px;
 }
 
+.error {
+  padding: 5px;
+  font-size: 18px;
+  width: 200px;
+  height: 75px;
+  text-align: center;
+  padding-top: 20px;
+  box-shadow: 2px 2px 2px;
+  position: absolute;
+  z-index: 9999;
+  top: 50%;
+  left: 40%;
+}
+
 .playback-container {
 	width: 100%;
 	position: fixed;

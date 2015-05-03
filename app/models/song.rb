@@ -4,4 +4,5 @@ class Song < ActiveRecord::Base
 	has_many :voted_songs
 	has_many :guests, through: :voted_songs
 
+	validates :key, :uniqueness => {:scope=>:playlist_id}
 end
