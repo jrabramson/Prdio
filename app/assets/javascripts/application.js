@@ -38,7 +38,7 @@ $(function() {
 	var myScroll;
 
 	function loaded () {
-		myScroll = new IScroll('#switcher', { mouseWheel: true });
+		myScroll = new IScroll('body', { mouseWheel: true });
 	}
 
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
