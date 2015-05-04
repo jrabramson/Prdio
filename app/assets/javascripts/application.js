@@ -35,9 +35,9 @@ $(function() {
 	  setTimeout(function(){ $('.error').fadeOut() }, 2500);
 	});
 
-	var myScroll;
-	myScroll = new IScroll('#switcher', { mouseWheel: true });
-	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	// var myScroll;
+	// myScroll = new IScroll('#switcher', { mouseWheel: true });
+	// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 	$('#switcher').css('top', $('.songList').css('height'));	
 

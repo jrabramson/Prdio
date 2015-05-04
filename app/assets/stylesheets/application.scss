@@ -26,6 +26,7 @@
 
 html {
   box-sizing: border-box;
+  height:auto;
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -37,8 +38,8 @@ body{
  	background-size: 600px 600px;
  	background-repeat: repeat;
  	font-family: 'Raleway', sans-serif;
-  max-height: 100vh;
-  overflow: hidden;
+  height:auto;
+  /*overflow: hidden;*/
 }
 .background {
 	background: url(asset-path('partypeople02.svg')) no-repeat bottom center;
