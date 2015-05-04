@@ -115,7 +115,8 @@
 }
 
 #tracks {
-  	position: relative;
+  	position: absolute;
+  	width: 100%;
   	list-style: none;
   	padding: 0px;
   	-webkit-touch-callout: none;
@@ -141,6 +142,8 @@
 #switcher {
 	background: rgba(0,0,0,0.1);
 	color: #fff;
+	position: absolute;
+	width: 100%;
 }
 
 .track{

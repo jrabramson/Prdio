@@ -38,7 +38,7 @@ body{
  	background-repeat: repeat;
  	font-family: 'Raleway', sans-serif;
   max-height: 100vh;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 .background {
 	background: url(asset-path('partypeople02.svg')) no-repeat bottom center;
