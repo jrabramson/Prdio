@@ -56,19 +56,20 @@ Playlist.Controller = (function() {
   };
 
   function Controller(url, useWebSockets) {
-    this.createGuestUser    = __bind(this.createGuestUser, this);
-    this.shiftTrackQueue    = __bind(this.shiftTrackQueue, this);
-    this.updateUserList     = __bind(this.updateUserList, this);
-    this.trackVote          = __bind(this.trackVote, this);
-    this.sortTracks         = __bind(this.sortTracks, this);
-    this.sendTrack          = __bind(this.sendTrack, this);
-    this.newTrack           = __bind(this.newTrack, this);
-    this.bindEvents         = __bind(this.bindEvents, this);
-    this.resetVote          = __bind(this.resetVote, this);
+    this.createGuestUser     = __bind(this.createGuestUser, this);
+    this.shiftTrackQueue     = __bind(this.shiftTrackQueue, this);
+    this.updateUserList      = __bind(this.updateUserList, this);
+    this.trackVote           = __bind(this.trackVote, this);
+    this.sortTracks          = __bind(this.sortTracks, this);
+    this.sendTrack           = __bind(this.sendTrack, this);
+    this.newTrack            = __bind(this.newTrack, this);
+    this.bindEvents          = __bind(this.bindEvents, this);
+    this.resetVote           = __bind(this.resetVote, this);
     this.updateList          = __bind(this.updateList, this);
-    this.trackQueue         = [];
-    this.dispatcher         = new WebSocketRails(url, useWebSockets);
-    this.dispatcher.on_open = this.createGuestUser;
+    this.trackQueue          = [];
+    this.dispatcher          = new WebSocketRails(url, useWebSockets);
+    this.dispatcher.on_open  = this.createGuestUser;
+    this.dispatcher.on_close = this.reconnect;
     this.bindEvents();
   }
 
@@ -156,6 +157,25 @@ Playlist.Controller = (function() {
     channel.bind('update_list', this.updateList);
     return this.dispatcher.trigger('new_guest', this.user.serialize());
   };
+
+  Controller.prototype.reconnect = function() {
+      var time = generateInterval(attempts);
+      
+      setTimeout(function () {
+          attempts++;          
+          createWebSocket(); 
+      }, time);
+  };
+
+  function generateInteval (k) {
+    var maxInterval = (Math.pow(2, k) - 1) * 1000;
+    
+    if (maxInterval > 30*1000) {
+      maxInterval = 30*1000;
+    }
+    
+    return Math.random() * maxInterval; 
+  }
 
   return Controller;
 
