@@ -30,9 +30,9 @@ THE SOFTWARE.
 // then update playback_token below with YOUR_PLAYBACK_TOKEN and the domain below with YOUR_DOMAIN
 
 // Heroku
-var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
-var domain = "www.prdio.com";
+// var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
+// var domain = "www.prdio.com";
 
 // local
-// var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
-// var domain = "localhost";
+var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
+var domain = "localhost";
