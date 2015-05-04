@@ -76,11 +76,12 @@ callback_object.ready = function ready(user) {
     frequencies: '10-band',
     period: 100
   });
+  $('.controls').fadeIn();
 
 }
 
 callback_object.freeRemainingChanged = function freeRemainingChanged(remaining) {
-  $('#remaining').text(remaining);
+  // $('#remaining').text(remaining);
 }
 
 callback_object.playStateChanged = function playStateChanged(playState) {
@@ -126,40 +127,8 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
             host_id: $('.roomcode').html(),
             authenticity_token:$("meta[name='csrf-token']").attr("content")
           });
-          console.log('reorder');
-          $('#track').text(playingTrack['name']);
-          $('#album').text(playingTrack['album']);
-          $('#artist').text(playingTrack['artist']);
-          $('#art').fadeTo(1000,0.30, function() {
-              $("#art").attr("src", playingTrack['icon']);
-          }).fadeTo(500,1);
-          $('#progress').attr("max", playingTrack['duration']);
-          $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
-          $('.divider').show();
-          $('.artistAlbumInfo').css('background-color', '#FFF');
     } else if (!allSame) {
-        console.log('notsame');
         apiswf.rdio_play($('#play_key').val());
-        $('#track').text(playingTrack['name']);
-        $('#album').text(playingTrack['album']);
-        $('#artist').text(playingTrack['artist']);
-        $('.divider').show();
-        $('#art').fadeTo(1000,0.30, function() {
-            $("#art").attr("src", playingTrack['icon']);
-        }).fadeTo(500,1);
-        $('#progress').attr("max", playingTrack['duration']);
-    }  else if (playingTrack != null) {
-        console.log('allsame');
-        $('#track').text(playingTrack['name']);
-        $('#album').text(playingTrack['album']);
-        $('#artist').text(playingTrack['artist']);
-        $('#art').fadeTo(1000,0.30, function() {
-            $("#art").attr("src", playingTrack['icon']);
-        }).fadeTo(500,1);
-        $('#progress').attr("max", playingTrack['duration']);
-        $('#switcher').css('padding-bottom', $('.playback-container').css('height'));
-        $('.divider').show();
-        $('.artistAlbumInfo').css('background-color', '#FFF');
     }
   }
 

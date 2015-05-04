@@ -201,6 +201,7 @@
 .controls {
 	float: right;
 	margin-right: 5px;
+	display: none;
 }
 
 .trackInfo {
@@ -318,6 +319,7 @@ Frequency! ------------ */
 		background: #000;
 		position: absolute;
 		bottom: 0;
+		box-shadow: 2px 2px 3px 2px;
 	}
 }
 
