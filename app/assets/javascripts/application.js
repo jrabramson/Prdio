@@ -35,7 +35,10 @@ $(function() {
 	  setTimeout(function(){ $('.error').fadeOut() }, 2500);
 	});
 
-	var myScroll = new IScroll('#switcher');
+	// var myScroll = new IScroll('#switcher', {
+	//     mouseWheel: true,
+	//     scrollbars: false
+	// });
 
 	$('#switcher').css('padding-top', $('.songList').css('height'));	
 	$('#switcher').css('padding-bottom', $('.playback-container').css('height'));

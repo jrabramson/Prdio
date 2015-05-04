@@ -37,6 +37,7 @@ body{
  	background-size: 600px 600px;
  	background-repeat: repeat;
  	font-family: 'Raleway', sans-serif;
+  max-height: 100vh;
 }
 .background {
 	background: url(asset-path('partypeople02.svg')) no-repeat bottom center;
