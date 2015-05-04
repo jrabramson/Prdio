@@ -29,6 +29,8 @@ $(function() {
 	$('.join').css('background-color', randColour2);
 	$('.playlist_create').css('background-color', randColour);
 	$('.artistAlbumInfo').css('background-color', randColour2);
+	$('.roomcode').css('color', randColour2);
+	$('#search').css('background-color', randColour);
 	
 	$('.error').css('background-color', randColour);
 	$(window).load(function(){
