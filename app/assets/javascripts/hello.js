@@ -129,6 +129,11 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
           });
     } else if (!allSame) {
         apiswf.rdio_play($('#play_key').val());
+      $.post("/clear",{
+        key:$('#tracks .track:eq(0)').data('key'),
+        host_id: $('.roomcode').html(),
+        authenticity_token:$("meta[name='csrf-token']").attr("content")
+      });
     }
   }
 
