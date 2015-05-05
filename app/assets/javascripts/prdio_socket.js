@@ -169,7 +169,7 @@ Playlist.Controller = (function() {
       }, time);
   };
 
-  function generateInteval (k) {
+  function generateInterval (k) {
     var maxInterval = (Math.pow(2, k) - 1) * 1000;
     
     if (maxInterval > 30*1000) {
