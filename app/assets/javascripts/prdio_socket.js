@@ -75,7 +75,7 @@ Playlist.Controller = (function() {
 
   Controller.prototype.bindEvents = function() {
     this.dispatcher.bind('user_list', this.updateUserList);
-    this.dispatcher.bind('connection_closed', this.reconnect();
+    this.dispatcher.bind('connection_closed', this.reconnect);
     $('#tracks .track').removeClass('playing-track');
     $('#tracks .track:eq(0)').addClass('playing-track');
     $.post("/reorder",{
