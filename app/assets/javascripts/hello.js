@@ -95,11 +95,7 @@ callback_object.playStateChanged = function playStateChanged(playState) {
       });
   }
   if (playState === 1) {   
-    $.post("/clear",{
-        key:$('#tracks .track:eq(0)').data('key'),
-        host_id: $('.roomcode').html(),
-        authenticity_token:$("meta[name='csrf-token']").attr("content")
-      });
+
   }
 }
 
@@ -121,12 +117,14 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
               key:$('#tracks .track:eq(1)').data('key'),
               host_id: $('.roomcode').html(),
               authenticity_token:$("meta[name='csrf-token']").attr("content")
-            });
-          $('.track :eq(0) .vote').html('0');
+            }).done(function() {
           $.post("/reorder",{
             host_id: $('.roomcode').html(),
             authenticity_token:$("meta[name='csrf-token']").attr("content")
+          }).done(function() {            
+              $('.track :eq(0) .vote').html('0');          
           });
+        });
     } else if (!allSame) {
         apiswf.rdio_play($('#play_key').val());
       $.post("/clear",{
@@ -135,6 +133,12 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
         authenticity_token:$("meta[name='csrf-token']").attr("content")
       });
     }
+  } else {
+        $.post("/clear",{
+        key:$('#tracks .track:eq(0)').data('key'),
+        host_id: $('.roomcode').html(),
+        authenticity_token:$("meta[name='csrf-token']").attr("content")
+      });
   }
 
   $('#track').text(playingTrack['name']);
