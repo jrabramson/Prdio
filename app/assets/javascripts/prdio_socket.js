@@ -160,7 +160,7 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.reconnect = function() {
-      var attempts = 1;
+      attempts = 1;
       var time = generateInterval(attempts);
       
       setTimeout(function () {
