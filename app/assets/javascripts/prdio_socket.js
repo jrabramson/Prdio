@@ -160,25 +160,8 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.reconnect = function() {
-      attempts = 1;
-      var time = generateInterval(attempts);
-      
-      setTimeout(function () {
-          attempts++;
-          console.log('reconnecting...');
-          window.trackController = new Playlist.Controller($('#switcher').data('uri'), true);
-      }, time);
+      location.reload();
   };
-
-  function generateInterval (k) {
-    var maxInterval = (Math.pow(2, k) - 1) * 1000;
-    
-    if (maxInterval > 30*1000) {
-      maxInterval = 30*1000;
-    }
-    
-    return Math.random() * maxInterval; 
-  }
 
   return Controller;
 
