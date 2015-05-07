@@ -68,6 +68,14 @@ class Rdio
     results['result'][key]['tracks']   
   end
 
+  def set_playlist_order host
+    order = ""
+    host.playlist.songs.sort_by {|song| [song.vote, song.id]}.reverse.each do |song|
+      order = order + song.key + ', '
+    end
+    call('setPlaylistOrder', ({playlist: host.playlist.key, tracks: @order}))
+  end
+
   private
 
   def signed_post(url, params)
