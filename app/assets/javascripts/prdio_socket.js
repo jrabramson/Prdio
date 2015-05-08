@@ -6,12 +6,14 @@ var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="Sho
 var apiswf = null;
 
 //-----Heroku
-var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
-var domain = "www.prdio.com";
+// var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
+// var domain = "www.prdio.com";
 
 //-----local
-// var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
-// var domain = "localhost";
+var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
+var domain = "localhost";
+
+var track_pos = -1;
 
 $(document).ready(function() {
 
@@ -291,9 +293,17 @@ Playlist.Controller = (function() {
     // The playback state has changed.
     // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
     console.log('state: ' + playState);
+    trackVotes = []
+    $('#tracks .track').each(function(i) {
+      trackVotes.push(parseInt($('#tracks .track:eq('+i+') .vote').html()));
+    });
+    // highestVote = trackVotes.indexOf(Math.max.apply(Math, trackVotes));
+    allSame = trackVotes.allValuesSame();
     if (playState === 3) {
       $('.modular').attr("class", "modular stop busy");
-      apiswf.rdio_stop(); 
+      if (track_pos > 0 && !allSame) {
+        apiswf.rdio_play($('#play_key').val());
+      }
     //   $('#highest_key').val($('#tracks .track:eq(0)').data('key'));
     //   this.dispatcher.trigger('song.update_playlist', { host_id: $('.roomcode').html() });
     }
@@ -316,7 +326,7 @@ Playlist.Controller = (function() {
     });
     // highestVote = trackVotes.indexOf(Math.max.apply(Math, trackVotes));
     allSame = trackVotes.allValuesSame();
-    tracK_pos = 0;
+    track_pos = sourcePosition;
     lastPlayed = '';
     if (allSame) {
    
