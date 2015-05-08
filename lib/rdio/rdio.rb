@@ -73,7 +73,7 @@ class Rdio
     host.playlist.songs.sort_by {|song| [song.vote, song.id]}.reverse.each do |song|
       order = order + song.key + ', '
     end
-    call('setPlaylistOrder', ({playlist: host.playlist.key, tracks: @order}))
+    call('setPlaylistOrder', ({playlist: host.playlist.key, tracks: order}))
   end
 
   private

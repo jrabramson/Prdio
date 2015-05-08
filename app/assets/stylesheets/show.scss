@@ -33,6 +33,15 @@
 	  bottom: 0;
 }
 
+.busy {
+	fill: red;
+	pointer-events: none;
+}
+
+.free {
+	pointer-events: all;
+}
+
 .like form {
 	width: 100%;
 	height: 50%;
@@ -185,6 +194,10 @@
 	font-size: 12px;
 	margin-top: 13px;
   	font-weight: 900;
+}
+
+.resume {
+	display: none;
 }
 
 .name{

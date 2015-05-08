@@ -44,11 +44,26 @@ $(document).ready(function() {
   $('.play').click(function() {
     apiswf.rdio_play($('#play_key').val());
   });
+  $('.resume').click(function() { apiswf.rdio_play(); });
   $('.stop').click(function() { apiswf.rdio_stop(); });
   $('.pause').click(function() { apiswf.rdio_pause(); });
   $('.previous').click(function() { apiswf.rdio_previous(); });
-  $('.next').click(function() { 
-    apiswf.rdio_next(); 
+  $('.next').on('click', function() { 
+    $('.next').attr("class", "modular next busy");
+
+    trackVotes = []
+    $('#tracks .track').each(function(i) {
+      trackVotes.push(parseInt($('#tracks .track:eq('+i+') .vote').html()));
+    });
+    // highestVote = trackVotes.indexOf(Math.max.apply(Math, trackVotes));
+    allSame = trackVotes.allValuesSame();
+
+    if (allSame) {
+      console.log('ALLSAME TRIGGER');
+        apiswf.rdio_next();
+    } else {
+        apiswf.rdio_play($('#play_key').val()); 
+    }
     $('#highest_key').val($('#tracks .track:eq(1)').data('key'));
   });
 });
@@ -133,6 +148,7 @@ Playlist.Controller = (function() {
     this.newTrack             = __bind(this.newTrack, this);
     this.bindEvents           = __bind(this.bindEvents, this);
     this.resetVote            = __bind(this.resetVote, this);
+    this.resume               = __bind(this.resume, this);
     this.updateList           = __bind(this.updateList, this);
     this.reconnect            = __bind(this.reconnect);
     this.trackQueue           = [];
@@ -148,19 +164,19 @@ Playlist.Controller = (function() {
     this.dispatcher.bind('connection_closed', this.reconnect);
     $('#tracks .track').removeClass('playing-track');
     $('#tracks .track:eq(0)').addClass('playing-track');
-    this.dispatcher.trigger('song.reorder_playlist', { host_id: $('.roomcode').html() });
     dispatcher = this.dispatcher;
     $('#tracks').on('click', '.like_button', function() {
-      dispatcher.trigger('song.like', { host_id: $('.roomcode').html(), song: $(this).parents('.track:first').data('key') });
-      var form = $(this).parents('form:first');
-      form.submit();
+      dispatcher.trigger('song_like', { host_id: $('.roomcode').html(), song: $(this).parents('.track:first').data('id') });
+      // dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
+      // var form = $(this).parents('form:first');
+      // form.submit();
       $(this).parent().parent().fadeOut("normal");
     });
 
     $('#tracks').on('click', '.dislike_button', function() {
-      dispatcher.trigger('song.dislike', { host_id: $('.roomcode').html(), song: $(this).parents('.track:first').data('key') });
-      var form = $(this).parents('form:first');
-      form.submit();
+      dispatcher.trigger('song_dislike', { host_id: $('.roomcode').html(), song: $(this).parents('.track:first').data('id') });
+      // var form = $(this).parents('form:first');
+      // form.submit();
       $(this).parent().parent().fadeOut("normal");
     });
   };
@@ -205,9 +221,17 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.resetVote = function(track) {
+    console.log(track);
    $('*[data-id="' + track.song + '"] .vote').html('0');
    $('*[data-id="' + track.song + '"] .like').fadeIn();
    this.sortTracks();
+
+   // $('.resume').trigger('click');
+  };
+
+  Controller.prototype.resume = function() {
+    console.log('wat');
+    // $('.resume').trigger('click');
   };
 
   Controller.prototype.updateUserList = function(userList) {
@@ -236,6 +260,8 @@ Playlist.Controller = (function() {
     channel.bind('dislike_track', this.dislikeTrack);
     channel.bind('reset_vote', this.resetVote);
     channel.bind('update_list', this.updateList);
+    channel.bind('resume_play', this.resume);
+    this.dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
     return this.dispatcher.trigger('new_guest', this.user.serialize());
   };
 
@@ -247,7 +273,7 @@ Playlist.Controller = (function() {
   // Prdio Socket Playback Manager
   //-----------------------------------------------------------------
 
-  Controller.prototype.ready = function ready(user) {
+  Controller.prototype.ready = function(user) {
     // Called once the API SWF has loaded and is ready to accept method calls.
     // find the embed/object element
     apiswf = $('#apiswf').get(0);
@@ -258,35 +284,63 @@ Playlist.Controller = (function() {
     });
     $('.controls').fadeIn();
 
+    apiswf.rdio_setRepeat(2);
   }
 
-  Controller.prototype.playStateChanged = function playStateChanged(playState) {
+  Controller.prototype.playStateChanged = function(playState) {
     // The playback state has changed.
     // The state can be: 0 - paused, 1 - playing, 2 - stopped, 3 - buffering or 4 - paused.
-    //console.log(playState);
-    // if (playState === 2) {
+    console.log('state: ' + playState);
+    if (playState === 3) {
+      $('.modular').attr("class", "modular stop busy");
+      apiswf.rdio_stop(); 
     //   $('#highest_key').val($('#tracks .track:eq(0)').data('key'));
     //   this.dispatcher.trigger('song.update_playlist', { host_id: $('.roomcode').html() });
-    // }
+    }
+    if (playState === 1){
+      $('.modular').attr("class", "modular next free");
+    }
+    if (playState === 0){
+      $('.modular').attr("class", "modular next free");
+    }
   }
 
-  Controller.prototype.playingTrackChanged = function playingTrackChanged(playingTrack, sourcePosition) {
-    // playState === 1T 
+  Controller.prototype.playingTrackChanged = function(playingTrack, sourcePosition) {
+    // apiswf.rdio_clearQueue();
     // Track metadata is provided as playingTrack and the position within the playing source as sourcePosition.
-    dispatcher = this.dispatcher;
-    console.log(this.dispatcher);
-    console.log(sourcePosition);
-    if (sourcePosition > 0) {
-      dispatcher.trigger('song.clear', { key: $('#tracks .track:eq(0)').data('key'), host_id: $('.roomcode').html() });
-      dispatcher.trigger('song.reorder_playlist', { key: $('#tracks .track:eq(0)').data('key'), host_id: $('.roomcode').html() });
-      apiswf.rdio_play($('#play_key').val());
-    }
-    // trackVotes = []
-    // $('#tracks .track').each(function(i) {
-    //   trackVotes.push(parseInt($('#tracks .track:eq('+i+') .vote').html()));
-    // });
+    // console.log(playingTrack.key);
+    console.log('position: ' +sourcePosition);
+    trackVotes = []
+    $('#tracks .track').each(function(i) {
+      trackVotes.push(parseInt($('#tracks .track:eq('+i+') .vote').html()));
+    });
     // highestVote = trackVotes.indexOf(Math.max.apply(Math, trackVotes));
-    // allSame = trackVotes.allValuesSame();
+    allSame = trackVotes.allValuesSame();
+    tracK_pos = 0;
+    lastPlayed = '';
+    if (allSame) {
+   
+    } else {  
+      if (sourcePosition > 1 ) {
+        console.log('dud');
+        // apiswf.rdio_playQueuedTrack(0, 0);
+        // apiswf.rdio_stop(); 
+      } else if (sourcePosition === 1) {
+        
+        // apiswf.rdio_setCurrentPosition('0');
+        // apiswf.rdio_play($('#play_key').val()); 
+        dispatcher = channel._dispatcher;
+        dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
+        // this.resetVote({ song: $('#tracks .track:eq(0)').data('id') });
+      } else if (sourcePosition === 0 && lastPlayed !== playingTrack.key) {
+      console.log(lastPlayed + ' <- last current -> ' + playingTrack.key);
+        // $('.resume').trigger('click');
+
+        lastPlayed = playingTrack.key;
+        dispatcher.trigger('clear', { key: playingTrack.key, host_id: $('.roomcode').html() });        
+        dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
+      }
+    }
     // console.log(highestVote);
     // console.log(trackVotes);
     // if (playingTrack['key'] != $('#highest_key').val()) {
@@ -311,13 +365,13 @@ Playlist.Controller = (function() {
 
   }
 
-  Controller.prototype.positionChanged = function positionChanged(position) {
+  Controller.prototype.positionChanged = function(position) {
     //The position within the track changed to position seconds.
     // This happens both in response to a seek and during playback.
     $('#progress').attr("value", position);
   }
 
-  Controller.prototype.updateFrequencyData = function updateFrequencyData(arrayAsString) {
+  Controller.prototype.updateFrequencyData = function(arrayAsString) {
     // Called with frequency information after apiswf.rdio_startFrequencyAnalyzer(options) is called.
     // arrayAsString is a list of comma separated floats.
 

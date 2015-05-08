@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   post 'dislike' => 'song#dislike'
   post 'update' => 'playlist#update'
   get 'logout' => 'host#logout'
-  post 'clear' => 'song#clear'
-  post 'reorder' => 'song#reorder_playlist'
   post 'update_playlist' => 'song#update_playlist'
+  # post 'clear' => 'feed#clear'
+  # post 'reorder' => 'feed#reorder_playlist'
 
   get 'nuke' => 'host#nuke'
 

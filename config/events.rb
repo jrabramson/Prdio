@@ -45,7 +45,9 @@ WebsocketRails::EventMap.describe do
   subscribe :new_track, to: FeedController, with_method: :new_track
   subscribe :set_host, to: FeedController, with_method: :set_host
   subscribe :new_guest, to: FeedController, with_method: :new_guest
-  subscribe :like, to: FeedController, with_method: :like
-  subscribe :dislike, to: FeedController, with_method: :dislike
+  subscribe :song_like, to: FeedController, with_method: :song_like
+  subscribe :song_dislike, to: FeedController, with_method: :song_dislike
+  subscribe :reorder_playlist, to: FeedController, with_method: :reorder_playlist
+  subscribe :clear, to: FeedController, with_method: :clear
   subscribe :client_disconnected, to: FeedController, with_method: :delete_user
 end

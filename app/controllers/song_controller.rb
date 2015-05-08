@@ -72,22 +72,6 @@ class SongController < ApplicationController
 		head :ok
 	end
 
-
-	def clear
-		song = Song.where(key: params[:key], playlist_id: current_host.playlist.id)[0]
-		song.vote = 0
-		if song.save
-			WebsocketRails['host' + song.playlist.host.id.to_s].trigger :reset_vote, { song: song.id.to_json }
-			head :ok
-		end
-	end
-
-	def reorder_playlist
-		rdio = rdio_init
-		rdio.set_playlist_order current_host
-		head :ok
-	end
-
 	def rdio_init
 		access_token = current_host.at
 	  	access_token_secret = current_host.ats
