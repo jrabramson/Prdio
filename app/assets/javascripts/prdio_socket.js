@@ -27,6 +27,17 @@ $(document).ready(function() {
 
       return true;
   }
+
+  var ul = document.getElementById('tracks')
+      ,lis = ul.querySelectorAll('li')
+      ,liHeight = lis[0].offsetHeight
+  ;
+  ul.style.height = ul.offsetHeight+'px';
+  for (var i= 0,l=lis.length;i<l;i++) {
+      var li = lis[i];
+      li.style.position = 'absolute';
+      li.style.top = i*liHeight+'px';
+  }
   // on page load use SWFObject to load the API swf into div#apiswf
   var flashvars = {
     'playbackToken': playback_token,
@@ -201,7 +212,11 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.sortTracks = function() {
-    tinysort($('.track'), {selector:'span.vote', order:'desc'}, {data:'id', order:'desc'});
+    tinysort($('.track'), {selector:'span.vote', order:'desc'}, {data:'id', order:'desc'}).forEach(function(elm,i){
+    setTimeout((function(elm,i){
+        elm.style.top = i*liHeight+'px';
+    }).bind(null,elm,i),40);
+});
     $('#tracks .track').removeClass('playing-track');
     $('#tracks .track:eq(0)').addClass('playing-track');
   }

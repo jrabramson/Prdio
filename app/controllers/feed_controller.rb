@@ -40,6 +40,9 @@ class FeedController < WebsocketRails::BaseController
  		if song.save
  			WebsocketRails['host' + host.id.to_s].trigger :like_track, { song: song.id }
 			reorder_playlist
+		else
+ 			users = connection_store.collect_all(:user)
+	 		broadcast_message :resume_play, users			
 		end
 	end
 

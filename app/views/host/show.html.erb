@@ -55,5 +55,6 @@
     </ul>
 </div>
 <% if @thehost %>
+  <%= hidden_field_tag 'guest', 'HOST' %>
 	<%= render "playback" %>
 <% end %>
