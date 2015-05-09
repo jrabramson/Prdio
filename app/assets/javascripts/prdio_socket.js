@@ -6,12 +6,12 @@ var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="Sho
 var apiswf = null;
 
 //-----Heroku
-var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
-var domain = "www.prdio.com";
+// var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
+// var domain = "www.prdio.com";
 
 //-----local
-// var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
-// var domain = "localhost";
+var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
+var domain = "localhost";
 
 var track_pos = -1;
 
@@ -29,8 +29,8 @@ $(document).ready(function() {
   }
   // on page load use SWFObject to load the API swf into div#apiswf
   var flashvars = {
-    'playbackToken': playback_token, // from token.js
-    'domain': domain,                // from token.js
+    'playbackToken': playback_token,
+    'domain': domain,
     'listener': 'Playlist.Controller.prototype'    // the global name of the object that will receive callbacks from the SWF
     };
   var params = {
@@ -169,22 +169,21 @@ Playlist.Controller = (function() {
     dispatcher = this.dispatcher;
     $('#tracks').on('click', '.like_button', function() {
       dispatcher.trigger('song_like', { host_id: $('.roomcode').html(), song: $(this).parents('.track:first').data('id') });
-      // dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
-      // var form = $(this).parents('form:first');
-      // form.submit();
       $(this).parent().parent().fadeOut("normal");
+      console.log(Playlist);
+      // this.likeTrack($(this).parents('.track:first').data('id'));
     });
 
     $('#tracks').on('click', '.dislike_button', function() {
       dispatcher.trigger('song_dislike', { host_id: $('.roomcode').html(), song: $(this).parents('.track:first').data('id') });
-      // var form = $(this).parents('form:first');
-      // form.submit();
       $(this).parent().parent().fadeOut("normal");
+      // this.dislikeTrack($(this).parents('.track:first').data('id'));
     });
   };
 
   Controller.prototype.likeTrack = function(track){
     $('*[data-id="' + track.song + '"] .vote').html(function(i, val) { return +val+1 });
+    console.log(track);
     this.sortTracks();
   };
 
@@ -227,8 +226,6 @@ Playlist.Controller = (function() {
    $('*[data-id="' + track.song + '"] .vote').html('0');
    $('*[data-id="' + track.song + '"] .like').fadeIn();
    this.sortTracks();
-
-   // $('.resume').trigger('click');
   };
 
   Controller.prototype.resume = function() {
@@ -271,9 +268,9 @@ Playlist.Controller = (function() {
       location.reload();
   };
 
-  //-----------------------------------------------------------------
-  // Prdio Socket Playback Manager
-  //-----------------------------------------------------------------
+//-----------------------------------------------------------------
+// Prdio Socket Playback Manager
+//-----------------------------------------------------------------
 
   Controller.prototype.ready = function(user) {
     // Called once the API SWF has loaded and is ready to accept method calls.
@@ -297,7 +294,6 @@ Playlist.Controller = (function() {
     $('#tracks .track').each(function(i) {
       trackVotes.push(parseInt($('#tracks .track:eq('+i+') .vote').html()));
     });
-    // highestVote = trackVotes.indexOf(Math.max.apply(Math, trackVotes));
     allSame = trackVotes.allValuesSame();
     if (playState === 3) {
       $('.modular').attr("class", "modular stop busy");
@@ -333,34 +329,18 @@ Playlist.Controller = (function() {
     } else {  
       if (sourcePosition > 1 ) {
         console.log('dud');
-        // apiswf.rdio_playQueuedTrack(0, 0);
-        // apiswf.rdio_stop(); 
       } else if (sourcePosition === 1) {
         
-        // apiswf.rdio_setCurrentPosition('0');
-        // apiswf.rdio_play($('#play_key').val()); 
         dispatcher = channel._dispatcher;
         dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
-        // this.resetVote({ song: $('#tracks .track:eq(0)').data('id') });
       } else if (sourcePosition === 0 && lastPlayed !== playingTrack.key) {
       console.log(lastPlayed + ' <- last current -> ' + playingTrack.key);
-        // $('.resume').trigger('click');
 
         lastPlayed = playingTrack.key;
         dispatcher.trigger('clear', { key: playingTrack.key, host_id: $('.roomcode').html() });        
         dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
       }
     }
-    // console.log(highestVote);
-    // console.log(trackVotes);
-    // if (playingTrack['key'] != $('#highest_key').val()) {
-    //   if (trackVotes[1] > trackVotes [0]) {
-    //         this.dispatcher.trigger('song.clear', { key: $('#tracks .track:eq(1)').data('key'), host_id: $('.roomcode').html() });
-    //       }
-    //   } else if (!allSame) {
-    //       apiswf.rdio_play($('#play_key').val());
-    //       this.dispatcher.trigger('song.clear', { key: $('#tracks .track:eq(0)').data('key'), host_id: $('.roomcode').html() });      
-    //   } 
 
     $('#track').text(playingTrack['name']);
     $('#album').text(playingTrack['album']);

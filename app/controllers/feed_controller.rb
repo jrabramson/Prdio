@@ -36,13 +36,11 @@ class FeedController < WebsocketRails::BaseController
  		song = Song.find_by_id message[:song]
  		guest = Guest.find_by(id: session['guest_id'])
  		guest.like(song)
- 		broadcast_message song.to_json, connection_store.collect_all(:user)
  		guest.songs << song
  		if song.save
  			WebsocketRails['host' + host.id.to_s].trigger :like_track, { song: song.id }
 			reorder_playlist
 		end
-		head :ok
 	end
 
 	def song_dislike
@@ -55,7 +53,6 @@ class FeedController < WebsocketRails::BaseController
  			WebsocketRails['host' + host.id.to_s].trigger :dislike_track, { song: song.id }
 			reorder_playlist
 		end
-		head :ok
 	end
 
 	def clear
@@ -71,7 +68,7 @@ class FeedController < WebsocketRails::BaseController
 		host = current_host
 		rdio = rdio_init
 		rdio.set_playlist_order host
-		WebsocketRails['host' + host.id.to_s].trigger :resume_play, { host_id: host.id.to_json }
+		# WebsocketRails['host' + host.id.to_s].trigger :resume_play, { host_id: host.id.to_json }
 	end
 
 	def broadcast_user_list
