@@ -266,7 +266,9 @@ Playlist.Controller = (function() {
   };
 
   Controller.prototype.reconnect = function() {
-      location.reload();
+    console.log('dc');
+      this.dispatcher = new WebSocketRails(url, useWebSockets);
+      // location.reload();
   };
 
 //-----------------------------------------------------------------
