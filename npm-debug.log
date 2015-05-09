@@ -1,0 +1,216 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', '-g', 'ws' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.38
+4 verbose node symlink /usr/bin/node
+5 verbose cache add [ 'ws', null ]
+6 verbose cache add name=undefined spec="ws" args=["ws",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'ws',
+7 verbose parsed url   path: 'ws',
+7 verbose parsed url   href: 'ws' }
+8 silly lockFile 1457b75d-ws ws
+9 verbose lock ws /home/jesse/.npm/1457b75d-ws.lock
+10 silly lockFile 1457b75d-ws ws
+11 silly lockFile 1457b75d-ws ws
+12 verbose addNamed [ 'ws', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile e88fe629-ws ws@
+15 verbose lock ws@ /home/jesse/.npm/e88fe629-ws.lock
+16 silly addNameRange { name: 'ws', range: '*', hasData: false }
+17 verbose request where is /ws
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id a34dc00e58898eae
+20 verbose url raw /ws
+21 verbose url resolving [ 'https://registry.npmjs.org/', './ws' ]
+22 verbose url resolved https://registry.npmjs.org/ws
+23 verbose request where is https://registry.npmjs.org/ws
+24 info trying registry request attempt 1 at 12:52:01
+25 verbose etag "2TM96WZY830QTBIN1912RCDU6"
+26 http GET https://registry.npmjs.org/ws
+27 http 304 https://registry.npmjs.org/ws
+28 silly registry.get cb [ 304,
+28 silly registry.get   { date: 'Sat, 09 May 2015 16:52:01 GMT',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     'cache-control': 'max-age=60',
+28 silly registry.get     etag: '"2TM96WZY830QTBIN1912RCDU6"',
+28 silly registry.get     age: '33',
+28 silly registry.get     connection: 'keep-alive',
+28 silly registry.get     'x-served-by': 'cache-atl6233-ATL',
+28 silly registry.get     'x-cache': 'HIT',
+28 silly registry.get     'x-cache-hits': '1',
+28 silly registry.get     'x-timer': 'S1431190321.304602,VS0,VE1',
+28 silly registry.get     vary: 'Accept' } ]
+29 verbose etag https://registry.npmjs.org/ws from cache
+30 silly addNameRange number 2 { name: 'ws', range: '*', hasData: true }
+31 silly addNameRange versions [ 'ws',
+31 silly addNameRange   [ '0.2.6',
+31 silly addNameRange     '0.2.8',
+31 silly addNameRange     '0.2.9',
+31 silly addNameRange     '0.3.0',
+31 silly addNameRange     '0.3.1',
+31 silly addNameRange     '0.3.2',
+31 silly addNameRange     '0.3.3',
+31 silly addNameRange     '0.3.4',
+31 silly addNameRange     '0.3.4-2',
+31 silly addNameRange     '0.3.5',
+31 silly addNameRange     '0.3.5-2',
+31 silly addNameRange     '0.3.5-3',
+31 silly addNameRange     '0.3.5-4',
+31 silly addNameRange     '0.3.6',
+31 silly addNameRange     '0.3.7',
+31 silly addNameRange     '0.3.8',
+31 silly addNameRange     '0.3.9',
+31 silly addNameRange     '0.4.0',
+31 silly addNameRange     '0.4.1',
+31 silly addNameRange     '0.4.2',
+31 silly addNameRange     '0.4.3',
+31 silly addNameRange     '0.4.5',
+31 silly addNameRange     '0.4.6',
+31 silly addNameRange     '0.4.7',
+31 silly addNameRange     '0.4.8',
+31 silly addNameRange     '0.4.9',
+31 silly addNameRange     '0.4.10',
+31 silly addNameRange     '0.4.11',
+31 silly addNameRange     '0.4.12',
+31 silly addNameRange     '0.4.13',
+31 silly addNameRange     '0.4.14',
+31 silly addNameRange     '0.4.15',
+31 silly addNameRange     '0.4.16',
+31 silly addNameRange     '0.4.17',
+31 silly addNameRange     '0.4.18',
+31 silly addNameRange     '0.4.19',
+31 silly addNameRange     '0.4.20',
+31 silly addNameRange     '0.4.21',
+31 silly addNameRange     '0.4.22',
+31 silly addNameRange     '0.4.23',
+31 silly addNameRange     '0.4.24',
+31 silly addNameRange     '0.4.25',
+31 silly addNameRange     '0.4.27',
+31 silly addNameRange     '0.4.28',
+31 silly addNameRange     '0.4.29',
+31 silly addNameRange     '0.4.30',
+31 silly addNameRange     '0.4.31',
+31 silly addNameRange     '0.4.32',
+31 silly addNameRange     '0.5.0',
+31 silly addNameRange     '0.6.0',
+31 silly addNameRange     '0.6.1',
+31 silly addNameRange     '0.6.2',
+31 silly addNameRange     '0.6.3',
+31 silly addNameRange     '0.6.4',
+31 silly addNameRange     '0.6.5',
+31 silly addNameRange     '0.7.0',
+31 silly addNameRange     '0.7.1' ] ]
+32 verbose addNamed [ 'ws', '0.7.1' ]
+33 verbose addNamed [ '0.7.1', '0.7.1' ]
+34 silly lockFile 94a65900-ws-0-7-1 ws@0.7.1
+35 verbose lock ws@0.7.1 /home/jesse/.npm/94a65900-ws-0-7-1.lock
+36 silly lockFile 89989a00-gistry-npmjs-org-ws-ws-0-7-1-tgz https://registry.npmjs.org/ws/-/ws-0.7.1.tgz
+37 verbose lock https://registry.npmjs.org/ws/-/ws-0.7.1.tgz /home/jesse/.npm/89989a00-gistry-npmjs-org-ws-ws-0-7-1-tgz.lock
+38 verbose addRemoteTarball [ 'https://registry.npmjs.org/ws/-/ws-0.7.1.tgz',
+38 verbose addRemoteTarball   '8f1c7864ca08081be3cd0ac330df0d29c5fcd0da' ]
+39 info retry fetch attempt 1 at 12:52:01
+40 verbose fetch to= /tmp/npm-25465-xCAeXvXY/registry.npmjs.org/ws/-/ws-0.7.1.tgz
+41 http GET https://registry.npmjs.org/ws/-/ws-0.7.1.tgz
+42 http 200 https://registry.npmjs.org/ws/-/ws-0.7.1.tgz
+43 silly lockFile 89989a00-gistry-npmjs-org-ws-ws-0-7-1-tgz https://registry.npmjs.org/ws/-/ws-0.7.1.tgz
+44 silly lockFile 89989a00-gistry-npmjs-org-ws-ws-0-7-1-tgz https://registry.npmjs.org/ws/-/ws-0.7.1.tgz
+45 silly lockFile 94a65900-ws-0-7-1 ws@0.7.1
+46 silly lockFile 94a65900-ws-0-7-1 ws@0.7.1
+47 silly lockFile e88fe629-ws ws@
+48 silly lockFile e88fe629-ws ws@
+49 silly resolved [ { author:
+49 silly resolved      { name: 'Einar Otto Stangvik',
+49 silly resolved        email: 'einaros@gmail.com',
+49 silly resolved        url: 'http://2x.io' },
+49 silly resolved     name: 'ws',
+49 silly resolved     description: 'simple to use, blazing fast and thoroughly tested websocket client, server and console for node.js, up-to-date against RFC-6455',
+49 silly resolved     version: '0.7.1',
+49 silly resolved     license: 'MIT',
+49 silly resolved     keywords:
+49 silly resolved      [ 'Hixie',
+49 silly resolved        'HyBi',
+49 silly resolved        'Push',
+49 silly resolved        'RFC-6455',
+49 silly resolved        'WebSocket',
+49 silly resolved        'WebSockets',
+49 silly resolved        'real-time' ],
+49 silly resolved     repository: { type: 'git', url: 'git://github.com/websockets/ws.git' },
+49 silly resolved     scripts: { test: 'make test' },
+49 silly resolved     dependencies:
+49 silly resolved      { options: '>=0.0.5',
+49 silly resolved        ultron: '1.0.x',
+49 silly resolved        bufferutil: '1.0.x',
+49 silly resolved        'utf-8-validate': '1.0.x' },
+49 silly resolved     optionalDependencies: { bufferutil: '1.0.x', 'utf-8-validate': '1.0.x' },
+49 silly resolved     devDependencies:
+49 silly resolved      { ansi: '0.3.x',
+49 silly resolved        benchmark: '0.3.x',
+49 silly resolved        'expect.js': '0.3.x',
+49 silly resolved        mocha: '2.0.x',
+49 silly resolved        should: '4.3.x',
+49 silly resolved        tinycolor: '0.0.x' },
+49 silly resolved     browser: './lib/browser.js',
+49 silly resolved     component: { scripts: [Object] },
+49 silly resolved     gypfile: true,
+49 silly resolved     gitHead: '608df82a333de45905f05ca60f18a625b4c3293b',
+49 silly resolved     bugs: { url: 'https://github.com/websockets/ws/issues' },
+49 silly resolved     homepage: 'https://github.com/websockets/ws',
+49 silly resolved     _id: 'ws@0.7.1',
+49 silly resolved     _shasum: '8f1c7864ca08081be3cd0ac330df0d29c5fcd0da',
+49 silly resolved     _from: 'ws@',
+49 silly resolved     _npmVersion: '2.3.0',
+49 silly resolved     _nodeVersion: '0.10.35',
+49 silly resolved     _npmUser: { name: '3rdeden', email: 'npm@3rd-Eden.com' },
+49 silly resolved     maintainers: [ [Object], [Object], [Object] ],
+49 silly resolved     dist:
+49 silly resolved      { shasum: '8f1c7864ca08081be3cd0ac330df0d29c5fcd0da',
+49 silly resolved        tarball: 'http://registry.npmjs.org/ws/-/ws-0.7.1.tgz' },
+49 silly resolved     directories: {},
+49 silly resolved     _resolved: 'https://registry.npmjs.org/ws/-/ws-0.7.1.tgz' } ]
+50 info install ws@0.7.1 into /usr/lib
+51 info installOne ws@0.7.1
+52 verbose lib/node_modules/ws unbuild
+53 verbose tar unpack /home/jesse/.npm/ws/0.7.1/package.tgz
+54 silly lockFile 48ab31b7-tar-usr-lib-node-modules-ws tar:///usr/lib/node_modules/ws
+55 verbose lock tar:///usr/lib/node_modules/ws /home/jesse/.npm/48ab31b7-tar-usr-lib-node-modules-ws.lock
+56 silly lockFile 99230625-e-jesse-npm-ws-0-7-1-package-tgz tar:///home/jesse/.npm/ws/0.7.1/package.tgz
+57 verbose lock tar:///home/jesse/.npm/ws/0.7.1/package.tgz /home/jesse/.npm/99230625-e-jesse-npm-ws-0-7-1-package-tgz.lock
+58 silly gunzTarPerm modes [ '775', '664' ]
+59 error Error: EACCES, mkdir '/usr/lib/node_modules/ws'
+59 error  { [Error: EACCES, mkdir '/usr/lib/node_modules/ws']
+59 error   errno: 3,
+59 error   code: 'EACCES',
+59 error   path: '/usr/lib/node_modules/ws',
+59 error   fstream_type: 'Directory',
+59 error   fstream_path: '/usr/lib/node_modules/ws',
+59 error   fstream_class: 'DirWriter',
+59 error   fstream_stack:
+59 error    [ '/usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
+59 error      '/usr/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
+59 error      'Object.oncomplete (fs.js:108:15)' ] }
+60 error Please try running this command again as root/Administrator.
+61 error System Linux 3.16.0-37-generic
+62 error command "/usr/bin/node" "/usr/bin/npm" "install" "-g" "ws"
+63 error cwd /home/jesse/RubyLessons/finalProject
+64 error node -v v0.10.38
+65 error npm -v 1.4.28
+66 error path /usr/lib/node_modules/ws
+67 error fstream_path /usr/lib/node_modules/ws
+68 error fstream_type Directory
+69 error fstream_class DirWriter
+70 error code EACCES
+71 error errno 3
+72 error stack Error: EACCES, mkdir '/usr/lib/node_modules/ws'
+73 error fstream_stack /usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+73 error fstream_stack /usr/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
+73 error fstream_stack Object.oncomplete (fs.js:108:15)
+74 verbose exit [ 3, true ]
