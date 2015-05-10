@@ -269,9 +269,7 @@ Playlist.Controller = (function() {
     console.log('dc');
 
       return window.trackController = new Playlist.Controller($('#switcher').data('uri'), true);
-      // location.reload();
-
-      window.setInterval("javascript function", milliseconds);
+      location.reload();
 
   };
 
