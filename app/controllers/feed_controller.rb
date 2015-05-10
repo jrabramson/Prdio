@@ -10,6 +10,7 @@ class FeedController < WebsocketRails::BaseController
 	end
 
 	def new_track
+		byebug
 		rdio = rdio_init
 		@host.room = connection_store[:host][:host_id]
 		@songs = rdio.call('search', ({ "query" => message[:track_search], "types" => "Track" }))['result']['results']
@@ -34,12 +35,11 @@ class FeedController < WebsocketRails::BaseController
 	def song_like
  		host = current_host
  		song = Song.find_by_id message[:song]
- 		guest = Guest.find_by_id session[:guest_id]
- 		# guest.like(song)
- 		# guest.songs << song
- 		song.vote = song.vote + 1
+		WebsocketRails['host' + host.id.to_s].trigger :like_track, { song: song.id }
+ 		guest = Guest.find_by(id: session['guest_id'])
+ 		guest.like(song)
+ 		guest.songs << song
  		if song.save
- 			WebsocketRails['host' + host.id.to_s].trigger :like_track, { song: song.id }
 			reorder_playlist
 		else
  			users = connection_store.collect_all(:user)
@@ -50,25 +50,21 @@ class FeedController < WebsocketRails::BaseController
 	def song_dislike
 		host = current_host
  		song = Song.find_by_id message[:song]
- 		guest = Guest.find_by_id session[:guest_id]
- 		# guest.dislike(song)
- 		# guest.songs << song
- 		song.vote = song.vote - 1
+		WebsocketRails['host' + host.id.to_s].trigger :dislike_track, { song: song.id }
+ 		guest = Guest.find_by(id: session['guest_id'])
+ 		guest.dislike(song)
+ 		guest.songs << song
  		if song.save
- 			WebsocketRails['host' + host.id.to_s].trigger :dislike_track, { song: song.id }
 			reorder_playlist
-		else
- 			users = connection_store.collect_all(:user)
-	 		broadcast_message :resume_play, users			
 		end
 	end
 
 	def clear
 		host = current_host
 		song = Song.where(key: sanitize(message[:key]), playlist_id: host.playlist.id)[0]
+		WebsocketRails['host' + host.id.to_s].trigger :reset_vote, { song: song.id.to_json }
 		song.vote = 0
 		song.save
-		WebsocketRails['host' + host.id.to_s].trigger :reset_vote, { song: song.id.to_json }
 		head :ok
 	end
 

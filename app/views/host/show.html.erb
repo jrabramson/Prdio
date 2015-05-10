@@ -23,7 +23,8 @@
 <%= hidden_field_tag 'host', @host.id %>
 <div id="switcher" data-uri="<%= request.host %>:<%= request.port %>/websocket">
 	<ul id='tracks'>
-      <% @host.playlist.songs.sort_by {|song| [song.vote, song.id]}.reverse.each do |song| %>
+      <% @songs = @host.playlist.songs %>
+      <% @songs.sort_by {|song| [song.vote, song.id]}.reverse.each do |song| %>
         <li class="track" data-id="<%= song.id %>" data-key="<%= song.key %>" data-order="0">
           <div class='track-arrow'>
             <img src='<%= song.image %>' class='trackIcon'>

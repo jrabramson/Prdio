@@ -14,7 +14,7 @@ var domain = "www.prdio.com";
 // var domain = "localhost";
 
 var track_pos = -1;
-
+ 
 $(document).ready(function() {
 
   Array.prototype.allValuesSame = function() {
@@ -163,8 +163,6 @@ Playlist.Controller = (function() {
   }
 
   Controller.prototype.bindEvents = function() {
-    this.dispatcher.bind('user_list', this.updateUserList);
-    this.dispatcher.bind('connection_closed', this.reconnect);
     $('#tracks .track').removeClass('playing-track');
     $('#tracks .track:eq(0)').addClass('playing-track');
     dispatcher = this.dispatcher;
@@ -255,6 +253,8 @@ Playlist.Controller = (function() {
   Controller.prototype.createGuestUser = function() {
     this.user = new Playlist.User($('#guest').val(), $('#host').val());
     channel = this.dispatcher.subscribe('host' + this.user.host_id);
+    channel.bind('user_list', this.updateUserList);
+    channel.bind('connection_closed', this.reconnect);
     channel.bind('new_track', this.newTrack);
     channel.bind('like_track', this.likeTrack);
     channel.bind('dislike_track', this.dislikeTrack);
@@ -267,8 +267,12 @@ Playlist.Controller = (function() {
 
   Controller.prototype.reconnect = function() {
     console.log('dc');
+
       return window.trackController = new Playlist.Controller($('#switcher').data('uri'), true);
       // location.reload();
+
+      window.setInterval("javascript function", milliseconds);
+
   };
 
 //-----------------------------------------------------------------
