@@ -12,6 +12,7 @@ class GuestController < ApplicationController
 				session.clear
 				session[:guest_id] = @guest.id
 				redirect_to '/party/' + guest_room
+				raise 'hell'
 			else
 				flash[:error] = "Please enter your name!"
 				redirect_to '/'
