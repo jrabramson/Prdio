@@ -43,7 +43,7 @@ $(function() {
 
 	var md = new MobileDetect(window.navigator.userAgent);
 	if (md.mobile()) {
-		$('.name').css('color', randColour2);
+		$('.name').css('color', randColour);
 		// $('#switcher').css('bottom', $('.songSearch').css('height'));
 	} 
 		$('#switcher').css('bottom', $('.playback-container').css('height'));

@@ -163,7 +163,13 @@ a:hover{
 }
 
 @media (max-width:740px) {
-	
+	.songSearch {
+    opacity: 1;
+    position: absolute;
+    float: right;
+    padding: 0;
+    vertical-align: -webkit-baseline-middle;
+  }
 }
 	
 @media (max-width:480px) {

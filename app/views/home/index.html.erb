@@ -7,10 +7,10 @@
 
 <%= form_for(@guest) do |f| %>
   <div class="field h-spacer5">
-    <%= f.text_field :host_id,{ class:"form", placeholder: "Room Code" } %>
+    <%= f.text_field :host_id,{ class:"form", placeholder: "Room Code", autocomplete: 'off', autocorrect: 'off' } %>
   </div>
   <div class="field h-spacer10">
-    <%= f.text_field :name, { class:"form", placeholder: "Your Name" } %>
+    <%= f.text_field :name, { class:"form", placeholder: "Your Name", autocomplete: 'off', autocorrect: 'off' } %>
   </div>
   <div class="actions"> 
     <%= submit_tag 'Join Party', { class:"join" } %>
