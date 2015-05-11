@@ -10,7 +10,7 @@
   <% if @guest.present? %>
     <div class="songSearch">
     	<%= form_tag @host.room + '/search/' do %>
-    		<%= text_field_tag :title, '', { placeholder: 'Search &#9835;', id: 'search-data' } %> <br />
+    		<%= text_field_tag :title, '', { placeholder: 'Search', id: 'search-data' } %> <br />
     		<%= submit_tag 'Find Songs', { id: 'search' } %>
     	<% end %>
     </div>
