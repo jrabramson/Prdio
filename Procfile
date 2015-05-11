@@ -1,1 +1,1 @@
-web.2: bundle exec thin start --threaded
+web: bundle exec thin start -e $RAILS_ENV -p $PORT --threaded
