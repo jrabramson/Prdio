@@ -1,1 +1,1 @@
-web: bundle exec thin start --threaded
+web.2: bundle exec thin start --threaded
