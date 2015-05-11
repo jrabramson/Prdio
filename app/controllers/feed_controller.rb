@@ -10,7 +10,6 @@ class FeedController < WebsocketRails::BaseController
 	end
 
 	def new_track
-		byebug
 		rdio = rdio_init
 		@host.room = connection_store[:host][:host_id]
 		@songs = rdio.call('search', ({ "query" => message[:track_search], "types" => "Track" }))['result']['results']
