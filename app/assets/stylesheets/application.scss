@@ -176,4 +176,20 @@ a:hover{
   #search {
     display: none;
   }
+  #search-data {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .code {
+    display: none;
+    font-size: inherit;
+  }
+  .roomcode {
+    display: none;
+  }
+  .name {
+    padding: 0;
+    width: 100%;
+    text-align: center;
+  }
 }
