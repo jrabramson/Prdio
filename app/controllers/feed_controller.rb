@@ -32,6 +32,7 @@ class FeedController < WebsocketRails::BaseController
 	end
 
 	def song_like
+		puts messeage.to_S
  		host = current_host
  		song = Song.find_by_id message[:song]
 		WebsocketRails['host' + host.id.to_s].trigger :like_track, { song: song.id }
@@ -47,6 +48,7 @@ class FeedController < WebsocketRails::BaseController
 	end
 
 	def song_dislike
+		puts messeage.to_S
 		host = current_host
  		song = Song.find_by_id message[:song]
 		WebsocketRails['host' + host.id.to_s].trigger :dislike_track, { song: song.id }
