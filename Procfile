@@ -1,1 +1,0 @@
-worker: bundle exec thin start -p 3001 --threaded
