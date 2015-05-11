@@ -41,10 +41,11 @@ $(function() {
 
 	$('#switcher').css('top', $('.songList').css('height'));	
 
-	// var md = new MobileDetect(window.navigator.userAgent);
-	// if (md.mobile()) {
-	// 	$('#switcher').css('bottom', $('.songSearch').css('height'));
-	// } else {
+	var md = new MobileDetect(window.navigator.userAgent);
+	if (md.mobile()) {
+		$('.name').css('color', randColour2);
+		// $('#switcher').css('bottom', $('.songSearch').css('height'));
+	} 
 		$('#switcher').css('bottom', $('.playback-container').css('height'));
 
 	$('#freq').css('height', $('.playback-container').css('height'));
