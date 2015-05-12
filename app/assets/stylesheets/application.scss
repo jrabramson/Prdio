@@ -164,18 +164,20 @@ a:hover{
 
 
 #turntable {
-  width: 375px;
+  width: 464px;
   position: relative;
   margin: 0 auto;
   overflow: hidden;
   z-index: -2;
   height: 100%;
+  background: url(http://media.giphy.com/media/jYGWqorFl75tK/giphy.gif) #FFF 50% 28% no-repeat;
 }
 
 #circle {   
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   width: 268px;
+  left: 45px;
   overflow: hidden;
   z-index: -2;
 }
@@ -291,9 +293,12 @@ a:hover{
   .track {
     font-size: 0.75em;
   }
-  #circle svg { 
+/*  #circle svg { 
     left: 5px;
-  }
+  }*/
+}
+
+@media (max-width:375px) {
   #turntable {
     width: 100%;
   }
