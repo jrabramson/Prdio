@@ -253,6 +253,9 @@ a:hover{
 }
 	
 @media (max-width:480px) {
+  .songList {
+    height: 150px;
+  }
   .songSearch {
     top: 0;
     opacity: 1;
@@ -298,7 +301,7 @@ a:hover{
     display: none;
   }
   #switcher {
-    margin-top: -159px;
+    top: 150px;
   }
 }
 
@@ -307,6 +310,6 @@ a:hover{
     display: block;
   }
   #switcher {
-    margin-top: 0px;
+    top: 0px;
   }
 }
