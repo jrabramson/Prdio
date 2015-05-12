@@ -55,7 +55,7 @@ $(function() {
 	  $(this).css('background-color', colours[i]);
 	})
 
-	$('#tracks').on('hover', '.track', (function(){
+	$('.track').hover(function(){
 		randColour3 = colours[Math.floor(Math.random()*colours.length)];
 		$(this).first($('.vote')).css('color', randColour3);
 	});
