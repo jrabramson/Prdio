@@ -219,14 +219,21 @@ a:hover{
   }
 }
 
-#circle {   
-  /*display: none;*/
+#turntable {
+  width: 375px;
   position: relative;
-  width: 432px;
-  padding-bottom: 25%;
+  margin: 0 auto;
   overflow: hidden;
   z-index: -2;
-  margin: 0 auto; 
+  height: 100%;
+}
+
+#circle {   
+  position: absolute;
+  bottom: 0;
+  width: 268px;
+  overflow: hidden;
+  z-index: -2;
 }
 
 #circle text { font-family: 'Helvetica Neue', Arial; font-size: 16px; font-weight: bold; }
@@ -234,7 +241,7 @@ a:hover{
 #circle svg { 
   position: absolute;
   left: 13%;
-  top: 35%;
+  top: 45%;
   width: 200px;
   height: 200px;
   -webkit-animation-name: rotate;

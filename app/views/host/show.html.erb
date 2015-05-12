@@ -4,19 +4,21 @@
     <div class="error"><span class='error_message'><%= flash[:error] %></span><img src='http://media.giphy.com/media/1aBHzBi3jSItG/giphy.gif'></div>
   <% end %>
 <div class="songList">
-  <div id="circle">
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="175px" height="175px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
-        <defs>
-            <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "/>
-        </defs>
-        <circle cx="150" cy="150" r="50" fill="#000" style='stroke-opacity: 0;fill: none;'/>
-        <g>
-            <use xlink:href="#criclePath" fill="none"/>
-            <text fill="#fff">
-                <textPath xlink:href="#criclePath" style='font-size: 30px;'><%= @host.playlist.name %> </textPath>
-            </text>
-        </g>
-    </svg>
+  <div id='turntable'>
+    <div id="circle">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="175px" height="175px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+          <defs>
+              <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "/>
+          </defs>
+          <circle cx="150" cy="150" r="50" fill="#000" style='stroke-opacity: 0;fill: none;'/>
+          <g>
+              <use xlink:href="#criclePath" fill="none"/>
+              <text fill="#fff">
+                  <textPath xlink:href="#criclePath" style='font-size: 30px;'><%= @host.playlist.name %> </textPath>
+              </text>
+          </g>
+      </svg>
+    </div>
   </div>
   <% if @guest.present? %>
     <div class="songSearch">

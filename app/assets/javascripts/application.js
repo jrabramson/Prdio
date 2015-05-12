@@ -80,5 +80,5 @@ function responsiveness() {
 	// 	$('.name').css('display', 'inline-block');
 	// }
 
-	$('#circle').css('padding-bottom', $('.songList').height())
+	$('#circle').css('height', $('.songList').height())
 }
