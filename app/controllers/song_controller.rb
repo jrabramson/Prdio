@@ -4,6 +4,10 @@ class SongController < ApplicationController
 		@host = current_host
 		rdio = rdio_init
 		@songs = rdio.call('search', ({ "query" => params[:title], "types" => "Track" }))['result']['results']
+		if @songs.empty?
+			flash[:error] = "Sorry, no results."
+			redirect_to '/party/' + @host.room
+		end
 	end
 
 	def create

@@ -12,7 +12,7 @@
 .songSearch{
 	color:$darkGray;
 	background-color:white;
-	opacity:.9;
+	opacity:1;
 	position: absolute;
 	top: 20px;
 	right: 20px;
@@ -147,11 +147,13 @@
 	margin: 0 auto;
 	background: white;
 	opacity: 1;
-    padding: 0px 15px 15px 15px;
+    padding: 25px 15px 0px 15px;
 	position: fixed;
 	top: 0;
 	width: 100%;
 	z-index: 9999;
+    background: url(http://media.giphy.com/media/jYGWqorFl75tK/giphy.gif) #FFF 50% 28% no-repeat;
+    height: 20%;
 }
 
 #switcher {
@@ -161,6 +163,7 @@
 	width: 100%;
 	bottom: 0;
   	overflow-y: scroll;
+  	z-index: 9999;
 }
 
 .track{
@@ -187,6 +190,8 @@
 	border: solid black 2px;
 	border-radius:5px;
 	padding: 3px;
+	position: absolute;
+	top: 25px;
 }
 
 .code {
@@ -194,6 +199,8 @@
 	font-size: 12px;
 	margin-top: 13px;
   	font-weight: 900;
+  	position: absolute;
+  	top: 0;
 }
 
 .resume {
@@ -205,15 +212,12 @@
 	padding-top: 10px;
 	display: inline-block;
 	line-height: 1.7;
+    display: none;
 }
 
 .welcomeGuest{
 	background-color: white;
 	padding:5px;
-}
-
-.songSearch {
-	padding:10px 0;
 }
 
 .artistAlbumInfo {
@@ -248,17 +252,29 @@
 }
 
 .error {
-  padding: 5px;
-  font-size: 18px;
-  width: 200px;
-  height: 75px;
-  text-align: center;
-  padding-top: 20px;
-  box-shadow: 2px 2px 2px;
-  position: absolute;
-  z-index: 9999;
-  top: 50%;
-  left: 40%;
+	padding-bottom: 5px;
+	font-size: 18px;
+	width: 200px;
+	/*height: 160px;*/
+	text-align: center;
+	box-shadow: 2px 2px 2px;
+	position: absolute;
+	z-index: 9999;
+	top: 50%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	line-height: 1;
+	.error_message {
+	  width: 100%;
+	  background: white;
+	  display: block;
+	  line-height: 2;
+	}
+	img {
+		width: 185px;
+		margin-top: 5px;
+	}
 }
 
 .playback-container {

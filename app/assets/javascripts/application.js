@@ -34,7 +34,7 @@ $(function() {
 	
 	$('.error').css('background-color', randColour);
 	$(window).load(function(){
-	  setTimeout(function(){ $('.error').fadeOut() }, 2500);
+	  setTimeout(function(){ $('.error').fadeOut() }, 4000);
 	});
 
 	$('.vote_btn').vibrate();
@@ -42,11 +42,14 @@ $(function() {
 	$('#switcher').css('top', $('.songList').css('height'));	
 
 	var md = new MobileDetect(window.navigator.userAgent);
-	if (md.mobile()) {
-		$('.name').css('color', randColour);
-		// $('#switcher').css('bottom', $('.songSearch').css('height'));
-	} 
-		$('#switcher').css('bottom', $('.playback-container').css('height'));
+	// if (md.mobile()) {
+	responsiveness();
+	
+	$(window).resize(function() {
+		responsiveness();
+	});
+
+	$('#switcher').css('bottom', $('.playback-container').css('height'));
 
 	$('#freq').css('height', $('.playback-container').css('height'));
 
@@ -68,3 +71,14 @@ $(function() {
 
 	
 });
+
+function responsiveness() {
+	// if (window.innerWidth <= 740) {
+	// 	// $('#circle').css('display', 'block');
+	// } else {
+	// 	$('.name').css('color', randColour);
+	// 	$('.name').css('display', 'inline-block');
+	// }
+
+	$('#circle').css('padding-bottom', $('.songList').height())
+}
