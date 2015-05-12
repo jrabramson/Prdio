@@ -293,7 +293,7 @@ a:hover{
   }
 }
 
-@media (orientation: landscape) {
+@media (max-width: 780px) and (orientation: landscape) {
   .songList {
     display: none;
   }
