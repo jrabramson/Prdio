@@ -292,3 +292,21 @@ a:hover{
     left: -5px;
   }
 }
+
+@media (orientation: landscape) {
+  .songList {
+    display: none;
+  }
+  #switcher {
+    margin-top: -159px;
+  }
+}
+
+@media (orientation: portrait) {
+  .songList {
+    display: block;
+  }
+  #switcher {
+    margin-top: 0px;
+  }
+}
