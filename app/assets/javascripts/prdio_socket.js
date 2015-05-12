@@ -6,12 +6,12 @@ var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="Sho
 var apiswf = null;
 
 //-----Heroku
-// var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
-// var domain = "www.prdio.com";
+var playback_token = "GA1VQtLg_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnd3dy5wcmRpby5jb229Lci-G1YF9zVvTMWC3UWj";
+var domain = "www.prdio.com";
 
 //-----local
-var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
-var domain = "localhost";
+// var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
+// var domain = "localhost";
 
 var track_pos = -1;
  
