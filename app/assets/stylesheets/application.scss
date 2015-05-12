@@ -218,7 +218,8 @@ a:hover{
     font-size: 0.75em;
   }
   #circle svg { 
-    left: 0;
+    left: -1px;
+    top: 75px;
   }
 }
 
@@ -243,8 +244,8 @@ a:hover{
 
 #circle svg { 
   position: absolute;
-  left: 13%;
-  top: 45%;
+  left: 64px;
+  top: 64px;
   width: 200px;
   height: 200px;
   -webkit-animation-name: rotate;
