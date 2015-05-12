@@ -298,10 +298,13 @@ a:hover{
   }*/
 }
 
-@media (max-width:375px) {
-/*  #turntable {
-    width: 100%;
-  }*/
+@media (max-width:420px) {
+  #turntable {
+    width: 445px;
+  }
+  #circle {
+    left: 27px;
+  }
 }
 
 @media (max-width: 780px) and (orientation: landscape) {
