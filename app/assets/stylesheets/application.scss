@@ -162,6 +162,76 @@ a:hover{
   border: 1px solid black;
 }
 
+
+#turntable {
+  width: 375px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: -2;
+  height: 100%;
+}
+
+#circle {   
+  position: absolute;
+  bottom: 0;
+  width: 268px;
+  overflow: hidden;
+  z-index: -2;
+}
+
+#circle text { font-family: 'Helvetica Neue', Arial; font-size: 16px; font-weight: bold; }
+
+#circle svg { 
+  position: absolute;
+  left: 13%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  -webkit-animation-name: rotate;
+     -moz-animation-name: rotate;
+      -ms-animation-name: rotate;
+       -o-animation-name: rotate;
+          animation-name: rotate;
+  -webkit-animation-duration: 2.5s;
+     -moz-animation-duration: 2.5s;
+      -ms-animation-duration: 2.5s;
+       -o-animation-duration: 2.5s;
+          animation-duration: 2.5s;
+  -webkit-animation-iteration-count: infinite;
+     -moz-animation-iteration-count: infinite;
+      -ms-animation-iteration-count: infinite;
+       -o-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+     -moz-animation-timing-function: linear;
+      -ms-animation-timing-function: linear;
+       -o-animation-timing-function: linear;
+          animation-timing-function: linear;
+
+}
+
+@-webkit-keyframes rotate {
+    from { -webkit-transform: rotate(0); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes rotate {
+    from { -moz-transform: rotate(0); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-ms-keyframes rotate {
+    from { -ms-transform: rotate(0); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-o-keyframes rotate {
+    from { -o-transform: rotate(0); }
+    to { -o-transform: rotate(360deg); }
+}
+@keyframes rotate {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+
 @media (min-width:741px) {
 	   .songSearch {
         float: right;
@@ -208,6 +278,7 @@ a:hover{
   }
   .roomcode {
     display: none;
+
   }
   .name {
     padding: 0;
@@ -218,76 +289,6 @@ a:hover{
     font-size: 0.75em;
   }
   #circle svg { 
-    left: -1px;
-    top: 75px;
+    left: -5px;
   }
-}
-
-#turntable {
-  width: 375px;
-  position: relative;
-  margin: 0 auto;
-  overflow: hidden;
-  z-index: -2;
-  height: 100%;
-}
-
-#circle {   
-  position: absolute;
-  bottom: 0;
-  width: 268px;
-  overflow: hidden;
-  z-index: -2;
-}
-
-#circle text { font-family: 'Helvetica Neue', Arial; font-size: 16px; font-weight: bold; }
-
-#circle svg { 
-  position: absolute;
-  left: 64px;
-  top: 64px;
-  width: 200px;
-  height: 200px;
-  -webkit-animation-name: rotate;
-     -moz-animation-name: rotate;
-      -ms-animation-name: rotate;
-       -o-animation-name: rotate;
-          animation-name: rotate;
-  -webkit-animation-duration: 2.5s;
-     -moz-animation-duration: 2.5s;
-      -ms-animation-duration: 2.5s;
-       -o-animation-duration: 2.5s;
-          animation-duration: 2.5s;
-  -webkit-animation-iteration-count: infinite;
-     -moz-animation-iteration-count: infinite;
-      -ms-animation-iteration-count: infinite;
-       -o-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-     -moz-animation-timing-function: linear;
-      -ms-animation-timing-function: linear;
-       -o-animation-timing-function: linear;
-          animation-timing-function: linear;
-
-}
-
-@-webkit-keyframes rotate {
-    from { -webkit-transform: rotate(0); }
-    to { -webkit-transform: rotate(360deg); }
-}
-@-moz-keyframes rotate {
-    from { -moz-transform: rotate(0); }
-    to { -moz-transform: rotate(360deg); }
-}
-@-ms-keyframes rotate {
-    from { -ms-transform: rotate(0); }
-    to { -ms-transform: rotate(360deg); }
-}
-@-o-keyframes rotate {
-    from { -o-transform: rotate(0); }
-    to { -o-transform: rotate(360deg); }
-}
-@keyframes rotate {
-    from { transform: rotate(0); }
-    to { transform: rotate(360deg); }
 }
