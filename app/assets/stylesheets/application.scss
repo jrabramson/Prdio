@@ -164,13 +164,13 @@ a:hover{
 
 
 #turntable {
-  width: 464px;
+  width: 480px;
   position: relative;
   margin: 0 auto;
   overflow: hidden;
   z-index: -2;
   height: 100%;
-  background: url(http://media.giphy.com/media/jYGWqorFl75tK/giphy.gif) #FFF 48% 28% no-repeat;
+  background: url(http://media.giphy.com/media/jYGWqorFl75tK/giphy.gif) #FFF 54% 28% no-repeat;
 }
 
 #circle {   
@@ -299,9 +299,9 @@ a:hover{
 }
 
 @media (max-width:375px) {
-  #turntable {
+/*  #turntable {
     width: 100%;
-  }
+  }*/
 }
 
 @media (max-width: 780px) and (orientation: landscape) {
