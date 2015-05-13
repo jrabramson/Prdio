@@ -307,16 +307,16 @@ a:hover{
   }
 }
 
-@media (max-width: 780px) and (orientation: landscape) {
+@media screen and (max-width: 480px) {
   .songList {
-    display: none;
+    display: none;  
   }
   #switcher {
-    /*top: 0px !important;*/
+    top: 0px !important;
   }
 }
 
-@media (orientation: portrait) {
+@media screen and (max-width: 320px) {
   .songList {
     display: block;
   }
