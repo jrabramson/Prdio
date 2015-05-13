@@ -13,8 +13,11 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script src="//cdn.jsdelivr.net/mobile-detect.js/1.0.0/mobile-detect.min.js"></script>
   <%= csrf_meta_tags %>
-  <activity
-    android:windowSoftInputMode="adjustNothing" > </activity>
+  <activity android:name="MyActivity"
+     ...
+     android:windowSoftInputMode="adjustPan"
+     ...
+   </activity>
    <!--        <script> $(document).ready(function() { App.init(); }); </script> -->
 </head>
 <body>
