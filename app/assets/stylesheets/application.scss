@@ -307,7 +307,7 @@ a:hover{
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (min-device-width : 480px) and (max-device-width : 780px) {
   .songList {
     display: none;  
   }
@@ -316,7 +316,7 @@ a:hover{
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (min-device-width : 320px) and (max-device-width : 480px) {
   .songList {
     display: block;
   }
