@@ -5,20 +5,38 @@
   <% end %>
 <div class="songList">
   <div id='turntable'>
+  	<%= embedded_svg 'prdio-logo2.svg', class: "plogo" %>
     <div id="circle">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="175px" height="175px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="175px" height="175px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
           <defs>
-              <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "/>
+            <path id="circlePath" d=" 
+             M 200, 200 
+             m -110, 0 
+             a 120,120 0 0,1 240,0 
+             a 120,120 0 0,1 -240,0">
+             </path>
+            <path id="circlePath2" d=" M 200, 200 
+            m -140, 0 
+            a 130,130 0 0,1 300,0 
+            a 130,130 0 0,1 -300,0">
+            </path>
           </defs>
           <circle cx="150" cy="150" r="50" fill="#000" style='stroke-opacity: 0;fill: none;'/>
           <g>
-              <use xlink:href="#criclePath" fill="none"/>
+              <use xlink:href="#circlePath" fill="none"/>
               <text fill="#fff">
-                  <textPath xlink:href="#criclePath" style='font-size: 30px;'>♬ <%= @host.playlist.name %> ♬</textPath>
+                  <textPath xlink:href="#circlePath" style='font-size: 30px;' id='circleText'></textPath>
+              </text>
+          </g>
+          <g>
+              <use xlink:href="#circlePath2" fill="none"/>
+              <text fill="#fff">
+                  <textPath xlink:href="#circlePath2" style='font-size: 30px;' id='circleText2'> ♬ <%= @host.playlist.name %> ♬ </textPath>
               </text>
           </g>
       </svg>
     </div>
+    <%= hidden_field_tag 'playlist', @host.playlist.name %>
   </div>
   <% if @guest.present? %>
     <div class="songSearch">

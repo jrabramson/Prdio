@@ -13,6 +13,10 @@ var domain = "www.prdio.com";
 // var playback_token = "GAlVQvFDAeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbmxvY2FsaG9zdMnp0MHSOZflCxXJciahTas=";
 // var domain = "localhost";
 
+//-----Jesse
+// var playback_token = "GA1VVQq0AeItJmR2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbjE5Mi4xNjguMi4yMDa3tcVQvK51l4mF8bcCAxye";
+// var domain = "192.168.2.206";
+
 var track_pos = -1;
  
 $(document).ready(function() {
@@ -153,6 +157,7 @@ Playlist.Controller = (function() {
     this.resetVote            = __bind(this.resetVote, this);
     this.resume               = __bind(this.resume, this);
     this.updateList           = __bind(this.updateList, this);
+    this.updateTrack          = __bind(this.updateTrack, this);
     this.reconnect            = __bind(this.reconnect);
     this.trackQueue           = [];
     this.dispatcher           = new WebSocketRails(url, useWebSockets);
@@ -209,6 +214,13 @@ Playlist.Controller = (function() {
     this.appendTrack(track);
   };
 
+  Controller.prototype.updateTrack = function(track) {
+    var colours = ['#FF1D3E', '#FF8A15', '#35D8B9', '#FFBE1D', '#A250CC', '#6945CE', '#F94EA0', '#E24040', '#5983D8', '#5FDB37', '#F76F34']
+    randColour = colours[Math.floor(Math.random()*colours.length)];
+    $('#circleText').css('fill', randColour);
+    $('#circleText').text(track);
+  };
+
   Controller.prototype.sendTrack = function(event) {
     var track;
     event.preventDefault();
@@ -261,6 +273,7 @@ Playlist.Controller = (function() {
     channel.bind('reset_vote', this.resetVote);
     channel.bind('update_list', this.updateList);
     channel.bind('resume_play', this.resume);
+    channel.bind('update_track', this.updateTrack);
     this.dispatcher.trigger('reorder_playlist', { host_id: $('.roomcode').html() });
     return this.dispatcher.trigger('new_guest', this.user.serialize());
   };
@@ -348,6 +361,8 @@ Playlist.Controller = (function() {
     }
 
     $('#track').text(playingTrack['name']);
+    truncatedTrack = playingTrack['name'].substring(0, 20);
+    channel.trigger('update_track', truncatedTrack);
     $('#album').text(playingTrack['album']);
     $('#artist').text(playingTrack['artist']);
     $('#art').fadeTo(1000,0.30, function() {

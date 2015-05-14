@@ -48,6 +48,14 @@ body{
   fill: rgba(0,0,0,1);
 }
 
+.plogo {
+  position: absolute;
+  width: 75px;
+  fill: red;
+  right: 138px;
+  top: 25px;
+}
+
  .logo{
 	background: url(asset-path('prdio-logo2.svg')) no-repeat center;
 	width:100%;
@@ -182,24 +190,31 @@ a:hover{
   z-index: -2;
 }
 
+.plogo g path {
+  fill: #000;
+}
+.plogo g g path {
+  fill: #000;
+}
+
 #circle text { font-family: 'Helvetica Neue', Arial; font-size: 16px; font-weight: bold; }
 
 #circle svg { 
   position: absolute;
-  left: 10%;
-  top: 50%;
-  width: 200px;
-  height: 200px;
+  left: 0%;
+  top: 35%;
+  width: 250px;
+  height: 250px;
   -webkit-animation-name: rotate;
      -moz-animation-name: rotate;
       -ms-animation-name: rotate;
        -o-animation-name: rotate;
           animation-name: rotate;
-  -webkit-animation-duration: 2.5s;
-     -moz-animation-duration: 2.5s;
-      -ms-animation-duration: 2.5s;
-       -o-animation-duration: 2.5s;
-          animation-duration: 2.5s;
+  -webkit-animation-duration: 4.5s;
+     -moz-animation-duration: 4.5s;
+      -ms-animation-duration: 4.5s;
+       -o-animation-duration: 4.5s;
+          animation-duration: 4.5s;
   -webkit-animation-iteration-count: infinite;
      -moz-animation-iteration-count: infinite;
       -ms-animation-iteration-count: infinite;
@@ -214,24 +229,24 @@ a:hover{
 }
 
 @-webkit-keyframes rotate {
-    from { -webkit-transform: rotate(0); }
-    to { -webkit-transform: rotate(360deg); }
+    from { -webkit-transform: rotate(360deg); }
+    to { -webkit-transform: rotate(0); }
 }
 @-moz-keyframes rotate {
-    from { -moz-transform: rotate(0); }
-    to { -moz-transform: rotate(360deg); }
+    from { -moz-transform: rotate(360deg); }
+    to { -moz-transform: rotate(0); }
 }
 @-ms-keyframes rotate {
-    from { -ms-transform: rotate(0); }
-    to { -ms-transform: rotate(360deg); }
+    from { -ms-transform: rotate(360deg); }
+    to { -ms-transform: rotate(0); }
 }
 @-o-keyframes rotate {
-    from { -o-transform: rotate(0); }
-    to { -o-transform: rotate(360deg); }
+    from { -o-transform: rotate(360deg); }
+    to { -o-transform: rotate(0); }
 }
 @keyframes rotate {
-    from { transform: rotate(0); }
-    to { transform: rotate(360deg); }
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0); }
 }
 
 @media (min-width:741px) {
@@ -304,6 +319,13 @@ a:hover{
   }
   #circle {
     left: 27px;
+  }
+  .plogo {
+    position: absolute;
+    width: 55px;
+    fill: red;
+    right: 130px;
+    top: 25px;
   }
 }
 
