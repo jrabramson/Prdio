@@ -40,7 +40,7 @@ class Rdio
       {
         'response_type' => 'code',
         'client_id' => ENV["RDIO_CONSUMER_KEY"],
-        'redirect_uri' => 'http://localhost:3000/callback'
+        'redirect_uri' => 'http://www.prdio.com/callback'
       })
 
     # response = signed_post('https://www.rdio.com/oauth2/token',

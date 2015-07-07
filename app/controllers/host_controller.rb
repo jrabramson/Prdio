@@ -5,7 +5,7 @@ class HostController < ApplicationController
 	  		@currentUser = session['user']
 		else
 			session.clear
-			redirect_to 'https://www.rdio.com/oauth2/authorize/?response_type=code&client_id=fcjhwmdw35hxxjlrkcni63gwnq&redirect_uri=http://localhost:3000/callback'
+			redirect_to 'https://www.rdio.com/oauth2/authorize/?response_type=code&client_id=fcjhwmdw35hxxjlrkcni63gwnq&redirect_uri=http://www.prdio.com/callback'
 		end
 	end
 
@@ -77,7 +77,7 @@ class HostController < ApplicationController
 		  request.set_form_data({
 		  	grant_type: 'authorization_code',
 		  	code: code,
-		  	redirect_uri: 'http://localhost:3000/callback'
+		  	redirect_uri: 'http://www.prdio.com/callback'
 		  })
 
 		  response = http.request request # Net::HTTPResponse object
