@@ -81,7 +81,7 @@ def om(consumer, url, post_params, token=nil, method='POST', realm=nil, timestam
 
   # add OAuth params
   params = params + [
-    ['oauth_version', '1.0'],
+    ['oauth_version', '2.0'],
     ['oauth_timestamp', timestamp || Time.now.to_i.to_s],
     ['oauth_nonce', nonce || rand(1000000).to_s],
     ['oauth_signature_method', 'HMAC-SHA1'],

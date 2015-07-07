@@ -1,14 +1,11 @@
 class HostController < ApplicationController
 	def new
 	  	if has_access_token?
-	  		@playlists = Host.party_setup access_token, access_token_secret
+	  		@playlists = Host.party_setup access_token
 	  		@currentUser = session['user']
 		else
 			session.clear
-			rdio = Host.get_auth request.url
-			session[:rt] = rdio.token[0]
-			session[:rts] = rdio.token[1]
-			redirect_to rdio.token[2]
+			redirect_to 'https://www.rdio.com/oauth2/authorize/?response_type=code&client_id=fcjhwmdw35hxxjlrkcni63gwnq&redirect_uri=http://localhost:3000/callback'
 		end
 	end
 
@@ -27,9 +24,9 @@ class HostController < ApplicationController
 
 	def create
 		access_token = session[:at]
-	  	access_token_secret = session[:ats]
+	  	# access_token_secret = session[:ats]
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
-			[access_token, access_token_secret])
+			access_token)
 		if new_party['reuse'].blank?
 			@playlist = rdio.call('createPlaylist', ({ "name" => new_party['playlist'], "description" => "", "tracks" => "" }))
 			@playlist = @playlist['result']['key']
@@ -64,24 +61,36 @@ class HostController < ApplicationController
 
 
 	def callback
-		request_token = session[:rt]
-		request_token_secret = session[:rts]
-		verifier = params[:oauth_verifier]
-		if request_token and request_token_secret and verifier
-			rdio = Rdio.new([
+		code = params[:code]
+		key = ENV["RDIO_CONSUMER_KEY"]
+		secret = ENV["RDIO_CONSUMER_SECRET"]
+		url = "https://services.rdio.com/oauth2/token"
+
+		uri = URI(url)
+
+		Net::HTTP.start(uri.host, uri.port,
+		  :use_ssl => uri.scheme == 'https', 
+		  :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+
+		  request = Net::HTTP::Post.new uri.request_uri
+		  request.basic_auth key, secret
+		  request.set_form_data({
+		  	grant_type: 'authorization_code',
+		  	code: code,
+		  	redirect_uri: 'http://localhost:3000/callback'
+		  })
+
+		  response = http.request request # Net::HTTPResponse object
+		  response = JSON.parse response.body
+
+		  session[:at] = response['access_token']
+		  rdio = Rdio.new([
 				Rails.configuration.rdio[:key], 
 				Rails.configuration.rdio[:secret]], 
-			[request_token, request_token_secret])
-			rdio.complete_authentication(verifier)
-			session[:at] = rdio.token[0]
-			session[:ats] = rdio.token[1]
-			session[:user] = rdio.call('currentUser')['result']
-			session.delete(:rt)
-			session.delete(:rts)
-			redirect_to('/new')
-		else
-			redirect_to('/logout')
+			access_token)
+		  session[:user] = rdio.call('currentUser')['result']
 		end
+		redirect_to('/new')
 	end
 
 	def logout
@@ -115,7 +124,7 @@ class HostController < ApplicationController
 	end
 
 	def has_access_token?
-		access_token && access_token_secret
+		access_token
 	end
 
 	def join

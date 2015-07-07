@@ -20,6 +20,8 @@
 require 'om'
 require 'uri'
 require 'net/http'
+require 'net/https'
+require 'openssl'
 require 'cgi'
 require 'json'
 
@@ -34,19 +36,26 @@ class Rdio
 
   def begin_authentication(callback_url)
     # request a request token from the server
-    response = signed_post('http://api.rdio.com/oauth/request_token',
-                           {'oauth_callback' => callback_url})
-    # parse the response
-    parsed = CGI.parse(response)
-    # save the token
-    @token = [parsed['oauth_token'][0], parsed['oauth_token_secret'][0]]
-    # return an URL that the user can use to authorize this application
-    return parsed['login_url'][0] + '?oauth_token=' + parsed['oauth_token'][0]
+    Net::HTTP::Get.new('https://www.rdio.com/oauth2/authorize', 
+      {
+        'response_type' => 'code',
+        'client_id' => ENV["RDIO_CONSUMER_KEY"],
+        'redirect_uri' => 'http://localhost:3000/callback'
+      })
+
+    # response = signed_post('https://www.rdio.com/oauth2/token',
+    #                        {'oauth_callback' => callback_url})
+    # # parse the response
+    # parsed = CGI.parse(response)
+    # # save the token
+    # @token = [parsed['oauth_token'][0], parsed['oauth_token_secret'][0]]
+    # # return an URL that the user can use to authorize this application
+    # return parsed['login_url'][0] + '?oauth_token=' + parsed['oauth_token'][0]
   end
 
   def complete_authentication(verifier)
     # request an access token
-    response = signed_post('http://api.rdio.com/oauth/access_token',
+    response = signed_post('https://services.rdio.com/oauth2/token',
                            {'oauth_verifier' => verifier})
     # parse the response
     parsed = CGI.parse(response)
@@ -56,11 +65,12 @@ class Rdio
 
   def call(method, params={})
     # make a copy of the dict
+    # # raise 'wat'
     params = params.clone
     # put the method in the dict
     params['method'] = method
     # call to the server and parse the response
-    return JSON.load(signed_post('http://api.rdio.com/1/', params))
+    return JSON.load(signed_post('https://services.rdio.com/api/1/', params))
   end
 
   def songs_for_playlist(key)
@@ -79,17 +89,62 @@ class Rdio
   private
 
   def signed_post(url, params)
-    auth = om(@consumer, url, params, @token)
-    url = URI.parse(url)
-    http = Net::HTTP.new(url.host, url.port)
-    req = Net::HTTP::Post.new(url.path, {'Authorization' => auth})
-    req.set_form_data(params)
-    res = http.request(req)
-    return res.body
+    if params.is_a?(Array)
+      params = params
+    else
+      params = params.collect { |x| x }
+    end
+
+    params = params.collect { |k,v| [k.to_s, v.to_s]} 
+    params << ["access_token", @token]
+    params.sort!
+    params = params.map { |p| { p[0] => p[1] } }
+    params = params.reduce({}, :merge)
+
+    uri = URI(url)
+    response = ''
+    Net::HTTP.start(uri.host, uri.port,
+      :use_ssl => uri.scheme == 'https', 
+      :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+
+      request = Net::HTTP::Post.new uri.request_uri
+      request.set_form_data(params)
+
+      response = http.request request # Net::HTTPResponse object
+      # response = JSON.parse response.body
+    end
+    response.body
   end
   
   def method_missing(method, *params)
+    raise method.to_s
     call(method.to_s, params[0])
+  end
+
+  def percent_encode(s)
+    if s.respond_to?(:encoding)
+      # Ruby 1.9 knows about encodings, convert the string to UTF-8
+      s = s.encode(Encoding::UTF_8)
+    else
+      # Ruby 1.8 does not, just check that it's valid UTF-8
+      begin
+        $__om_utf8_checker.iconv(s)
+      rescue Iconv::IllegalSequence => exception
+        throw ArgumentError.new("Non-UTF-8 string: "+s.inspect)
+      end
+    end
+    chars = s.bytes.map do |b|
+      c = b.chr
+      if ((c >= '0' and c <= '9') or
+          (c >= 'A' and c <= 'Z') or
+          (c >= 'a' and c <= 'z') or
+          c == '-' or c == '.' or c == '_' or c == '~')
+        c
+      else
+        '%%%02X' % b
+      end
+    end
+    chars.join
   end
 
 end
