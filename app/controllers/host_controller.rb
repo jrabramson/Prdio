@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class HostController < ApplicationController
 	def new
 	  	if has_access_token?
