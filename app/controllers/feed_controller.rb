@@ -85,7 +85,7 @@ class FeedController < WebsocketRails::BaseController
 		access_token = current_host.at
 	  	access_token_secret = current_host.ats
 		rdio = Rdio.new([Rails.configuration.rdio[:key], Rails.configuration.rdio[:secret]], 
-			[access_token, access_token_secret])
+			access_token)
 	end
 
 	def current_host
